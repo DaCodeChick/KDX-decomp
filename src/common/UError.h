@@ -6,6 +6,8 @@ struct SError
 {
 	uint type;
 	SError *next;
+	void *field2_0x8;
+	uint line;
 };
 
 enum
@@ -14,3 +16,4 @@ enum
 };
 
 void __Fail(uint inType);
+void __Fail(uint inType, void *inParam2, uint inLine);

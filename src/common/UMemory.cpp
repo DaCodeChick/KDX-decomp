@@ -3,6 +3,10 @@
 #include <cstring>
 #include "UError.h"
 
+#ifndef _WIN32
+#include <stdlib.h>
+#endif // _WIN32
+
 static uint _gAllocationCount = 0;
 
 TPtr UMemory::New(size_t inSize)
@@ -10,6 +14,8 @@ TPtr UMemory::New(size_t inSize)
 	if (!inSize) __Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
+#else
+	TPtr p = malloc(inSize);
 #endif // _WIN32
 	if (!p) __Fail(memError_NotEnough);
 	_gAllocationCount++;
@@ -21,6 +27,8 @@ TPtr UMemory::New(const void *inData, size_t inSize)
 	if (!inSize) __Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
+#else
+	TPtr p = malloc(inSize);
 #endif // _WIN32
 	if (!p) __Fail(memError_NotEnough);
 	Move(p, inData, inSize);
@@ -33,8 +41,11 @@ TPtr UMemory::NewClear(size_t inSize)
 	if (!inSize) __Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_ZEROINIT, inSize);
+#else
+	TPtr p = malloc(inSize);
 #endif // _WIN32
 	if (!p) __Fail(memError_NotEnough);
+	Clear(p, inSize);
 	_gAllocationCount++;
 	return p;
 }
@@ -44,6 +55,8 @@ void UMemory::Dispose(TPtr inPtr)
 	if (!inPtr) return;
 #ifdef _WIN32
 	GlobalFree(inPtr);
+#else
+	free(inPtr);
 #endif // _WIN32
 	_gAllocationCount--;
 }
@@ -57,6 +70,8 @@ TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
 	{
 #ifdef _WIN32
 		inPtr = GlobalReAlloc(inPtr, inSize, GMEM_MOVEABLE);
+#else	
+		inPtr = realloc(inPtr, inSize);
 #endif // _WIN32
 		if (!inPtr) __Fail(memError_NotEnough);
 	}

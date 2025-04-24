@@ -34,7 +34,7 @@ struct SRegularTransport
 	bool isTemp;
 };
 
-typedef void (*TConnectionHandlerProc)(uint inListenPort, SRegularTransport *inTpt, int type);
+typedef void (*TConnectionHandlerProc)(uint inListenPort, SRegularTransport *inTpt, int inType);
 
 class URegularTransport
 {
