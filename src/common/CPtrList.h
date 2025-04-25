@@ -17,7 +17,8 @@ private:
 template <class T> class CPtrList : public CVoidPtrList
 {
 public:
-	void AddItem(T *inPtr) { CVoidPtrList::AddItem(inPtr); }
+	void AddFrontItem(T *inPtr) { CVoidPtrList::AddFrontItem(inPtr); }
+	void AddBackItem(T *inPtr) { CVoidPtrList::AddBackItem(inPtr); }
 	void RemoveItem(T *inPtr) { CVoidPtrList::RemoveItem(inPtr); }
 	T * PopFront() { return (T *)CVoidPtrList::PopFront(); }
 };
