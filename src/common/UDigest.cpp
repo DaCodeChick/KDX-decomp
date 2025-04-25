@@ -67,8 +67,7 @@ void _MD5::Update(const byte *inData, uint inDataSize)
 		{
 			while (inDataSize && (mBufferLength < 64))
 			{
-				uint pos = mBufferLength++;
-				mBuffer[pos] = *(inData++);
+				mBuffer[mBufferLength++] = *(inData++);
 				inDataSize--;
 			}
 			if (mBufferLength == 64)
@@ -87,8 +86,7 @@ void _MD5::Update(const byte *inData, uint inDataSize)
 		}
 		while (inDataSize && (mBufferLength < 64))
 		{
-			uint pos = mBufferLength++;
-			mBuffer[pos] = *(inData++);
+			mBuffer[mBufferLength++] = *(inData++);
 			inDataSize--;
 		}
 	}
@@ -103,7 +101,7 @@ void _MD5::Transform(const byte *inBlock)
     
     uint x[16];
     for (int i = 0; i < 16; i++) {
-        x[i] = *(uint *)(inBlock + i*4);
+        x[i] = *(uint *)(inBlock + (i << 2));
         x[i] = HTONL(x[i]);
     }
 
