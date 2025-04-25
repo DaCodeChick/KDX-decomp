@@ -8,7 +8,7 @@ public:
 	static void Format(void *outText, uint inMaxSize, const char *inFormat, ...);
 	static uint IntegerToText(uint inInteger, void *outText, uint inMaxSize, uint inOptions);
 	static uint TextToInteger(const void *inText, uint inTextSize, uint inOptions);
-	static uint ToLower(uint inChar);
+	static constexpr uint ToLower(uint inChar);
 	static void ToLower(const void *inText, uint inTextSize, void *outText, uint inMaxSize);
-	static uint ToUpper(uint inChar);
+	static constexpr uint ToUpper(uint inChar);
 };

@@ -92,7 +92,7 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
     }
 }
 
-double UMath::NormalizeAngle(double x)
+constexpr double UMath::NormalizeAngle(double x)
 {
     x = fmod(x, gm_2Pi);
     if (x < 0) x += gm_2Pi;
@@ -100,29 +100,24 @@ double UMath::NormalizeAngle(double x)
     return x;
 }
 
-double UMath::Sine(double x)
+constexpr double UMath::Sine(double x)
 {
 	x = NormalizeAngle(x);
 	return sin(x);
 }
 
-double UMath::Cosine(double x)
+constexpr double UMath::Cosine(double x)
 {
 	x = NormalizeAngle(x);
 	return cos(x);
 }
 
-double UMath::ArcTangent(double x)
+constexpr double UMath::ArcTangent(double x)
 {
 	return atan(x);
 }
 
-double UMath::SquareRoot(double x)
+constexpr double UMath::SquareRoot(double x)
 {
 	return sqrt(x);
-}
-
-double UMath::GetPi()
-{
-	return gm_Pi;
 }

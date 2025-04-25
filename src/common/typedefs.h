@@ -20,38 +20,72 @@ typedef unsigned short ushort;
     #define IS_LITTLE_ENDIAN
 #endif
 
-#define BSWAP16(x) \
-    ((((x) & 0xff00) >> 8) | \
-    (((x) & 0x00ff) << 8))
+constexpr ushort bswap16(ushort x) noexcept {
+    return ((x & 0xFF00) >> 8) | ((x & 0x00FF) << 8);
+}
 
-#define BSWAP32(x) \
-	((((x) & 0xff000000) >> 24) | \
-	(((x) & 0x00ff0000) >>  8) | \
-	(((x) & 0x0000ff00) <<  8) | \
-	(((x) & 0x000000ff) << 24))
+constexpr uint bswap32(uint x) noexcept {
+    return ((x & 0xFF000000) >> 24) | ((x & 0x00FF0000) >>  8) |
+           ((x & 0x0000FF00) <<  8) | ((x & 0x000000FF) << 24);
+}
 
-#define BSWAP64(x) \
-	((((x) & 0xff00000000000000ULL) >> 56) | \
-	(((x) & 0x00ff000000000000ULL) >> 40) | \
-	(((x) & 0x0000ff0000000000ULL) >> 24) | \
-	(((x) & 0x000000ff00000000ULL) >>  8) | \
-	(((x) & 0x00000000ff000000ULL) <<  8) | \
-	(((x) & 0x0000000000ff0000ULL) << 24) | \
-	(((x) & 0x000000000000ff00ULL) << 40) | \
-	(((x) & 0x00000000000000ffULL) << 56))
+constexpr ulonglong bswap64(ulonglong x) noexcept {
+    return ((x & 0xFF00000000000000ULL) >> 56) | ((x & 0x00FF000000000000ULL) >> 40) |
+           ((x & 0x0000FF0000000000ULL) >> 24) | ((x & 0x000000FF00000000ULL) >>  8) |
+           ((x & 0x00000000FF000000ULL) <<  8) | ((x & 0x0000000000FF0000ULL) << 24) |
+           ((x & 0x000000000000FF00ULL) << 40) | ((x & 0x00000000000000FFULL) << 56);
+}
 
+constexpr ushort htons(ushort x) noexcept
+{
 #ifdef IS_LITTLE_ENDIAN
-	#define NTOHS(x) BSWAP16(x)
-	#define NTOHL(x) BSWAP32(x)
-	#define NTOHLL(x) BSWAP64(x)
-	#define HTONS(x) BSWAP16(x)
-	#define HTONL(x) BSWAP32(x)
-	#define HTONLL(x) BSWAP64(x)
+	return bswap16(x);
 #else
-	#define NTOHS(x) (x)
-	#define NTOHL(x) (x)
-	#define NTOHLL(x) (x)
-	#define HTONS(x) (x)
-	#define HTONL(x) (x)
-	#define HTONLL(x) (x)
+	return x;
 #endif // IS_LITTLE_ENDIAN
+}
+
+constexpr uint htonl(uint x) noexcept
+{
+#ifdef IS_LITTLE_ENDIAN
+	return bswap32(x);
+#else
+	return x;
+#endif // IS_LITTLE_ENDIAN
+}
+
+constexpr ulonglong htonll(ulonglong x) noexcept
+{
+#ifdef IS_LITTLE_ENDIAN
+	return bswap64(x);
+#else
+	return x;
+#endif // IS_LITTLE_ENDIAN
+}
+
+constexpr ushort ntohs(ushort x) noexcept
+{
+#ifdef IS_LITTLE_ENDIAN
+	return bswap16(x);
+#else
+	return x;
+#endif // IS_LITTLE_ENDIAN
+}
+
+constexpr uint ntohl(uint x) noexcept
+{
+#ifdef IS_LITTLE_ENDIAN
+	return bswap32(x);
+#else
+	return x;
+#endif // IS_LITTLE_ENDIAN
+}
+
+constexpr ulonglong ntohll(ulonglong x) noexcept
+{
+#ifdef IS_LITTLE_ENDIAN
+	return bswap64(x);
+#else
+	return x;
+#endif // IS_LITTLE_ENDIAN
+}

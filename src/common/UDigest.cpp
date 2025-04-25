@@ -2,35 +2,57 @@
 
 #include "UMemory.h"
 
-#define F(x, y, z) (((x) & (y)) | ((~x) & (z)))
-#define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
-#define H(x, y, z) ((x) ^ (y) ^ (z))
-#define I(x, y, z) ((y) ^ ((x) | (~z)))
-
-#define ROTATE_LEFT(x, n) (((x) << (n)) | ((x) >> (32-(n))))
-
-#define FF(a, b, c, d, x, s, ac) { \
-    (a) += F((b), (c), (d)) + (x) + (uint)(ac); \
-    (a) = ROTATE_LEFT((a), (s)); \
-    (a) += (b); \
+constexpr uint F(uint x, uint y, uint z)
+{
+    return (x & y) | (~x & z);
 }
 
-#define GG(a, b, c, d, x, s, ac) { \
-    (a) += G((b), (c), (d)) + (x) + (uint)(ac); \
-    (a) = ROTATE_LEFT((a), (s)); \
-    (a) += (b); \
+constexpr uint G(uint x, uint y, uint z)
+{
+    return (x & z) | (y & ~z);
 }
 
-#define HH(a, b, c, d, x, s, ac) { \
-    (a) += H((b), (c), (d)) + (x) + (uint)(ac); \
-    (a) = ROTATE_LEFT((a), (s)); \
-    (a) += (b); \
+constexpr uint H(uint x, uint y, uint z)
+{
+    return x ^ y ^ z;
 }
 
-#define II(a, b, c, d, x, s, ac) { \
-    (a) += I((b), (c), (d)) + (x) + (uint)(ac); \
-    (a) = ROTATE_LEFT((a), (s)); \
-    (a) += (b); \
+constexpr uint I(uint x, uint y, uint z)
+{
+    return y ^ (x | ~z);
+}
+
+constexpr uint ROTATE_LEFT(uint x, uint n)
+{
+    return (x << n) | (x >> (32 - n));
+}
+
+constexpr void FF(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+{
+    a += F(b, c, d) + x + ac;
+    a = ROTATE_LEFT(a, s);
+    a += b;
+}
+
+constexpr void GG(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+{
+    a += G(b, c, d) + x + ac;
+    a = ROTATE_LEFT(a, s);
+    a += b;
+}
+
+constexpr void HH(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+{
+    a += H(b, c, d) + x + ac;
+    a = ROTATE_LEFT(a, s);
+    a += b;
+}
+
+constexpr void II(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+{
+    a += I(b, c, d) + x + ac;
+    a = ROTATE_LEFT(a, s);
+    a += b;
 }
 
 _MD5::_MD5()
@@ -98,8 +120,8 @@ void _MD5::Transform(const byte *inBlock)
     uint b = mState[1];
     uint c = mState[2];
     uint d = mState[3];
-    
     uint x[16];
+	
     for (int i = 0; i < 16; i++)
 	{
         x[i] = *(uint *)(inBlock + (i << 2));

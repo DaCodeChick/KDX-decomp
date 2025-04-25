@@ -2,7 +2,7 @@
 
 #include "UMemory.h"
 
-static uint _OSToGenError(uint inType)
+static constexpr uint _OSToGenError(uint inType)
 {
 	switch (inType)
 	{
