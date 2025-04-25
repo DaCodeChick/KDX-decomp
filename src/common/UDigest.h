@@ -5,27 +5,17 @@
 class UDigest
 {
 public:
-	static void * MD5_Encode(const void *inData, uint inDataSize, uint *outDataSize);
-};
-
-class _MD5Digest
-{
-public:
-	_MD5Digest();
-	~_MD5Digest();
-private:
-	byte mData[16];
+	static void MD5_Encode(const void *inData, uint inDataSize, void *outDigest);
 };
 
 class _MD5
 {
 public:
 	_MD5();
-	virtual ~_MD5();
 	void Update(const byte *inData, uint inDataSize);
-	void Report(_MD5Digest &outDigest);
+	void Report(void *outDigest);
 	void Init();
-	void Clear();
+	void Clear(uint inSize);
 private:
 	uint mState[4];
 	uint mCount[2];

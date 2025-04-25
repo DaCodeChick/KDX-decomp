@@ -38,11 +38,6 @@ _MD5::_MD5()
 	Init();
 }
 
-_MD5::~_MD5()
-{
-	Clear();
-}
-
 void _MD5::Init()
 {
 	mState[0] = 0x67452301;
@@ -51,6 +46,11 @@ void _MD5::Init()
 	mState[3] = 0x10325476;
 	mCount[0] = 0xC3D2E1F0;
 	mCount[1] = mBufferLength = 0;
+}
+
+void _MD5::Clear(uint inSize)
+{
+	UMemory::Clear(this, inSize);
 }
 
 void _MD5::Update(const byte *inData, uint inDataSize)
@@ -183,4 +183,41 @@ void _MD5::Transform(const byte *inBlock)
     mCount[0] += 64;
     if (mCount[0] < 64)
         mCount[1]++;
+}
+
+void _MD5::Report(void *outDigest)
+{
+    Update(NULL, 0);
+
+    ulonglong bitCount = ((ulonglong)mCount[1] << 29) + (mCount[0] << 3) + (mBufferLength << 3);
+
+    mBuffer[mBufferLength++] = 0x80;
+    if (mBufferLength > 56) {
+        while (mBufferLength < 64) {
+            mBuffer[mBufferLength++] = 0;
+        }
+        Transform(mBuffer);
+        mBufferLength = 0;
+    }
+    while (mBufferLength < 56) {
+        mBuffer[mBufferLength++] = 0;
+    }
+
+    for (int i = 0; i < 8; ++i) {
+        mBuffer[56 + i] = (uchar)(bitCount >> (i << 3));
+    }
+    Transform(mBuffer);
+
+    for (int i = 0; i < 4; ++i)
+        ((uint *)outDigest)[i] = HTONL(mState[i]);
+
+    Clear(0x5c);
+}
+
+void UDigest::MD5_Encode(const void *inData, uint inDataSize, void *outDigest)
+{
+	_MD5 md5;
+
+	md5.Update((const byte *)inData, inDataSize);
+	md5.Report(outDigest);
 }
