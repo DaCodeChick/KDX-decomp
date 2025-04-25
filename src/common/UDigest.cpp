@@ -22,11 +22,6 @@ constexpr uint i(uint x, uint y, uint z)
     return y ^ (x | ~z);
 }
 
-constexpr uint rotl(uint x, uint n)
-{
-    return (x << n) | (x >> (32 - n));
-}
-
 constexpr void ff(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
 {
     a += f(b, c, d) + x + ac;

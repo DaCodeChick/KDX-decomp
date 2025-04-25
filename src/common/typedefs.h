@@ -89,3 +89,8 @@ constexpr ulonglong ntohll(ulonglong x) noexcept
 	return x;
 #endif // IS_LITTLE_ENDIAN
 }
+
+constexpr uint rotl(uint x, uint n)
+{
+    return (x << n) | (x >> (32 - n));
+}
