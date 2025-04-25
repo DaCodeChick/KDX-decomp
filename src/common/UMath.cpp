@@ -43,7 +43,7 @@ uint UMath::GetRandom()
 }
 
 
-void __cdecl UMath::GetRandom(void *ioData, uint inDataSize)
+void UMath::GetRandom(void *ioData, uint inDataSize)
 {
     if (inDataSize == 0) return;
 
