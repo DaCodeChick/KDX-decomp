@@ -100,7 +100,8 @@ void _MD5::Transform(const byte *inBlock)
     uint d = mState[3];
     
     uint x[16];
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++)
+	{
         x[i] = *(uint *)(inBlock + (i << 2));
         x[i] = HTONL(x[i]);
     }
@@ -191,19 +192,17 @@ void _MD5::Report(void *outDigest)
 
     mBuffer[mBufferLength++] = 0x80;
     if (mBufferLength > 56) {
-        while (mBufferLength < 64) {
+        while (mBufferLength < 64)
             mBuffer[mBufferLength++] = 0;
-        }
         Transform(mBuffer);
         mBufferLength = 0;
     }
-    while (mBufferLength < 56) {
+    while (mBufferLength < 56)
         mBuffer[mBufferLength++] = 0;
-    }
 
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i)
         mBuffer[56 + i] = (uchar)(bitCount >> (i << 3));
-    }
+
     Transform(mBuffer);
 
     for (int i = 0; i < 4; ++i)
