@@ -90,12 +90,12 @@ constexpr ulonglong ntohll(ulonglong x) noexcept
 #endif // IS_LITTLE_ENDIAN
 }
 
-constexpr uint rotl(uint x, uint n)
+template <class T> constexpr T rotl(T x, uint n)
 {
-    return (x << n) | (x >> (32 - n));
+    return (x << n) | (x >> ((sizeof(T) << 3) - n));
 }
 
-constexpr uint rotr(uint x, uint n)
+template <class T> constexpr T rotr(T x, uint n)
 {
-    return (x >> n) | (x << (32 - n));
+    return (x >> n) | (x << ((sizeof(T) << 3) - n));
 }
