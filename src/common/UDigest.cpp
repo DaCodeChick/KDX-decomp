@@ -236,3 +236,28 @@ void UDigest::MD5_Encode(const void *inData, uint inDataSize, void *outDigest)
 	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
 	md5.Report(outDigest);
 }
+
+void UDigest::AugmentedMD5_Encode(const void *inData, uint inDataSize, void *outDigest)
+{
+	uint *digest32 = reinterpret_cast<uint *>(outDigest);
+	if (!inDataSize)
+	{
+		digest32[0] = 0xeea339da;
+		digest32[1] = 0x6ebeaeca;
+		digest32[2] = 0xd4b6b5e,
+		digest32[3] = 0xba298eba;
+		digest32[4] = 0xefbf5532;
+		digest32[5] = 0xc4b5a218;
+		digest32[6] = 0x90186095;
+		digest32[7] = 0x907d8af;
+		return;
+	}
+
+	_MD5 md5;
+	
+	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
+	md5.Report(outDigest);
+	digest32[5] = digest32[0];
+	digest32[6] = digest32[1];
+	digest32[7] = htonl(UMemory::Checksum(inData, inDataSize, 1));
+}

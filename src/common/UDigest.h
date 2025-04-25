@@ -6,6 +6,7 @@ class UDigest
 {
 public:
 	static void MD5_Encode(const void *inData, uint inDataSize, void *outDigest);
+	static void AugmentedMD5_Encode(const void *inData, uint inDataSize, void *outDigest);
 };
 
 class _MD5
