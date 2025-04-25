@@ -11,4 +11,5 @@ public:
 	static constexpr uint ToLower(uint inChar);
 	static void ToLower(const void *inText, uint inTextSize, void *outText, uint inMaxSize);
 	static constexpr uint ToUpper(uint inChar);
+	static constexpr bool IsHex(uint inChar);
 };

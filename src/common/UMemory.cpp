@@ -78,9 +78,9 @@ TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
 	return inPtr;
 }
 
-longlong UMemory::GetAllocationCount(uint *outCount)
+longlong UMemory::GetAllocationCount(uint &outCount)
 {
-	if (!outCount) *outCount = _gAllocationCount;
+	outCount = _gAllocationCount;
 	return 0;
 }
 

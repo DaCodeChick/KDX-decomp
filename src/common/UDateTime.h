@@ -23,4 +23,5 @@ public:
 	static ulonglong GetMilliseconds();
 	static ulonglong GetSeconds();
 	static ulonglong GetUptime();
+	static int DateToText(SCalendarDate &inInfo, void *outText, uint inMaxSize, uint inOptions);
 };

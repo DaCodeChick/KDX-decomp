@@ -13,7 +13,7 @@ struct SError
 class UError
 {
 public:
-	static uint GetDetailMessage(SError *inError, void *outText, uint inMaxSize);
+	static uint GetDetailMessage(SError &inError, void *outText, uint inMaxSize);
 };
 
 enum

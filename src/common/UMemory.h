@@ -16,7 +16,7 @@ public:
 	static TPtr NewClear(size_t inSize);
 	static void Dispose(TPtr inPtr);
 	static TPtr Reallocate(TPtr inPtr, size_t inSize);
-	static longlong GetAllocationCount(uint *outCount);
+	static constexpr longlong GetAllocationCount(uint &outCount);
 	static void Fill(void *ioDest, uint inSize, byte inByte);
 	static void Fill(void *ioDest, uint inSize, ushort inWord);
 	static void Fill(void *ioDest, uint inSize, uint inLong);
