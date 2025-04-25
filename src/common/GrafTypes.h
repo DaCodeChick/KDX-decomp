@@ -27,3 +27,6 @@ struct SRect
 	operator RECT() const { return *(LPRECT)this; }
 #endif // _WIN32
 };
+
+const double gm_2Pi = 6.28318530717958647692;
+const double gm_Pi = 3.14159265358979323846;

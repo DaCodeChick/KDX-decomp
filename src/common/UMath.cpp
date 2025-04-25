@@ -2,12 +2,14 @@
 
 #include "UMath.h"
 
+#include "GrafTypes.h"
 #include "UDigest.h"
 #include "UMemory.h"
 
 #ifndef _WIN32
 #include <sys/time.h>
 #endif // _WIN32
+#include <cmath>
 
 static uint _gRandomSeed = 0;
 static uint _gState[64] = { 0 };
@@ -86,4 +88,39 @@ void __cdecl UMath::GetRandom(void *ioData, uint inDataSize)
                 break;
         }
     }
+}
+
+double UMath::NormalizeAngle(double x)
+{
+    x = fmod(x, gm_2Pi);
+    if (x < 0) x += gm_2Pi;
+
+    return x;
+}
+
+double UMath::Sine(double x)
+{
+	x = NormalizeAngle(x);
+	return sin(x);
+}
+
+double UMath::Cosine(double x)
+{
+	x = NormalizeAngle(x);
+	return cos(x);
+}
+
+double UMath::ArcTangent(double x)
+{
+	return atan(x);
+}
+
+double UMath::SquareRoot(double x)
+{
+	return sqrt(x);
+}
+
+double UMath::GetPi()
+{
+	return gm_Pi;
 }
