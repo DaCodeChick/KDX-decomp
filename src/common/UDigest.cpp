@@ -119,7 +119,7 @@ void _MD5::Transform(const byte *inBlock)
 	
     for (int i = 0; i < 16; i++)
 	{
-        x[i] = *(uint *)(inBlock + (i << 2));
+        x[i] = *reinterpret_cast<const uint *>(inBlock + (i << 2));
         x[i] = htonl(x[i]);
     }
 
@@ -208,7 +208,8 @@ void _MD5::Report(void *outDigest)
     ulonglong bitCount = ((ulonglong)mCount[1] << 29) + (mCount[0] << 3) + (mBufferLength << 3);
 
     mBuffer[mBufferLength++] = 0x80;
-    if (mBufferLength > 56) {
+    if (mBufferLength > 56)
+	{
         while (mBufferLength < 64)
             mBuffer[mBufferLength++] = 0;
         Transform(mBuffer);
@@ -232,6 +233,6 @@ void UDigest::MD5_Encode(const void *inData, uint inDataSize, void *outDigest)
 {
 	_MD5 md5;
 
-	md5.Update((const byte *)inData, inDataSize);
+	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
 	md5.Report(outDigest);
 }
