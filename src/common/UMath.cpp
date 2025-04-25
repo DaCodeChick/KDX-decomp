@@ -5,15 +5,25 @@
 #include "UDigest.h"
 #include "UMemory.h"
 
+#ifndef _WIN32
+#include <sys/time.h>
+#endif // _WIN32
+
 static uint _gRandomSeed = 0;
 static uint _gState[64] = { 0 };
 static byte _gStateIdx = 0;
 
 uint UMath::CalcRandomSeed()
 {
+#ifdef _WIN32
 	FILETIME ft;
 	GetSystemTimeAsFileTime(&ft);
 	return ft.dwLowDateTime;
+#else
+	timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_usec;
+#endif // _WIN32
 }
 
 uint UMath::GetRandom()
