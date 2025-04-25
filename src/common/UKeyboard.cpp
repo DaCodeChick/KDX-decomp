@@ -42,20 +42,18 @@ uint UKeyboard::KeyToChar(ushort inKeyCode, uint inMods)
 {
     uint virtualKey = _gKCToWin[inKeyCode];
 #ifdef _WIN32
-    if (inMods == 0) {
+    if (inMods == 0)
+	{
         virtualKey = MapVirtualKeyW(virtualKey, 2);
-        if ((virtualKey & 0x80000000) != 0) {
-            return 0;
-        }
+        if (virtualKey & 0x80000000) return 0;
         return UText::ToLower(virtualKey);
     }
 
     // Handle shift modifier case
-    if (inMods == 8) {
+    if (inMods == 8)
+	{
         virtualKey = MapVirtualKeyW(virtualKey, 2);
-        if ((virtualKey & 0x80000000) != 0) {
-            return 0;
-        }
+        if (virtualKey & 0x80000000) return 0;
         return UText::ToUpper(virtualKey);
     }
 
@@ -71,14 +69,11 @@ uint UKeyboard::KeyToChar(ushort inKeyCode, uint inMods)
     int charCount = ToUnicode(virtualKey, 0, keyboardState, unicodeChar, 2, 0);
 
     // Handle surrogate pairs for Unicode characters
-    if (charCount > 0) {
+    if (charCount > 0)
         if (charCount == 2 && 
             ((unicodeChar[0] >> 10) == 0x36) && 
-            ((unicodeChar[1] >> 10) == 0x37)) {
+            ((unicodeChar[1] >> 10) == 0x37))
             return (((unicodeChar[0] & 0x3FF) << 10) | (unicodeChar[1] & 0x3FF)) + 0x10000;
-        } else {
-            return unicodeChar[0];
-        }
-    }
+        else return unicodeChar[0];
 #endif // _WIN32
 }
