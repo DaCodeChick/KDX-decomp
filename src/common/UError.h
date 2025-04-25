@@ -10,6 +10,12 @@ struct SError
 	uint line;
 };
 
+class UError
+{
+public:
+	static uint GetDetailMessage(SError *inError, void *outText, uint inMaxSize);
+};
+
 enum
 {
 	error_Param = 0x10002

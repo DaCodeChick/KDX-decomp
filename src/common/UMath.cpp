@@ -9,6 +9,7 @@
 #ifndef _WIN32
 #include <sys/time.h>
 #endif // _WIN32
+
 #include <cmath>
 
 static uint _gRandomSeed = 0;
@@ -84,7 +85,7 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
                 _gState[0] = (_gState[0] << 31) | (_gState[0] >> 1);
                 break;
             default:
-                _gState[2] = (_gState[2] >> 31) | (_gState[2] * 2);
+                _gState[2] = (_gState[2] >> 31) | (_gState[2] << 1);
                 break;
         }
     }
