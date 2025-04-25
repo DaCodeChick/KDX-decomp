@@ -43,7 +43,7 @@ uint UMath::GetRandom()
 	return sum;
 }
 
-uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
+constexpr uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
 {
 	if (inMax < inMin) return 0;
 
