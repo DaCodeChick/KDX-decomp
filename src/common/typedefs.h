@@ -94,3 +94,8 @@ constexpr uint rotl(uint x, uint n)
 {
     return (x << n) | (x >> (32 - n));
 }
+
+constexpr uint rotr(uint x, uint n)
+{
+    return (x >> n) | (x << (32 - n));
+}
