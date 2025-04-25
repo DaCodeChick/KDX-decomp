@@ -9,8 +9,7 @@ void CVoidPtrList::AddFrontItem(void *inPtr)
     *(void **)((uint)inPtr + mOffset) = prevHead;
     mHead = inPtr;
 
-    if (!prevHead)
-        mTail = inPtr;
+    if (!prevHead) mTail = inPtr;
 
     mCount++;
 }

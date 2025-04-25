@@ -73,7 +73,8 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
             _gState[0] = (_gState[0] & 0xFFFF0000) | (_gState[63] & 0xFFFF);
 
         uint randomSeed = CalcRandomSeed();
-        switch (randomSeed & 3) {
+        switch (randomSeed & 3)
+		{
             case 0:
                 _gState[1] = (_gState[1] << 28) | (_gState[1] >> 4);
                 _gState[3] = ((_gState[3] << 29) | (_gState[3] >> 3)) + 1;
