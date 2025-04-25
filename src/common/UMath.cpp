@@ -43,6 +43,13 @@ uint UMath::GetRandom()
 	return sum;
 }
 
+uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
+{
+	if (inMax < inMin) return 0;
+
+	inInit = inInit * 1103515245 + 12345;
+	return inMin + inInit % (inMax - inMin + 1);
+}
 
 void UMath::GetRandom(void *ioData, uint inDataSize)
 {

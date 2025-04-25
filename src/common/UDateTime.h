@@ -19,5 +19,8 @@ class UDateTime
 {
 public:
 	static int GetTimeZoneOffset();
+	static ulonglong GetMicroseconds();
+	static ulonglong GetMilliseconds();
 	static ulonglong GetSeconds();
+	static ulonglong GetUptime();
 };

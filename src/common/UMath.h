@@ -7,6 +7,7 @@ class UMath
 public:
 	static uint CalcRandomSeed();
 	static uint GetRandom();
+	static constexpr uint GetRandom(uint &inInit, uint inMin, uint inMax);
 	static void GetRandom(void *ioData, uint inDataSize);
 	static constexpr double NormalizeAngle(double x);
 	static constexpr double Sine(double x);
