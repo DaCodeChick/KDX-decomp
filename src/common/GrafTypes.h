@@ -9,7 +9,7 @@ struct SPoint
 #ifdef _WIN32
 	operator LPPOINT() const { return (LPPOINT)this; }
 	operator POINT() const { return *(LPPOINT)this; }
-	operator POINTL() const { return *(POINTL*)this; }
+	operator POINTL() const { return *(POINTL *)this; }
 #endif // _WIN32
 };
 

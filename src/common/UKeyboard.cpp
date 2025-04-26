@@ -2,7 +2,7 @@
 
 #include "UText.h"
 
-static byte _gKCToWin[256] =
+static constexpr byte _gKCToWin[256] =
 {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -74,6 +74,6 @@ uint UKeyboard::KeyToChar(ushort inKeyCode, uint inMods)
             ((unicodeChar[0] >> 10) == 0x36) && 
             ((unicodeChar[1] >> 10) == 0x37))
             return (((unicodeChar[0] & 0x3FF) << 10) | (unicodeChar[1] & 0x3FF)) + 0x10000;
-        else return unicodeChar[0];
+    else return unicodeChar[0];
 #endif // _WIN32
 }

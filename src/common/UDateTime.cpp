@@ -47,8 +47,6 @@ longlong UDateTime::GetMicroseconds()
     }
 
     _gElapsed = (currentTime - _gLastRecorded) / 10;
-    _gLastRecorded = currentTime;
-    return _gElapsed;
 #else
     timeval tv;
     timezone tz;
@@ -68,7 +66,7 @@ longlong UDateTime::GetMicroseconds()
     }
 
     _gElapsed += currentTime - _gLastRecorded;
-    _gLastRecorded = currentTime;
-    return _gElapsed;
 #endif // _WIN32
+	_gLastRecorded = currentTime;
+	return _gElapsed;
 }

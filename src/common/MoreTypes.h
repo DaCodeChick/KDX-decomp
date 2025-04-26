@@ -4,7 +4,7 @@
 
 struct SMouseMsgData
 {
-	ulonglong time;
+	longlong time;
 	uint flags;
 	uint mods;
 	int x;
@@ -15,7 +15,7 @@ struct SMouseMsgData
 
 struct SKeyMsgData
 {
-	ulonglong timestamp;
+	longlong timestamp;
 	uint type;
 	uint modifierState;
 	uint unicodeChar;
