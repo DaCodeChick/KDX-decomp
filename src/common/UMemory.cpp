@@ -270,5 +270,5 @@ byte * UMemory::Search(const void *inSearchData, uint inSearchSize, const void *
         offset += badCharShift[data[offset + inSearchSize - 1]];
     }
 
-    return nullptr;
+    return NULL;
 }

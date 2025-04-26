@@ -19,9 +19,9 @@ class UDateTime
 {
 public:
 	static int GetTimeZoneOffset();
-	static ulonglong GetMicroseconds();
-	static ulonglong GetMilliseconds();
-	static ulonglong GetSeconds();
-	static ulonglong GetUptime();
+	static longlong GetMicroseconds();
+	static longlong GetMilliseconds();
+	static longlong GetEllapsedTime(longlong inEpoch);
+	static longlong GetSeconds();
 	static int DateToText(SCalendarDate &inInfo, void *outText, uint inMaxSize, uint inOptions);
 };
