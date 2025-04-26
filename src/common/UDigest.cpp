@@ -2,48 +2,48 @@
 
 #include "UMemory.h"
 
-constexpr uint f(uint x, uint y, uint z)
+static constexpr uint f(uint x, uint y, uint z)
 {
     return (x & y) | (~x & z);
 }
 
-constexpr uint g(uint x, uint y, uint z)
+static constexpr uint g(uint x, uint y, uint z)
 {
     return (x & z) | (y & ~z);
 }
 
-constexpr uint h(uint x, uint y, uint z)
+static constexpr uint h(uint x, uint y, uint z)
 {
     return x ^ y ^ z;
 }
 
-constexpr uint i(uint x, uint y, uint z)
+static constexpr uint i(uint x, uint y, uint z)
 {
     return y ^ (x | ~z);
 }
 
-constexpr void ff(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void ff(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
 {
     a += f(b, c, d) + x + ac;
     a = rotl(a, s);
     a += b;
 }
 
-constexpr void gg(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void gg(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
 {
     a += g(b, c, d) + x + ac;
     a = rotl(a, s);
     a += b;
 }
 
-constexpr void hh(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void hh(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
 {
     a += h(b, c, d) + x + ac;
     a = rotl(a, s);
     a += b;
 }
 
-constexpr void ii(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void ii(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
 {
     a += i(b, c, d) + x + ac;
     a = rotl(a, s);

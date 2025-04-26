@@ -86,7 +86,7 @@ longlong UMemory::GetAllocationCount(uint &outCount)
 
 uint UMemory::CRC(const void *inData, uint inDataSize, uint inInit)
 {
-	static uint ccitt32_crctab[256] =
+	static constexpr uint ccitt32_crctab[256] =
 	{
 		0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9,
 		0x130476DC, 0x17C56B6B, 0x1A864DB2, 0x1E475005,
@@ -204,4 +204,71 @@ uint UMemory::Move(void *ioDest, const void *inSrc, uint inSize)
     if (!ioDest || !inSrc || !inSize) return;
     memmove(ioDest, inSrc, inSize);
 	return inSize;
+}
+
+
+byte* UMemory::SearchByte(byte inByte, const void* inData, uint inSize)
+{
+    if (!inData || inSize == 0) return NULL;
+
+    const byte* dataPtr = static_cast<const byte *>(inData);
+
+    for (uint i = 0; i < inSize; ++i)
+        if (dataPtr[i] == inByte)
+            return const_cast<byte*>(&dataPtr[i]);
+
+    return NULL;
+}
+
+
+byte * UMemory::SearchByteBackwards(byte inByte, const void *inData, uint inDataSize)
+{
+    if (!inData || !inDataSize) return NULL;
+
+    const byte *dataPtr = static_cast<const byte *>(inData);
+
+    for (int i = inDataSize - 1; i >= 0; --i)
+        if (dataPtr[i] == inByte)
+            return const_cast<byte *>(&dataPtr[i]);
+
+    return NULL;
+}
+
+byte * UMemory::Search(const void *inSearchData, uint inSearchSize, const void *inData, uint inDataSize)
+{
+    if (!inSearchData || !inData || !inSearchSize || !inDataSize || inSearchSize > inDataSize)
+        return NULL;
+
+    const byte *searchData = static_cast<const byte *>(inSearchData);
+    const byte *data = static_cast<const byte *>(inData);
+
+    // Special case for single-byte search
+    if (inSearchSize == 1)
+        return SearchByte(*searchData, inData, inDataSize);
+
+    // Precompute the bad character shift table
+    int badCharShift[256];
+    for (int i = 0; i < 256; ++i)
+        badCharShift[i] = inSearchSize;
+
+    for (uint i = 0; i < inSearchSize - 1; ++i)
+        badCharShift[searchData[i]] = inSearchSize - 1 - i;
+
+    uint offset = 0;
+    while (offset <= inDataSize - inSearchSize)
+    {
+        int i = inSearchSize - 1;
+
+        // Compare the pattern from the end
+        while (i >= 0 && searchData[i] == data[offset + i])
+            --i;
+
+        if (i < 0)
+            return const_cast<byte *>(data + offset);
+
+        // Shift based on the bad character rule
+        offset += badCharShift[data[offset + inSearchSize - 1]];
+    }
+
+    return nullptr;
 }
