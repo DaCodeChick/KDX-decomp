@@ -7,9 +7,18 @@ struct SPoint
 	int x, y;
 
 #ifdef _WIN32
-	operator LPPOINT() const { return (LPPOINT)this; }
-	operator POINT() const { return *(LPPOINT)this; }
-	operator POINTL() const { return *(POINTL *)this; }
+	operator LPPOINT() const
+	{
+		return (LPPOINT)this;
+	}
+	operator POINT() const
+	{
+		return *(LPPOINT)this;
+	}
+	operator POINTL() const
+	{
+		return *(POINTL *)this;
+	}
 #endif // _WIN32
 };
 
@@ -25,8 +34,14 @@ struct SRect
 	void Validate();
 
 #ifdef _WIN32
-	operator LPRECT() const { return (LPRECT)this; }
-	operator RECT() const { return *(LPRECT)this; }
+	operator LPRECT() const
+	{
+		return (LPRECT)this;
+	}
+	operator RECT() const
+	{
+		return *(LPRECT)this;
+	}
 #endif // _WIN32
 };
 

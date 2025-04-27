@@ -42,6 +42,7 @@ public:
 	CMyApplication();
 	void StartServer();
 	bool CheckIfBanned(char *inAddr, int inAddrSize) const;
+
 private:
 	SRegularTransport *mMainTpt, *mAltTpt, *mAdminTpt;
 	CPtrList<SMyChat> mChats;

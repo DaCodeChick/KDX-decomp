@@ -17,6 +17,7 @@ public:
 	void Report(void *outDigest);
 	void Init();
 	void Clear(uint inSize);
+
 private:
 	uint mState[4];
 	uint mCount[2];

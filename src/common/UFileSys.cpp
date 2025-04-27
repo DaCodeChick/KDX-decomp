@@ -6,7 +6,7 @@ struct SFileSysRef
 	HANDLE h;
 #else
 	int h;
-#endif // _WIN32
+#endif        // _WIN32
 	uint tag; // 0x1ca6c39a
 	wchar_t *path;
 	uint pathSize;

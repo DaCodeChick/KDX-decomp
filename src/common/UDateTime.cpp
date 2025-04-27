@@ -11,9 +11,8 @@ int UDateTime::GetTimeZoneOffset()
 {
 #ifdef _WIN32
 	TIME_ZONE_INFORMATION tzi;
-	
-	if (GetTimeZoneInformation(&tzi) == TIME_ZONE_ID_DAYLIGHT)
-		tzi.Bias += tzi.DaylightBias;
+
+	if (GetTimeZoneInformation(&tzi) == TIME_ZONE_ID_DAYLIGHT) tzi.Bias += tzi.DaylightBias;
 	return tzi.Bias * -60;
 #else
 	timeval tv;
@@ -35,37 +34,37 @@ longlong UDateTime::GetEllapsedTime(longlong inEpoch)
 longlong UDateTime::GetMicroseconds()
 {
 #ifdef _WIN32
-    FILETIME ft;
-    longlong currentTime = *reinterpret_cast<longlong *>(&ft);
+	FILETIME ft;
+	longlong currentTime = *reinterpret_cast<longlong *>(&ft);
 
-    GetSystemTimeAsFileTime(&ft);
+	GetSystemTimeAsFileTime(&ft);
 
-    if (currentTime <= _gLastRecorded) 
-    {
-        _gLastRecorded = currentTime;
-        return _gElapsed;
-    }
-
-    _gElapsed = (currentTime - _gLastRecorded) / 10;
-#else
-    timeval tv;
-    timezone tz;
-
-    if (gettimeofday(&tv, &tz) != 0)
+	if (currentTime <= _gLastRecorded)
 	{
-        tv.tv_sec = time(NULL);
-        tv.tv_usec = 0;
-    }
+		_gLastRecorded = currentTime;
+		return _gElapsed;
+	}
 
-    longlong currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
+	_gElapsed = (currentTime - _gLastRecorded) / 10;
+#else
+	timeval tv;
+	timezone tz;
 
-    if (currentTime <= _gLastRecorded)
-    {
-        _gLastRecorded = currentTime;
-        return _gElapsed;
-    }
+	if (gettimeofday(&tv, &tz) != 0)
+	{
+		tv.tv_sec = time(NULL);
+		tv.tv_usec = 0;
+	}
 
-    _gElapsed += currentTime - _gLastRecorded;
+	longlong currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
+
+	if (currentTime <= _gLastRecorded)
+	{
+		_gLastRecorded = currentTime;
+		return _gElapsed;
+	}
+
+	_gElapsed += currentTime - _gLastRecorded;
 #endif // _WIN32
 	_gLastRecorded = currentTime;
 	return _gElapsed;

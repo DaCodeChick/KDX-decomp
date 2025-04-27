@@ -1,28 +1,29 @@
 #include "CPtrList.h"
 
-
 void CVoidPtrList::AddFrontItem(void *inPtr)
 {
-    if (!inPtr) return;
+	if (!inPtr) return;
 
-    void *prevHead = mHead;
-    *(void **)((uint)inPtr + mOffset) = prevHead;
-    mHead = inPtr;
+	void *prevHead = mHead;
+	*(void **)((uint)inPtr + mOffset) = prevHead;
+	mHead = inPtr;
 
-    if (!prevHead) mTail = inPtr;
+	if (!prevHead) mTail = inPtr;
 
-    mCount++;
+	mCount++;
 }
 
 void CVoidPtrList::AddBackItem(void *inPtr)
 {
-    if (!inPtr) return;
+	if (!inPtr) return;
 
-    *(void **)((uint)inPtr + mOffset) = NULL;
+	*(void **)((uint)inPtr + mOffset) = NULL;
 
-    if (!mTail) mHead = inPtr;
-    else *(void **)((uint)mTail + mOffset) = inPtr;
+	if (!mTail)
+		mHead = inPtr;
+	else
+		*(void **)((uint)mTail + mOffset) = inPtr;
 
-    mTail = inPtr;
-    mCount++;
+	mTail = inPtr;
+	mCount++;
 }

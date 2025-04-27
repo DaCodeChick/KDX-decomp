@@ -1,7 +1,7 @@
 #pragma once
 
-#include "typedefs.h"
 #include "MoreTypes.h"
+#include "typedefs.h"
 
 class UMessageSys
 {
