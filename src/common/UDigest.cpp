@@ -243,7 +243,8 @@ void UDigest::AugmentedMD5_Encode(const void *inData, uint inDataSize, void *out
 	{
 		digest32[0] = 0xeea339da;
 		digest32[1] = 0x6ebeaeca;
-		digest32[2] = 0xd4b6b5e, digest32[3] = 0xba298eba;
+		digest32[2] = 0xd4b6b5e;
+		digest32[3] = 0xba298eba;
 		digest32[4] = 0xefbf5532;
 		digest32[5] = 0xc4b5a218;
 		digest32[6] = 0x90186095;
