@@ -2,20 +2,23 @@
 
 void CVoidPtrList::AddFrontItem(void *inPtr)
 {
-	if (!inPtr) return;
+	if (!inPtr)
+		return;
 
 	void *prevHead = mHead;
 	*(void **)((uint)inPtr + mOffset) = prevHead;
 	mHead = inPtr;
 
-	if (!prevHead) mTail = inPtr;
+	if (!prevHead)
+		mTail = inPtr;
 
 	mCount++;
 }
 
 void CVoidPtrList::AddBackItem(void *inPtr)
 {
-	if (!inPtr) return;
+	if (!inPtr)
+		return;
 
 	*(void **)((uint)inPtr + mOffset) = NULL;
 

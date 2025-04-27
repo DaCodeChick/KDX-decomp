@@ -5,7 +5,7 @@ UseTab: ForIndentation
 SpacesInParentheses: false
 IndentCaseLabels: true
 BreakBeforeBraces: Allman
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 ColumnLimit: 100
 SortIncludes: true

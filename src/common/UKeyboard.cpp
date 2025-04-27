@@ -27,7 +27,8 @@ uint UKeyboard::KeyToChar(ushort inKeyCode, uint inMods)
 	if (inMods == 0)
 	{
 		virtualKey = MapVirtualKeyW(virtualKey, 2);
-		if (virtualKey & 0x80000000) return 0;
+		if (virtualKey & 0x80000000)
+			return 0;
 		return UText::ToLower(virtualKey);
 	}
 
@@ -35,17 +36,23 @@ uint UKeyboard::KeyToChar(ushort inKeyCode, uint inMods)
 	if (inMods == 8)
 	{
 		virtualKey = MapVirtualKeyW(virtualKey, 2);
-		if (virtualKey & 0x80000000) return 0;
+		if (virtualKey & 0x80000000)
+			return 0;
 		return UText::ToUpper(virtualKey);
 	}
 
 	// Prepare keyboard state
 	BYTE keyboardState[256] = {0};
-	if (inMods & 0x21) keyboardState[VK_CAPITAL] = 0x80; // Caps Lock
-	if (inMods & 2) keyboardState[VK_SHIFT] = 0x80;      // Shift
-	if (inMods & 8) keyboardState[VK_CONTROL] = 0x80;    // Ctrl
-	if (inMods & 4) keyboardState[VK_MENU] = 0x80;       // Alt
-	if (inMods & 0x10) keyboardState[VK_NUMLOCK] = 0x80; // Num Lock
+	if (inMods & 0x21)
+		keyboardState[VK_CAPITAL] = 0x80; // Caps Lock
+	if (inMods & 2)
+		keyboardState[VK_SHIFT] = 0x80; // Shift
+	if (inMods & 8)
+		keyboardState[VK_CONTROL] = 0x80; // Ctrl
+	if (inMods & 4)
+		keyboardState[VK_MENU] = 0x80; // Alt
+	if (inMods & 0x10)
+		keyboardState[VK_NUMLOCK] = 0x80; // Num Lock
 
 	WCHAR unicodeChar[2] = {0};
 	int charCount = ToUnicode(virtualKey, 0, keyboardState, unicodeChar, 2, 0);

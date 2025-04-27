@@ -34,7 +34,8 @@ uint UMath::GetRandom()
 	uint seed = CalcRandomSeed();
 	uint sum = UMemory::Checksum(&_gState, sizeof _gState, seed);
 
-	if (!_gRandomSeed) _gRandomSeed = seed;
+	if (!_gRandomSeed)
+		_gRandomSeed = seed;
 	_gRandomSeed = _gRandomSeed * 1103515245 + 12345;
 	sum ^= _gRandomSeed;
 	_gState[_gStateIdx] ^= sum;
@@ -45,7 +46,8 @@ uint UMath::GetRandom()
 
 constexpr uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
 {
-	if (inMax < inMin) return 0;
+	if (inMax < inMin)
+		return 0;
 
 	inInit = inInit * 1103515245 + 12345;
 	return inMin + inInit % (inMax - inMin + 1);
@@ -53,7 +55,8 @@ constexpr uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
 
 void UMath::GetRandom(void *ioData, uint inDataSize)
 {
-	if (inDataSize == 0) return;
+	if (inDataSize == 0)
+		return;
 
 	uint localBuffer[4];
 	uint processedSize = 0;
@@ -102,7 +105,8 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
 constexpr double UMath::NormalizeAngle(double x)
 {
 	x = fmod(x, gm_2Pi);
-	if (x < 0) x += gm_2Pi;
+	if (x < 0)
+		x += gm_2Pi;
 
 	return x;
 }

@@ -11,26 +11,30 @@ static uint _gAllocationCount = 0;
 
 TPtr UMemory::New(size_t inSize)
 {
-	if (!inSize) __Fail(error_Param);
+	if (!inSize)
+		__Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
 	TPtr p = malloc(inSize);
 #endif // _WIN32
-	if (!p) __Fail(memError_NotEnough);
+	if (!p)
+		__Fail(memError_NotEnough);
 	_gAllocationCount++;
 	return p;
 }
 
 TPtr UMemory::New(const void *inData, size_t inSize)
 {
-	if (!inSize) __Fail(error_Param);
+	if (!inSize)
+		__Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
 	TPtr p = malloc(inSize);
 #endif // _WIN32
-	if (!p) __Fail(memError_NotEnough);
+	if (!p)
+		__Fail(memError_NotEnough);
 	Move(p, inData, inSize);
 	_gAllocationCount++;
 	return p;
@@ -38,13 +42,15 @@ TPtr UMemory::New(const void *inData, size_t inSize)
 
 TPtr UMemory::NewClear(size_t inSize)
 {
-	if (!inSize) __Fail(error_Param);
+	if (!inSize)
+		__Fail(error_Param);
 #ifdef _WIN32
 	TPtr p = GlobalAlloc(GMEM_ZEROINIT, inSize);
 #else
 	TPtr p = malloc(inSize);
 #endif // _WIN32
-	if (!p) __Fail(memError_NotEnough);
+	if (!p)
+		__Fail(memError_NotEnough);
 	Clear(p, inSize);
 	_gAllocationCount++;
 	return p;
@@ -52,7 +58,8 @@ TPtr UMemory::NewClear(size_t inSize)
 
 void UMemory::Dispose(TPtr inPtr)
 {
-	if (!inPtr) return;
+	if (!inPtr)
+		return;
 #ifdef _WIN32
 	GlobalFree(inPtr);
 #else
@@ -75,7 +82,8 @@ TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
 #else
 			inPtr = realloc(inPtr, inSize);
 #endif // _WIN32
-			if (!inPtr) __Fail(memError_NotEnough);
+			if (!inPtr)
+				__Fail(memError_NotEnough);
 		}
 	return inPtr;
 }
@@ -147,57 +155,66 @@ uint UMemory::Checksum(const void *inData, uint inDataSize, uint inInit)
 
 void UMemory::Clear(void *ioDest, uint inSize)
 {
-	if (!ioDest || !inSize) return;
+	if (!ioDest || !inSize)
+		return;
 	memset(ioDest, 0, inSize);
 }
 
 void UMemory::Fill(void *ioDest, uint inSize, byte inByte)
 {
-	if (!ioDest || !inSize) return;
+	if (!ioDest || !inSize)
+		return;
 	memset(ioDest, inByte, inSize);
 }
 
 void UMemory::Fill(void *ioDest, uint inSize, ushort inWord)
 {
-	if (!ioDest || !inSize) return;
+	if (!ioDest || !inSize)
+		return;
 	for (uint i = 0; i < inSize; i += sizeof(ushort))
 		*(ushort *)((byte *)ioDest + i) = inWord;
 }
 
 void UMemory::Fill(void *ioDest, uint inSize, uint inLong)
 {
-	if (!ioDest || !inSize) return;
+	if (!ioDest || !inSize)
+		return;
 	for (uint i = 0; i < inSize; i += sizeof(uint))
 		*(uint *)((byte *)ioDest + i) = inLong;
 }
 
 uint UMemory::Move(void *ioDest, const void *inSrc, uint inSize)
 {
-	if (!ioDest || !inSrc || !inSize) return;
+	if (!ioDest || !inSrc || !inSize)
+		return;
 	memmove(ioDest, inSrc, inSize);
 	return inSize;
 }
 
 byte *UMemory::SearchByte(byte inByte, const void *inData, uint inSize)
 {
-	if (!inData || inSize == 0) return NULL;
+	if (!inData || inSize == 0)
+		return NULL;
 
 	const byte *dataPtr = static_cast<const byte *>(inData);
 
 	for (uint i = 0; i < inSize; ++i)
-		if (dataPtr[i] == inByte) return const_cast<byte *>(&dataPtr[i]);
+		if (dataPtr[i] == inByte)
+			return const_cast<byte *>(&dataPtr[i]);
 
 	return NULL;
 }
 
 byte *UMemory::SearchByteBackwards(byte inByte, const void *inData, uint inDataSize)
 {
-	if (!inData || !inDataSize) return NULL;
+	if (!inData || !inDataSize)
+		return NULL;
 
 	const byte *dataPtr = static_cast<const byte *>(inData);
 
 	for (int i = inDataSize - 1; i >= 0; --i)
-		if (dataPtr[i] == inByte) return const_cast<byte *>(&dataPtr[i]);
+		if (dataPtr[i] == inByte)
+			return const_cast<byte *>(&dataPtr[i]);
 
 	return NULL;
 }
@@ -212,7 +229,8 @@ byte *UMemory::Search(const void *inSearchData, uint inSearchSize, const void *i
 	const byte *data = static_cast<const byte *>(inData);
 
 	// Special case for single-byte search
-	if (inSearchSize == 1) return SearchByte(*searchData, inData, inDataSize);
+	if (inSearchSize == 1)
+		return SearchByte(*searchData, inData, inDataSize);
 
 	// Precompute the bad character shift table
 	int badCharShift[256];
@@ -231,7 +249,8 @@ byte *UMemory::Search(const void *inSearchData, uint inSearchSize, const void *i
 		while (i >= 0 && searchData[i] == data[offset + i])
 			--i;
 
-		if (i < 0) return const_cast<byte *>(data + offset);
+		if (i < 0)
+			return const_cast<byte *>(data + offset);
 
 		// Shift based on the bad character rule
 		offset += badCharShift[data[offset + inSearchSize - 1]];

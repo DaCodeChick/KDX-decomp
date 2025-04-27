@@ -12,7 +12,8 @@ int UDateTime::GetTimeZoneOffset()
 #ifdef _WIN32
 	TIME_ZONE_INFORMATION tzi;
 
-	if (GetTimeZoneInformation(&tzi) == TIME_ZONE_ID_DAYLIGHT) tzi.Bias += tzi.DaylightBias;
+	if (GetTimeZoneInformation(&tzi) == TIME_ZONE_ID_DAYLIGHT)
+		tzi.Bias += tzi.DaylightBias;
 	return tzi.Bias * -60;
 #else
 	timeval tv;

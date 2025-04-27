@@ -93,7 +93,8 @@ void _MD5::Update(const byte *inData, uint inDataSize)
 				mBufferLength = 0;
 				mCount[1]++;
 			}
-			if (!inDataSize) return;
+			if (!inDataSize)
+				return;
 		}
 		for (; 63 < inDataSize; inDataSize -= 64, inData += 64)
 		{
@@ -197,7 +198,8 @@ void _MD5::Transform(const byte *inBlock)
 	mState[3] += d;
 
 	mCount[0] += 64;
-	if (mCount[0] < 64) mCount[1]++;
+	if (mCount[0] < 64)
+		mCount[1]++;
 }
 
 void _MD5::Report(void *outDigest)
