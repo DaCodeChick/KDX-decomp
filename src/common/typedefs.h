@@ -27,7 +27,8 @@ constexpr ushort bswap16(ushort x) noexcept
 
 constexpr uint bswap32(uint x) noexcept
 {
-	return ((x & 0xFF000000) >> 24) | ((x & 0x00FF0000) >> 8) | ((x & 0x0000FF00) << 8) | ((x & 0x000000FF) << 24);
+	return ((x & 0xFF000000) >> 24) | ((x & 0x00FF0000) >> 8) | ((x & 0x0000FF00) << 8) |
+	       ((x & 0x000000FF) << 24);
 }
 
 constexpr ulonglong bswap64(ulonglong x) noexcept

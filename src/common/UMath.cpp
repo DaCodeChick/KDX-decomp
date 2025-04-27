@@ -65,8 +65,8 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
 		uint xorValue = ~_gState[2];
 
 		for (uint i = 0; i < 64; i += 8)
-			xorValue ^= _gState[i] ^ _gState[i + 1] ^ _gState[i + 2] ^ _gState[i + 3] ^ _gState[i + 4] ^
-			            _gState[i + 5] ^ _gState[i + 6] ^ _gState[i + 7];
+			xorValue ^= _gState[i] ^ _gState[i + 1] ^ _gState[i + 2] ^ _gState[i + 3] ^
+			            _gState[i + 4] ^ _gState[i + 5] ^ _gState[i + 6] ^ _gState[i + 7];
 
 		uint chunkSize = (inDataSize < 32) ? inDataSize : 32;
 

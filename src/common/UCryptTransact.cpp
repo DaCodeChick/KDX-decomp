@@ -62,11 +62,11 @@ void UCryptTransact::TwofishEncryptSimple(STwofish &ioCtx, const void *inData, v
 	for (int round = 0; round < 16; ++round)
 	{
 		// Compute F function for b and a
-		uint bMix = ioCtx.sbox[0][(b >> 24) & 0xFF] ^ ioCtx.sbox[1][(b >> 16) & 0xFF] ^ ioCtx.sbox[2][(b >> 8) & 0xFF] ^
-		            ioCtx.sbox[3][b & 0xFF];
+		uint bMix = ioCtx.sbox[0][(b >> 24) & 0xFF] ^ ioCtx.sbox[1][(b >> 16) & 0xFF] ^
+		            ioCtx.sbox[2][(b >> 8) & 0xFF] ^ ioCtx.sbox[3][b & 0xFF];
 
-		uint aMix = ioCtx.sbox[0][(a >> 24) & 0xFF] ^ ioCtx.sbox[1][(a >> 16) & 0xFF] ^ ioCtx.sbox[2][(a >> 8) & 0xFF] ^
-		            ioCtx.sbox[3][a & 0xFF];
+		uint aMix = ioCtx.sbox[0][(a >> 24) & 0xFF] ^ ioCtx.sbox[1][(a >> 16) & 0xFF] ^
+		            ioCtx.sbox[2][(a >> 8) & 0xFF] ^ ioCtx.sbox[3][a & 0xFF];
 
 		uint f1 = bMix + aMix;
 		uint f2 = bMix + (1 << aMix);

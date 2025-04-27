@@ -24,7 +24,8 @@ public:
 	static uint Move(void *ioDest, const void *inSrc, uint inSize);
 	static uint CRC(const void *inData, uint inDataSize, uint inInit);
 	static uint Checksum(const void *inData, uint inDataSize, uint inInit);
-	static byte *Search(const void *inSearchData, uint inSearchSize, const void *inData, uint inDataSize);
+	static byte *Search(const void *inSearchData, uint inSearchSize, const void *inData,
+	                    uint inDataSize);
 	static byte *SearchByte(byte inByte, const void *inData, uint inSize);
 	static byte *SearchByteBackwards(byte inByte, const void *inData, uint inDataSize);
 };
