@@ -23,7 +23,7 @@ int UDateTime::GetTimeZoneOffset()
 #endif // _WIN32
 }
 
-longlong UDateTime::GetEllapsedTime(longlong inEpoch)
+longlong UDateTime::GetElapsedTime(longlong inEpoch)
 {
 #ifdef _WIN32
 	return (inEpoch / 10000) - 11644473600000LL;
