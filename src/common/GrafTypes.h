@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief A structure representing a point in 2D space.
- */
+/// @brief A structure representing a point in 2D space.
 struct SPoint
 {
 	int x; ///< The x-coordinate of the point.
@@ -40,9 +38,7 @@ struct SPoint
 #endif // _WIN32
 };
 
-/**
- * @brief A structure representing a rectangle in 2D space.
- */
+/// @brief A structure representing a rectangle in 2D space.
 struct SRect
 {
 	int left;   ///< The left edge of the rectangle.
@@ -115,5 +111,14 @@ struct SRect
 #endif // _WIN32
 };
 
-constexpr double gm_2Pi = 6.28318530717958647692; ///< Constant representing 2π (2 times pi).
-constexpr double gm_Pi = 3.14159265358979323846;  ///< Constant representing π (pi).
+/** 
+ * @brief Constant representing 2π (2 times pi).
+ * @details This constant is used in various mathematical calculations, particularly in trigonometry.
+ */
+constexpr double gm_2Pi = 6.28318530717958647692;
+
+/**
+ * @brief Constant representing π (pi).
+ * @details This constant is used in various mathematical calculations, particularly in trigonometry.
+*/
+ constexpr double gm_Pi = 3.14159265358979323846;

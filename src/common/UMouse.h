@@ -2,9 +2,7 @@
 
 #include "GrafTypes.h"
 
-/**
- * @brief The UMouse class provides methods to interact with the mouse.
- */
+/// @brief The UMouse class provides methods to interact with the mouse.
 class UMouse
 {
 public:

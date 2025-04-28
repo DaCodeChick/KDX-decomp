@@ -8,9 +8,7 @@ typedef HGLOBAL TPtr;
 typedef void *TPtr;
 #endif // _WIN32
 
-/**
- * @brief Memory management class.
- */
+/// @brief Memory management class.
 class UMemory
 {
 public:

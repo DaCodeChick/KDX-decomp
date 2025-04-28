@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief This structure is used to represent an error
- */
+/// This structure is used to represent an error
 struct SError
 {
 	uint type; ///< Type of error

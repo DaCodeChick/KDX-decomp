@@ -9,15 +9,11 @@ public:
 	static void AugmentedMD5_Encode(const void *inData, uint inDataSize, void *outDigest);
 };
 
-/**
- * @brief MD5 hash algorithm implementation.
- */
+/// @brief MD5 hash algorithm implementation.
 class _MD5
 {
 public:
-	/**
-	 * @brief Default constructor.
-	 */
+	/// @brief Default constructor.
 	_MD5();
 
 	/**
@@ -35,9 +31,7 @@ public:
 	 */
 	void Report(void *outDigest);
 
-	/**
-	 * @brief Initialize the MD5 state
-	 */
+	/// @brief Initialize the MD5 state.
 	void Init();
 
 	/**

@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief File system reference structure.
- */
+/// @brief File system reference structure.
 struct SFileSysRef;
 
 /**

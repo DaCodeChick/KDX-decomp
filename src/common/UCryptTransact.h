@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief Twofish encryption context structure.
- */
+/// @brief Twofish encryption context structure.
 struct STwofish;
 
 class UCryptTransact

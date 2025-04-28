@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief Structure to hold calendar date information.
- */
+/// @brief Structure to hold calendar date information.
 struct SCalendarDate
 {
 	short field0_0x0;
@@ -18,30 +16,28 @@ struct SCalendarDate
 	short weekDay;   ///< Day of the week (0-6, where 0 = Sunday)
 };
 
-/**
- * @brief Class to handle date and time operations.
- */
+/// @brief Class to handle date and time operations.
 class UDateTime
 {
 public:
 	/**
 	 * @brief Get the current time zone offset in seconds
 	 *
-	 * @return int
+	 * @return Time zone offset in seconds
 	 */
 	static int GetTimeZoneOffset();
 
 	/**
 	 * @brief Get current time in microseconds since epoch
 	 *
-	 * @return longlong
+	 * @return Current time in microseconds since epoch
 	 */
 	static longlong GetMicroseconds();
 
 	/**
 	 * @brief Get current time in milliseconds since epoch
 	 *
-	 * @return longlong
+	 * @return Current time in milliseconds since epoch
 	 */
 	static longlong GetMilliseconds();
 
@@ -49,14 +45,14 @@ public:
 	 * @brief Get elapsed time since a given epoch in microseconds
 	 *
 	 * @param inEpoch Epoch time in microseconds
-	 * @return longlong
+	 * @return Elapsed time in microseconds since the given epoch
 	 */
 	static longlong GetElapsedTime(longlong inEpoch);
 
 	/**
 	 * @brief Get current time in seconds since epoch
 	 *
-	 * @return longlong
+	 * @return Current time in seconds since epoch
 	 */
 	static longlong GetSeconds();
 

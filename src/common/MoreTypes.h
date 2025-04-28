@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief Structure to hold mouse message data.
- */
+/// @brief Structure to hold mouse message data.
 struct SMouseMsgData
 {
 	longlong time; ///< Timestamp of the mouse event.
@@ -16,9 +14,7 @@ struct SMouseMsgData
 	short misc;    ///< Miscellaneous information about the event.
 };
 
-/**
- * @brief Structure to hold keyboard message data.
- */
+/// @brief Structure to hold keyboard message data.
 struct SKeyMsgData
 {
 	longlong timestamp; ///< Timestamp of the keyboard event.

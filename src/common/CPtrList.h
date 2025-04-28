@@ -2,9 +2,7 @@
 
 #include "typedefs.h"
 
-/**
- * @brief A class that implements a list of pointers.
- */
+/// @brief A class that implements a list of pointers.
 class CVoidPtrList
 {
 public:
