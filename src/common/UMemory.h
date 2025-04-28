@@ -102,7 +102,7 @@ public:
 	 * @param ioDest Pointer to the destination memory.
 	 * @param inSrc Pointer to the source memory.
 	 * @param inSize Size of the memory to move.
-	 * @return uint Number of bytes moved.
+	 * @return Number of bytes moved.
 	 */
 	static uint Move(void *ioDest, const void *inSrc, uint inSize);
 

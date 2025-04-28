@@ -34,7 +34,7 @@ public:
 	 * @param inMaxSize Maximum size of data to read.
 	 * @param outData Pointer to the buffer where the read data will be stored.
 	 * @param inOptions Options for reading the data.
-	 * @return void*
+	 * @return Pointer to the buffer containing the read data.
 	 */
 	static void *Read(SFileSysRef *inRef, uint inOffset, uint inMaxSize, void *outData,
 	                  uint inOptions);
@@ -54,7 +54,7 @@ public:
 	 *
 	 * @param inRef Pointer to the file system reference for which to get the size.
 	 * @param inOptions Options for getting the size.
-	 * @return ulonglong
+	 * @return Size of the file in bytes.
 	 */
 	static ulonglong GetFileSize(SFileSysRef *inRef, uint inOptions);
 
@@ -63,8 +63,7 @@ public:
 	 *
 	 * @param ioPath Pointer to the file path to be validated.
 	 * @param inPathSize Size of the file path.
-	 * @return true
-	 * @return false
+	 * @return True if the file path is valid, false otherwise.
 	 */
 	static bool ValidateFilePath(char *ioPath, uint inPathSize);
 };

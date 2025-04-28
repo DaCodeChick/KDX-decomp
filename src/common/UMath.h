@@ -44,7 +44,7 @@ public:
 	 * @brief Normalizes an angle to the range [0, 2π).
 	 *
 	 * @param x The angle in radians.
-	 * @return constexpr double
+	 * @return The normalized angle in radians.
 	 */
 	static constexpr double NormalizeAngle(double x);
 

@@ -62,8 +62,6 @@ struct SRect
 	 *
 	 * @param inRect
 	 * @param outSect
-	 * @return true
-	 * @return false
 	 */
 	bool GetIntersection(SRect &inRect, SRect &outSect) const;
 
@@ -72,8 +70,6 @@ struct SRect
 	 *
 	 * @param inRect
 	 * @param outUnion
-	 * @return true
-	 * @return false
 	 */
 	bool GetUnion(SRect &inRect, SRect &outUnion) const;
 

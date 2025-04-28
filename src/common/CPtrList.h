@@ -25,7 +25,7 @@ public:
 	/**
 	 * @brief Remove and return the first item in the list.
 	 *
-	 * @return void*
+	 * @return Pointer to the first item in the list.
 	 */
 	void *PopFront();
 

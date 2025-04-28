@@ -34,14 +34,14 @@ public:
 	/**
 	 * @brief Get current time in microseconds since epoch
 	 *
-	 * @return int
+	 * @return longlong
 	 */
 	static longlong GetMicroseconds();
 
 	/**
 	 * @brief Get current time in milliseconds since epoch
 	 *
-	 * @return int
+	 * @return longlong
 	 */
 	static longlong GetMilliseconds();
 
