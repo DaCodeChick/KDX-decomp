@@ -15,7 +15,7 @@ static constexpr uint _OSToGenError(uint inType)
 void __Fail(uint inType)
 {
 	SError err;
-	UMemory::Clear(&err, sizeof(err));
+	UMemory::Clear(&err, sizeof(SError));
 	err.type = inType;
 
 	throw err;
@@ -24,7 +24,7 @@ void __Fail(uint inType)
 void __Fail(uint inType, void *inParam2, uint inLine)
 {
 	SError err;
-	UMemory::Clear(&err, sizeof(err));
+	UMemory::Clear(&err, sizeof(SError));
 	err.type = inType;
 	err.field2_0x8 = inParam2;
 	err.line = inLine;
