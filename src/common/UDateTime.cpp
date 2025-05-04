@@ -1,6 +1,6 @@
 #include "UDateTime.h"
 
-static longlong _gLastRecorded, _gElapsed;
+static int64_t _gLastRecorded, _gElapsed;
 
 #ifndef _WIN32
 #include <ctime>
@@ -24,7 +24,7 @@ int UDateTime::GetTimeZoneOffset()
 #endif // _WIN32
 }
 
-longlong UDateTime::GetElapsedTime(longlong inEpoch)
+int64_t UDateTime::GetElapsedTime(int64_t inEpoch)
 {
 #ifdef _WIN32
 	return (inEpoch / 10000) - 11644473600000LL;
@@ -32,11 +32,11 @@ longlong UDateTime::GetElapsedTime(longlong inEpoch)
 #endif // _WIN32
 }
 
-longlong UDateTime::GetMicroseconds()
+int64_t UDateTime::GetMicroseconds()
 {
 #ifdef _WIN32
 	FILETIME ft;
-	longlong currentTime = *reinterpret_cast<longlong *>(&ft);
+	int64_t currentTime = *reinterpret_cast<int64_t *>(&ft);
 
 	GetSystemTimeAsFileTime(&ft);
 
@@ -57,7 +57,7 @@ longlong UDateTime::GetMicroseconds()
 		tv.tv_usec = 0;
 	}
 
-	longlong currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
+	int64_t currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
 
 	if (currentTime <= _gLastRecorded)
 	{

@@ -55,9 +55,9 @@ public:
 	 * @brief Returns the number of allocations.
 	 *
 	 * @param outCount Reference to store the allocation count.
-	 * @return constexpr longlong
+	 * @return 0
 	 */
-	static constexpr longlong GetAllocationCount(uint &outCount);
+	static constexpr uint64_t GetAllocationCount(unsigned &outCount);
 
 	/**
 	 * @brief Fills memory with a byte value.
@@ -66,7 +66,7 @@ public:
 	 * @param inSize Size of the memory to fill.
 	 * @param inByte Value to fill the memory with.
 	 */
-	static void Fill(void *ioDest, uint inSize, byte inByte);
+	static void Fill(void *ioDest, size_t inSize, uint8_t inByte);
 
 	/**
 	 * @brief Fill memory with a word value.
@@ -75,7 +75,7 @@ public:
 	 * @param inSize Size of the memory to fill.
 	 * @param inWord Value to fill the memory with.
 	 */
-	static void Fill(void *ioDest, uint inSize, ushort inWord);
+	static void Fill(void *ioDest, size_t inSize, uint16_t inWord);
 
 	/**
 	 * @brief Fill memory with a long value.
@@ -84,7 +84,7 @@ public:
 	 * @param inSize Size of the memory to fill.
 	 * @param inLong Value to fill the memory with.
 	 */
-	static void Fill(void *ioDest, uint inSize, uint inLong);
+	static void Fill(void *ioDest, size_t inSize, uint32_t inLong);
 
 	/**
 	 * @brief Clears memory with zeroes.
@@ -92,7 +92,7 @@ public:
 	 * @param ioDest Pointer to the memory to clear.
 	 * @param inSize Size of the memory to clear.
 	 */
-	static void Clear(void *ioDest, uint inSize);
+	static void Clear(void *ioDest, size_t inSize);
 
 	/**
 	 * @brief Moves memory from one location to another.
@@ -102,7 +102,7 @@ public:
 	 * @param inSize Size of the memory to move.
 	 * @return Number of bytes moved.
 	 */
-	static uint Move(void *ioDest, const void *inSrc, uint inSize);
+	static size_t Move(void *ioDest, const void *inSrc, size_t inSize);
 
 	/**
 	 * @brief CRC32 checksum calculation
@@ -112,7 +112,7 @@ public:
 	 * @param inInit Initial value for the checksum calculation.
 	 * @return CRC32 checksum
 	 */
-	static uint CRC(const void *inData, uint inDataSize, uint inInit);
+	static uint32_t CRC(const void *inData, size_t inDataSize, uint32_t inInit);
 
 	/**
 	 * @brief Checksum calculation
@@ -122,7 +122,7 @@ public:
 	 * @param inInit Initial value for the checksum calculation.
 	 * @return Checksum value
 	 */
-	static uint Checksum(const void *inData, uint inDataSize, uint inInit);
+	static uint32_t Checksum(const void *inData, size_t inDataSize, uint32_t inInit);
 
 	/**
 	 * @brief Search for a block of memory in another block of memory.
@@ -133,8 +133,8 @@ public:
 	 * @param inDataSize Size of the data to search in.
 	 * @return Pointer to the found data, or NULL if not found.
 	 */
-	static byte *Search(const void *inSearchData, uint inSearchSize, const void *inData,
-	                    uint inDataSize);
+	static const void *Search(const void *inSearchData, size_t inSearchSize, const void *inData,
+	                    size_t inDataSize);
 
 	/**
 	 * @brief Search for a byte in memory.
@@ -144,7 +144,7 @@ public:
 	 * @param inSize Size of the data to search in.
 	 * @return Pointer to the found byte, or NULL if not found.
 	 */
-	static byte *SearchByte(byte inByte, const void *inData, uint inSize);
+	static const uint8_t *SearchByte(uint8_t inByte, const void *inData, size_t inSize);
 
 	/**
 	 * @brief Search for a byte in memory backwards.
@@ -154,7 +154,7 @@ public:
 	 * @param inDataSize Size of the data to search in.
 	 * @return Pointer to the found byte, or NULL if not found.
 	 */
-	static byte *SearchByteBackwards(byte inByte, const void *inData, uint inDataSize);
+	static const uint8_t *SearchByteBackwards(byte inByte, const void *inData, size_t inDataSize);
 };
 
 enum

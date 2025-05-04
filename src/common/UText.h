@@ -13,7 +13,7 @@ public:
 	 * @param inFormat 
 	 * @param ... 
 	 */
-	static void Format(void *outText, uint inMaxSize, const char *inFormat, ...);
+	static void Format(void *outText, size_t inMaxSize, const char *inFormat, ...);
 
 	/**
 	 * @brief Format an integer to a string.
@@ -24,7 +24,7 @@ public:
 	 * @param inOptions 
 	 * @return uint 
 	 */
-	static uint IntegerToText(uint inInteger, void *outText, uint inMaxSize, uint inOptions);
+	static size_t  IntegerToText(unsigned inInteger, void *outText, size_t inMaxSize, unsigned inOptions);
 
 	/**
 	 * @brief Convert a string to an integer.
@@ -34,7 +34,7 @@ public:
 	 * @param inOptions 
 	 * @return uint 
 	 */
-	static uint TextToInteger(const void *inText, uint inTextSize, uint inOptions);
+	static unsigned TextToInteger(const void *inText, size_t inTextSize, unsigned inOptions);
 
 	/**
 	 * @brief Converts a character to lowercase.
@@ -42,7 +42,7 @@ public:
 	 * @param inChar
 	 * @return constexpr uint 
 	 */
-	static constexpr uint ToLower(uint inChar);
+	static constexpr unsigned ToLower(unsigned inChar);
 
 	/**
 	 * @brief Converts a string to lowercase.
@@ -52,7 +52,7 @@ public:
 	 * @param outText 
 	 * @param inMaxSize 
 	 */
-	static void ToLower(const void *inText, uint inTextSize, void *outText, uint inMaxSize);
+	static void ToLower(const void *inText, size_t inTextSize, void *outText, size_t inMaxSize);
 
 	/**
 	 * @brief Converts a character to uppercase.
@@ -60,6 +60,6 @@ public:
 	 * @param inChar 
 	 * @return constexpr uint 
 	 */
-	static constexpr uint ToUpper(uint inChar);
-	static constexpr bool IsHex(uint inChar);
+	static constexpr unsigned ToUpper(unsigned inChar);
+	static constexpr bool IsHex(unsigned inChar);
 };

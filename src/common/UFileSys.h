@@ -34,8 +34,8 @@ public:
 	 * @param inOptions Options for reading the data.
 	 * @return Pointer to the buffer containing the read data.
 	 */
-	static void *Read(SFileSysRef *inRef, uint inOffset, uint inMaxSize, void *outData,
-	                  uint inOptions);
+	static void *Read(SFileSysRef *inRef, size_t inOffset, size_t inMaxSize, void *outData,
+	                  unsigned inOptions);
 
 	/**
 	 * @brief Write data to the file system reference.
@@ -45,7 +45,7 @@ public:
 	 * @param inDataSize Size of the data to be written.
 	 * @param inOptions Options for writing the data.
 	 */
-	static void Write(SFileSysRef *inRef, const void *inData, uint inDataSize, uint inOptions);
+	static void Write(SFileSysRef *inRef, const void *inData, size_t inDataSize, unsigned inOptions);
 
 	/**
 	 * @brief Get the size of the file in bytes.
@@ -54,7 +54,7 @@ public:
 	 * @param inOptions Options for getting the size.
 	 * @return Size of the file in bytes.
 	 */
-	static ulonglong GetFileSize(SFileSysRef *inRef, uint inOptions);
+	static size_t GetFileSize(SFileSysRef *inRef, unsigned inOptions);
 
 	/**
 	 * @brief Validate the file path.
@@ -63,5 +63,5 @@ public:
 	 * @param inPathSize Size of the file path.
 	 * @return True if the file path is valid, false otherwise.
 	 */
-	static bool ValidateFilePath(char *ioPath, uint inPathSize);
+	static bool ValidateFilePath(const void *inPath, size_t inPathSize);
 };

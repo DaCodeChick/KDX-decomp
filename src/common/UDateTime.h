@@ -32,14 +32,14 @@ public:
 	 *
 	 * @return Current time in microseconds since epoch
 	 */
-	static longlong GetMicroseconds();
+	static int64_t GetMicroseconds();
 
 	/**
 	 * @brief Get current time in milliseconds since epoch
 	 *
 	 * @return Current time in milliseconds since epoch
 	 */
-	static longlong GetMilliseconds();
+	static int64_t GetMilliseconds();
 
 	/**
 	 * @brief Get elapsed time since a given epoch in microseconds
@@ -47,14 +47,14 @@ public:
 	 * @param inEpoch Epoch time in microseconds
 	 * @return Elapsed time in microseconds since the given epoch
 	 */
-	static longlong GetElapsedTime(longlong inEpoch);
+	static int64_t GetElapsedTime(int64_t inEpoch);
 
 	/**
 	 * @brief Get current time in seconds since epoch
 	 *
 	 * @return Current time in seconds since epoch
 	 */
-	static longlong GetSeconds();
+	static int64_t GetSeconds();
 
 	/**
 	 * @brief Get the current date and time in a human-readable format
@@ -65,5 +65,5 @@ public:
 	 * @param inOptions Options for formatting the date and time (e.g., 0 for default format)
 	 * @return int
 	 */
-	static int DateToText(SCalendarDate &inInfo, void *outText, uint inMaxSize, uint inOptions);
+	static int DateToText(SCalendarDate &inInfo, void *outText, size_t inMaxSize, unsigned inOptions);
 };

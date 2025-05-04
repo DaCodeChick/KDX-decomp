@@ -2,7 +2,7 @@
 
 #include "UMemory.h"
 
-static constexpr uint _OSToGenError(uint inType)
+static constexpr unsigned _OSToGenError(int inType)
 {
 	switch (inType)
 	{
@@ -12,7 +12,7 @@ static constexpr uint _OSToGenError(uint inType)
 	}
 }
 
-void __Fail(uint inType)
+void __Fail(unsigned inType)
 {
 	SError err;
 	UMemory::Clear(&err, sizeof(SError));
@@ -21,7 +21,7 @@ void __Fail(uint inType)
 	throw err;
 }
 
-void __Fail(uint inType, void *inParam2, uint inLine)
+void __Fail(unsigned inType, const void *inParam2, unsigned inLine)
 {
 	SError err;
 	UMemory::Clear(&err, sizeof(SError));

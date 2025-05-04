@@ -5,8 +5,8 @@
 class UDigest
 {
 public:
-	static void MD5_Encode(const void *inData, uint inDataSize, void *outDigest);
-	static void AugmentedMD5_Encode(const void *inData, uint inDataSize, void *outDigest);
+	static void MD5_Encode(const void *inData, size_t inDataSize, void *outDigest);
+	static void AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *outDigest);
 };
 
 /// @brief MD5 hash algorithm implementation.
@@ -22,7 +22,7 @@ public:
 	 * @param inData Pointer to the data to hash.
 	 * @param inDataSize Size of the data in bytes.
 	 */
-	void Update(const byte *inData, uint inDataSize);
+	void Update(const uint8_t *inData, size_t inDataSize);
 
 	/**
 	 * @brief Finalize the MD5 hash and store the result in outDigest.
@@ -39,13 +39,13 @@ public:
 	 *
 	 * @param inSize Size of the buffer to clear.
 	 */
-	void Clear(uint inSize);
+	void Clear(size_t inSize);
 
 private:
-	uint mState[4];
-	uint mCount[2];
-	byte mBuffer[64];
-	uint mBufferLength;
+	uint32_t mState[4];
+	uint32_t mCount[2];
+	uint8_t mBuffer[64];
+	uint32_t mBufferLength;
 
-	void Transform(const byte *inBlock);
+	void Transform(const uint8_t *inBlock);
 };

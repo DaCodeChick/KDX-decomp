@@ -1,7 +1,5 @@
 #pragma once
 
-#include "typedefs.h"
-
 /// @brief Twofish encryption context structure.
 struct STwofish;
 

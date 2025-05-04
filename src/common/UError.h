@@ -5,9 +5,9 @@
 /// This structure is used to represent an error
 struct SError
 {
-	uint type; ///< Type of error
-	void *field2_0x8;
-	uint line; ///< Line number where the error occurred
+	unsigned type; ///< Type of error
+	const void *field2_0x8;
+	unsigned line; ///< Line number where the error occurred
 };
 
 class UError
@@ -20,7 +20,7 @@ public:
 	 * @param inMaxSize The maximum size of the output text buffer
 	 * @return The size of the error message
 	 */
-	static uint GetDetailMessage(SError &inError, void *outText, uint inMaxSize);
+	static unsigned GetDetailMessage(SError &inError, void *outText, size_t inMaxSize);
 };
 
 enum
@@ -33,6 +33,6 @@ enum
  *
  * @param inType The type of error
  */
-void __Fail(uint inType);
+void __Fail(unsigned inType);
 
-void __Fail(uint inType, void *inParam2, uint inLine);
+void __Fail(unsigned inType, const void *inParam2, unsigned inLine);

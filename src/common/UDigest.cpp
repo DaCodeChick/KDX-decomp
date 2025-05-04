@@ -2,48 +2,48 @@
 
 #include "UMemory.h"
 
-static constexpr uint f(uint x, uint y, uint z)
+static constexpr unsigned f(unsigned x, unsigned y, unsigned z)
 {
 	return (x & y) | (~x & z);
 }
 
-static constexpr uint g(uint x, uint y, uint z)
+static constexpr unsigned g(unsigned x, unsigned y, unsigned z)
 {
 	return (x & z) | (y & ~z);
 }
 
-static constexpr uint h(uint x, uint y, uint z)
+static constexpr unsigned h(unsigned x, unsigned y, unsigned z)
 {
 	return x ^ y ^ z;
 }
 
-static constexpr uint i(uint x, uint y, uint z)
+static constexpr unsigned i(unsigned x, unsigned y, unsigned z)
 {
 	return y ^ (x | ~z);
 }
 
-static constexpr void ff(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void ff(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
 {
 	a += f(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void gg(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void gg(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
 {
 	a += g(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void hh(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void hh(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
 {
 	a += h(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void ii(uint &a, uint b, uint c, uint d, uint x, uint s, uint ac)
+static constexpr void ii(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
 {
 	a += i(b, c, d) + x + ac;
 	a = rotl(a, s);
@@ -65,12 +65,12 @@ void _MD5::Init()
 	mCount[1] = mBufferLength = 0;
 }
 
-void _MD5::Clear(uint inSize)
+void _MD5::Clear(size_t inSize)
 {
 	UMemory::Clear(this, inSize);
 }
 
-void _MD5::Update(const byte *inData, uint inDataSize)
+void _MD5::Update(const uint8_t *inData, size_t inDataSize)
 {
 	if (mBufferLength == 64)
 	{
@@ -110,17 +110,17 @@ void _MD5::Update(const byte *inData, uint inDataSize)
 	}
 }
 
-void _MD5::Transform(const byte *inBlock)
+void _MD5::Transform(const uint8_t *inBlock)
 {
-	uint a = mState[0];
-	uint b = mState[1];
-	uint c = mState[2];
-	uint d = mState[3];
-	uint x[16];
+	uint32_t a = mState[0];
+	uint32_t b = mState[1];
+	uint32_t c = mState[2];
+	uint32_t d = mState[3];
+	uint32_t x[16];
 
 	for (int i = 0; i < 16; i++)
 	{
-		x[i] = *reinterpret_cast<const uint *>(inBlock + (i << 2));
+		x[i] = *reinterpret_cast<const uint32_t *>(inBlock + (i << 2));
 		x[i] = htonl(x[i]);
 	}
 
@@ -206,7 +206,7 @@ void _MD5::Report(void *outDigest)
 {
 	Update(NULL, 0);
 
-	ulonglong bitCount = ((ulonglong)mCount[1] << 29) + (mCount[0] << 3) + (mBufferLength << 3);
+	size_t bitCount = ((size_t)mCount[1] << 29) + (mCount[0] << 3) + (mBufferLength << 3);
 
 	mBuffer[mBufferLength++] = 0x80;
 	if (mBufferLength > 56)
@@ -220,27 +220,27 @@ void _MD5::Report(void *outDigest)
 		mBuffer[mBufferLength++] = 0;
 
 	for (int i = 0; i < 8; ++i)
-		mBuffer[56 + i] = (uchar)(bitCount >> (i << 3));
+		mBuffer[56 + i] = (uint8_t)(bitCount >> (i << 3));
 
 	Transform(mBuffer);
 
 	for (int i = 0; i < 4; ++i)
-		((uint *)outDigest)[i] = htonl(mState[i]);
+		((uint32_t *)outDigest)[i] = htonl(mState[i]);
 
 	Clear(0x5c);
 }
 
-void UDigest::MD5_Encode(const void *inData, uint inDataSize, void *outDigest)
+void UDigest::MD5_Encode(const void *inData, size_t inDataSize, void *outDigest)
 {
 	_MD5 md5;
 
-	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
+	md5.Update(reinterpret_cast<const uint8_t *>(inData), inDataSize);
 	md5.Report(outDigest);
 }
 
-void UDigest::AugmentedMD5_Encode(const void *inData, uint inDataSize, void *outDigest)
+void UDigest::AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *outDigest)
 {
-	uint *digest32 = reinterpret_cast<uint *>(outDigest);
+	uint32_t *digest32 = reinterpret_cast<uint32_t *>(outDigest);
 	if (!inDataSize)
 	{
 		digest32[0] = 0xeea339da;

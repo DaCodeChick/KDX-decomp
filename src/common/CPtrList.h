@@ -29,7 +29,7 @@ public:
 
 private:
 	void *mHead, *mTail;
-	uint mOffset, mCount;
+	size_t mOffset, mCount;
 };
 
 /**

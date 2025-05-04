@@ -12,11 +12,11 @@
 
 #include <cmath>
 
-static uint _gRandomSeed = 0;
-static uint _gState[64] = {0};
-static byte _gStateIdx = 0;
+static unsigned _gRandomSeed = 0;
+static unsigned _gState[64] = {0};
+static uint8_t _gStateIdx = 0;
 
-uint UMath::CalcRandomSeed()
+unsigned UMath::CalcRandomSeed()
 {
 #ifdef _WIN32
 	FILETIME ft;
@@ -29,10 +29,10 @@ uint UMath::CalcRandomSeed()
 #endif // _WIN32
 }
 
-uint UMath::GetRandom()
+unsigned UMath::GetRandom()
 {
-	uint seed = CalcRandomSeed();
-	uint sum = UMemory::Checksum(&_gState, sizeof _gState, seed);
+	auto seed = CalcRandomSeed();
+	auto sum = UMemory::Checksum(&_gState, sizeof _gState, seed);
 
 	if (!_gRandomSeed)
 		_gRandomSeed = seed;

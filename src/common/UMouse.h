@@ -11,21 +11,21 @@ public:
 	 *
 	 * @return The time interval in milliseconds.
 	 */
-	static uint GetDoubleClickTime();
+	static unsigned GetDoubleClickTime();
 
 	/**
 	 * @brief Returns the current image ID.
 	 *
 	 * @return The current image ID.
 	 */
-	static constexpr uint GetImage();
+	static constexpr unsigned GetImage();
 
 	/**
 	 * @brief Sets the mouse image to the specified ID.
 	 *
 	 * @param inID The ID of the image to set.
 	 */
-	static void SetImage(uint inID);
+	static void SetImage(unsigned inID);
 
 	/**
 	 * @brief Returns the current mouse location.

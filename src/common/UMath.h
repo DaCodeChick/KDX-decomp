@@ -11,14 +11,14 @@ public:
 	 *
 	 * @return A random seed value.
 	 */
-	static uint CalcRandomSeed();
+	static unsigned CalcRandomSeed();
 
 	/**
 	 * @brief Generates a random number between 0 and 0xFFFFFFFF.
 	 *
 	 * @return A random number between 0 and 0xFFFFFFFF.
 	 */
-	static uint GetRandom();
+	static unsigned GetRandom();
 
 	/**
 	 * @brief Generates a random number between inMin and inMax.
@@ -28,7 +28,7 @@ public:
 	 * @param inMax The maximum value.
 	 * @return A random number between inMin and inMax.
 	 */
-	static constexpr uint GetRandom(uint &inInit, uint inMin, uint inMax);
+	static constexpr unsigned GetRandom(unsigned &inInit, unsigned inMin, unsigned inMax);
 
 	/**
 	 * @brief Generates random data of size inDataSize into ioData.
@@ -36,7 +36,7 @@ public:
 	 * @param ioData A pointer to the data buffer to fill with random data.
 	 * @param inDataSize The size of the data buffer in bytes.
 	 */
-	static void GetRandom(void *ioData, uint inDataSize);
+	static void GetRandom(void *ioData, size_t inDataSize);
 
 	/**
 	 * @brief Normalizes an angle to the range [0, 2π).

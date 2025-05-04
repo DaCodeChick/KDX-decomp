@@ -1,16 +1,10 @@
 #pragma once
 
+#include <stdint.h>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif // _WIN32
-
-typedef unsigned char byte;
-typedef long long longlong;
-typedef unsigned char uchar;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-typedef unsigned long long ulonglong;
-typedef unsigned short ushort;
 
 #if defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__)
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
@@ -26,7 +20,7 @@ typedef unsigned short ushort;
  * @param x 16-bit value to swap
  * @return swapped 16-bit value
  */
-constexpr ushort bswap16(ushort x) noexcept
+constexpr uint16_t bswap16(uint16_t x) noexcept
 {
 	return ((x & 0xFF00) >> 8) | ((x & 0x00FF) << 8);
 }
@@ -37,7 +31,7 @@ constexpr ushort bswap16(ushort x) noexcept
  * @param x 32-bit value to swap
  * @return swapped 32-bit value
  */
-constexpr uint bswap32(uint x) noexcept
+constexpr uint32_t bswap32(uint32_t x) noexcept
 {
 	return ((x & 0xFF000000) >> 24) | ((x & 0x00FF0000) >> 8) | ((x & 0x0000FF00) << 8) |
 	       ((x & 0x000000FF) << 24);
@@ -49,7 +43,7 @@ constexpr uint bswap32(uint x) noexcept
  * @param x 64-bit value to swap
  * @return swapped 64-bit value
  */
-constexpr ulonglong bswap64(ulonglong x) noexcept
+constexpr uint64_t bswap64(uint64_t x) noexcept
 {
 	return ((x & 0xFF00000000000000ULL) >> 56) | ((x & 0x00FF000000000000ULL) >> 40) |
 	       ((x & 0x0000FF0000000000ULL) >> 24) | ((x & 0x000000FF00000000ULL) >> 8) |
@@ -64,7 +58,7 @@ constexpr ulonglong bswap64(ulonglong x) noexcept
  * @param x 16-bit value to convert
  * @return converted 16-bit value
  */
-constexpr ushort htons(ushort x) noexcept
+constexpr uint16_t htons(uint16_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap16(x);
@@ -79,7 +73,7 @@ constexpr ushort htons(ushort x) noexcept
  * @param x 32-bit value to convert
  * @return converted 32-bit value
  */
-constexpr uint htonl(uint x) noexcept
+constexpr uint32_t htonl(uint32_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap32(x);
@@ -94,7 +88,7 @@ constexpr uint htonl(uint x) noexcept
  * @param x 64-bit value to convert
  * @return converted 64-bit value
  */
-constexpr ulonglong htonll(ulonglong x) noexcept
+constexpr uint64_t htonll(uint64_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap64(x);
@@ -109,7 +103,7 @@ constexpr ulonglong htonll(ulonglong x) noexcept
  * @param x 16-bit value to convert
  * @return converted 16-bit value
  */
-constexpr ushort ntohs(ushort x) noexcept
+constexpr uint16_t ntohs(uint16_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap16(x);
@@ -124,7 +118,7 @@ constexpr ushort ntohs(ushort x) noexcept
  * @param x 32-bit value to convert
  * @return converted 32-bit value
  */
-constexpr uint ntohl(uint x) noexcept
+constexpr uint32_t ntohl(uint32_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap32(x);
@@ -139,7 +133,7 @@ constexpr uint ntohl(uint x) noexcept
  * @param x 64-bit value to convert
  * @return converted 64-bit value
  */
-constexpr ulonglong ntohll(ulonglong x) noexcept
+constexpr uint64_t ntohll(uint64_t x) noexcept
 {
 #ifdef IS_LITTLE_ENDIAN
 	return bswap64(x);
@@ -155,7 +149,7 @@ constexpr ulonglong ntohll(ulonglong x) noexcept
  * @param n number of bits to rotate
  * @return rotated value
  */
-template <class T> constexpr T rotl(T x, uint n)
+template <class T> constexpr T rotl(T x, unsigned n)
 {
 	return (x << n) | (x >> ((sizeof(T) << 3) - n));
 }
@@ -167,7 +161,7 @@ template <class T> constexpr T rotl(T x, uint n)
  * @param n number of bits to rotate
  * @return rotated value
  */
-template <class T> constexpr T rotr(T x, uint n)
+template <class T> constexpr T rotr(T x, unsigned n)
 {
 	return (x >> n) | (x << ((sizeof(T) << 3) - n));
 }

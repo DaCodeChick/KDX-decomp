@@ -10,7 +10,7 @@ struct SRegularTransport;
  * @param inTpt Pointer to the transport structure associated with the connection.
  * @param inType The type of connection (e.g., TCP, UDP).
  */
-typedef void (*TConnectionHandlerProc)(uint inListenPort, SRegularTransport *inTpt, int inType);
+typedef void (*TConnectionHandlerProc)(uint16_t inListenPort, SRegularTransport *inTpt, int inType);
 
 /// @brief This structure is used to manage the transport layer of a network connection.
 class URegularTransport
@@ -28,7 +28,7 @@ public:
 	 * @param inMode The mode of operation (e.g., server, client).
 	 * @return Pointer to the newly created transport layer instance.
 	 */
-	static SRegularTransport *New(TConnectionHandlerProc inProc, void *inContext, uint inProtocol,
+	static SRegularTransport *New(TConnectionHandlerProc inProc, void *inContext, int inProtocol,
 	                              int inMode);
 
 	/**
@@ -38,7 +38,7 @@ public:
 	 * @param inData Pointer to the data to be sent.
 	 * @param inDataSize Size of the data to be sent.
 	 */
-	static void Send(SRegularTransport *inTpt, const void *inData, uint inDataSize);
+	static void Send(SRegularTransport *inTpt, const void *inData, size_t inDataSize);
 
 	/**
 	 * @brief Receives data from the transport layer.
@@ -48,7 +48,7 @@ public:
 	 * @param outHasMoreData Pointer to store whether there is more data to be received.
 	 * @return Pointer to the received data.
 	 */
-	static void *Receive(SRegularTransport *inTpt, uint *outMaxSize, bool *outHasMoreData);
+	static void *Receive(SRegularTransport *inTpt, size_t *outMaxSize, bool *outHasMoreData);
 
 	/**
 	 * @brief Launches a URL in the default web browser.
@@ -56,5 +56,5 @@ public:
 	 * @param inText Pointer to the URL string.
 	 * @param inTextSize Size of the URL string.
 	 */
-	static void LaunchURL(const void *inText, uint inTextSize);
+	static void LaunchURL(const void *inText, size_t inTextSize);
 };
