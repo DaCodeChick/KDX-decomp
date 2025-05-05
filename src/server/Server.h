@@ -1,8 +1,13 @@
 #pragma once
 
 #include "../common/CPtrList.h"
+#include "../common/UCryptTransact.h"
 #include "../common/UFileSys.h"
 #include "../common/URegularTransport.h"
+
+struct SMyAccount
+{
+};
 
 struct BanRecord
 {
@@ -53,3 +58,8 @@ private:
 	uint32_t mClientPort, mAltPort, mAdminPort;
 	uint32_t mSeeds[3];
 };
+
+inline void AccountsDBCrypt(void *ioData, size_t inDataSize)
+{
+	UCryptTransact::DataCrypt(ioData, inDataSize, 0x9AD22861, 0x41C64E6D, 12345);
+}
