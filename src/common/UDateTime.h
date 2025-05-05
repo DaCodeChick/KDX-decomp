@@ -42,14 +42,6 @@ public:
 	static int64_t GetMilliseconds();
 
 	/**
-	 * @brief Get elapsed time since a given epoch in microseconds
-	 *
-	 * @param inEpoch Epoch time in microseconds
-	 * @return Elapsed time in microseconds since the given epoch
-	 */
-	static int64_t GetElapsedTime(int64_t inEpoch);
-
-	/**
 	 * @brief Get current time in seconds since epoch
 	 *
 	 * @return Current time in seconds since epoch
@@ -67,4 +59,18 @@ public:
 	 */
 	static int DateToText(SCalendarDate &inInfo, void *outText, size_t inMaxSize,
 	                      unsigned inOptions);
+
+	/**
+	 * @brief Get elapsed time since a given epoch in microseconds
+	 *
+	 * @param inEpoch Epoch time in microseconds
+	 * @return Elapsed time in microseconds since the given epoch
+	 */
+	static constexpr int64_t GetElapsedTime(int64_t inEpoch)
+	{
+#ifdef _WIN32
+		return (inEpoch / 10000) - 11644473600000LL;
+#else
+#endif // _WIN32
+	}
 };

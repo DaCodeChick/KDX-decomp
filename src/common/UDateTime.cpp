@@ -24,14 +24,6 @@ int UDateTime::GetTimeZoneOffset()
 #endif // _WIN32
 }
 
-int64_t UDateTime::GetElapsedTime(int64_t inEpoch)
-{
-#ifdef _WIN32
-	return (inEpoch / 10000) - 11644473600000LL;
-#else
-#endif // _WIN32
-}
-
 int64_t UDateTime::GetMicroseconds()
 {
 #ifdef _WIN32

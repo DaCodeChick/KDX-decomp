@@ -13,7 +13,7 @@ struct SPoint
 	 * @brief Converts the SPoint to a POINT structure.
 	 * @return A pointer to the POINT structure.
 	 */
-	operator LPPOINT() const
+	constexpr operator LPPOINT() const
 	{
 		return (LPPOINT)this;
 	}
@@ -22,7 +22,7 @@ struct SPoint
 	 * @brief Converts the SPoint to a POINT structure.
 	 * @return A POINT structure.
 	 */
-	operator POINT() const
+	constexpr operator POINT() const
 	{
 		return *(LPPOINT)this;
 	}
@@ -31,7 +31,7 @@ struct SPoint
 	 * @brief Converts the SPoint to a POINTL structure.
 	 * @return A pointer to the POINTL structure.
 	 */
-	operator POINTL() const
+	constexpr operator POINTL() const
 	{
 		return *(POINTL *)this;
 	}
@@ -51,7 +51,7 @@ struct SRect
 	 * @param inRect The rectangle to check for intersection with.
 	 * @return True if the rectangles intersect, false otherwise.
 	 */
-	bool Intersects(SRect &inRect) const;
+	constexpr bool Intersects(SRect &inRect) const;
 
 	/**
 	 * @brief Get the intersection of two rectangles
@@ -95,7 +95,7 @@ struct SRect
 	 * @brief Converts the SRect to a RECT structure.
 	 * @return A pointer to the RECT structure.
 	 */
-	operator LPRECT() const
+	constexpr operator LPRECT() const
 	{
 		return (LPRECT)this;
 	}
@@ -104,7 +104,7 @@ struct SRect
 	 * @brief Converts the SRect to a RECT structure.
 	 * @return A RECT structure.
 	 */
-	operator RECT() const
+	constexpr operator RECT() const
 	{
 		return *(LPRECT)this;
 	}
