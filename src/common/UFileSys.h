@@ -45,7 +45,8 @@ public:
 	 * @param inDataSize Size of the data to be written.
 	 * @param inOptions Options for writing the data.
 	 */
-	static void Write(SFileSysRef *inRef, const void *inData, size_t inDataSize, unsigned inOptions);
+	static void Write(SFileSysRef *inRef, const void *inData, size_t inDataSize,
+	                  unsigned inOptions);
 
 	/**
 	 * @brief Get the size of the file in bytes.

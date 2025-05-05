@@ -16,7 +16,7 @@
 
 /**
  * @brief swap bytes in 16-bit value
- * 
+ *
  * @param x 16-bit value to swap
  * @return swapped 16-bit value
  */
@@ -27,7 +27,7 @@ constexpr uint16_t bswap16(uint16_t x) noexcept
 
 /**
  * @brief swap bytes in 32-bit value
- * 
+ *
  * @param x 32-bit value to swap
  * @return swapped 32-bit value
  */
@@ -39,7 +39,7 @@ constexpr uint32_t bswap32(uint32_t x) noexcept
 
 /**
  * @brief swap bytes in 64-bit value
- * 
+ *
  * @param x 64-bit value to swap
  * @return swapped 64-bit value
  */
@@ -51,10 +51,9 @@ constexpr uint64_t bswap64(uint64_t x) noexcept
 	       ((x & 0x000000000000FF00ULL) << 40) | ((x & 0x00000000000000FFULL) << 56);
 }
 
-
 /**
  * @brief Host to Network Short
- * 
+ *
  * @param x 16-bit value to convert
  * @return converted 16-bit value
  */
@@ -69,7 +68,7 @@ constexpr uint16_t htons(uint16_t x) noexcept
 
 /**
  * @brief Host to Network Long
- * 
+ *
  * @param x 32-bit value to convert
  * @return converted 32-bit value
  */
@@ -84,7 +83,7 @@ constexpr uint32_t htonl(uint32_t x) noexcept
 
 /**
  * @brief Host to Network Long Long
- * 
+ *
  * @param x 64-bit value to convert
  * @return converted 64-bit value
  */
@@ -99,7 +98,7 @@ constexpr uint64_t htonll(uint64_t x) noexcept
 
 /**
  * @brief Network to Host Short
- * 
+ *
  * @param x 16-bit value to convert
  * @return converted 16-bit value
  */
@@ -114,7 +113,7 @@ constexpr uint16_t ntohs(uint16_t x) noexcept
 
 /**
  * @brief Network to Host Long
- * 
+ *
  * @param x 32-bit value to convert
  * @return converted 32-bit value
  */
@@ -129,7 +128,7 @@ constexpr uint32_t ntohl(uint32_t x) noexcept
 
 /**
  * @brief Network to Host Long Long
- * 
+ *
  * @param x 64-bit value to convert
  * @return converted 64-bit value
  */
@@ -144,7 +143,7 @@ constexpr uint64_t ntohll(uint64_t x) noexcept
 
 /**
  * @brief Rotate left
- * 
+ *
  * @param x value to rotate
  * @param n number of bits to rotate
  * @return rotated value
@@ -156,7 +155,7 @@ template <class T> constexpr T rotl(T x, unsigned n)
 
 /**
  * @brief Rotate right
- * 
+ *
  * @param x value to rotate
  * @param n number of bits to rotate
  * @return rotated value

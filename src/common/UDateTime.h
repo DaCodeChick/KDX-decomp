@@ -65,5 +65,6 @@ public:
 	 * @param inOptions Options for formatting the date and time (e.g., 0 for default format)
 	 * @return int
 	 */
-	static int DateToText(SCalendarDate &inInfo, void *outText, size_t inMaxSize, unsigned inOptions);
+	static int DateToText(SCalendarDate &inInfo, void *outText, size_t inMaxSize,
+	                      unsigned inOptions);
 };

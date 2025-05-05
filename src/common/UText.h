@@ -7,58 +7,59 @@ class UText
 public:
 	/**
 	 * @brief Format a string with a given format and arguments.
-	 * 
+	 *
 	 * @param outText
 	 * @param inMaxSize
-	 * @param inFormat 
-	 * @param ... 
+	 * @param inFormat
+	 * @param ...
 	 */
 	static void Format(void *outText, size_t inMaxSize, const char *inFormat, ...);
 
 	/**
 	 * @brief Format an integer to a string.
-	 * 
+	 *
 	 * @param inInteger
-	 * @param outText 
-	 * @param inMaxSize 
-	 * @param inOptions 
-	 * @return uint 
+	 * @param outText
+	 * @param inMaxSize
+	 * @param inOptions
+	 * @return uint
 	 */
-	static size_t  IntegerToText(unsigned inInteger, void *outText, size_t inMaxSize, unsigned inOptions);
+	static size_t IntegerToText(unsigned inInteger, void *outText, size_t inMaxSize,
+	                            unsigned inOptions);
 
 	/**
 	 * @brief Convert a string to an integer.
-	 * 
-	 * @param inText 
-	 * @param inTextSize 
-	 * @param inOptions 
-	 * @return uint 
+	 *
+	 * @param inText
+	 * @param inTextSize
+	 * @param inOptions
+	 * @return uint
 	 */
 	static unsigned TextToInteger(const void *inText, size_t inTextSize, unsigned inOptions);
 
 	/**
 	 * @brief Converts a character to lowercase.
-	 * 
+	 *
 	 * @param inChar
-	 * @return constexpr uint 
+	 * @return constexpr uint
 	 */
 	static constexpr unsigned ToLower(unsigned inChar);
 
 	/**
 	 * @brief Converts a string to lowercase.
-	 * 
+	 *
 	 * @param inText
-	 * @param inTextSize 
-	 * @param outText 
-	 * @param inMaxSize 
+	 * @param inTextSize
+	 * @param outText
+	 * @param inMaxSize
 	 */
 	static void ToLower(const void *inText, size_t inTextSize, void *outText, size_t inMaxSize);
 
 	/**
 	 * @brief Converts a character to uppercase.
-	 * 
-	 * @param inChar 
-	 * @return constexpr uint 
+	 *
+	 * @param inChar
+	 * @return constexpr uint
 	 */
 	static constexpr unsigned ToUpper(unsigned inChar);
 	static constexpr bool IsHex(unsigned inChar);

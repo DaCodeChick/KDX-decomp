@@ -134,7 +134,7 @@ public:
 	 * @return Pointer to the found data, or NULL if not found.
 	 */
 	static const void *Search(const void *inSearchData, size_t inSearchSize, const void *inData,
-	                    size_t inDataSize);
+	                          size_t inDataSize);
 
 	/**
 	 * @brief Search for a byte in memory.

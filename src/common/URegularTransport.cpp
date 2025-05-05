@@ -5,7 +5,7 @@
 
 #ifdef _WIN32
 #include <winsock.h>
-#else // _WIN32
+#else  // _WIN32
 #endif // _WIN32
 
 constexpr unsigned kRegularTransportTag = 0x42781ea5;
@@ -24,7 +24,7 @@ struct SRegularTransport
 #ifdef _WIN32
 	SOCKET sock;
 	HWND hwnd;
-#else // _WIN32
+#else  // _WIN32
 	int sock;
 #endif // _WIN32
 	int id;

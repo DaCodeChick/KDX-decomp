@@ -220,7 +220,7 @@ const uint8_t *UMemory::SearchByteBackwards(uint8_t inByte, const void *inData, 
 }
 
 const void *UMemory::Search(const void *inSearchData, size_t inSearchSize, const void *inData,
-                      size_t inDataSize)
+                            size_t inDataSize)
 {
 	if (!inSearchData || !inData || !inSearchSize || !inDataSize || inSearchSize > inDataSize)
 		return NULL;

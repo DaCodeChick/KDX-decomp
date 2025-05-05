@@ -21,7 +21,7 @@ public:
 
 	/**
 	 * @brief Creates a new transport layer instance.
-	 * 
+	 *
 	 * @param inProc Callback function to handle incoming connections.
 	 * @param inContext Context pointer to be passed to the callback function.
 	 * @param inProtocol The protocol to be used (e.g., TCP, UDP).
@@ -33,7 +33,7 @@ public:
 
 	/**
 	 * @brief Send data through the transport layer.
-	 * 
+	 *
 	 * @param inTpt Pointer to the transport layer instance.
 	 * @param inData Pointer to the data to be sent.
 	 * @param inDataSize Size of the data to be sent.
@@ -42,7 +42,7 @@ public:
 
 	/**
 	 * @brief Receives data from the transport layer.
-	 * 
+	 *
 	 * @param inTpt Pointer to the transport layer instance.
 	 * @param outMaxSize Pointer to store the maximum size of the received data.
 	 * @param outHasMoreData Pointer to store whether there is more data to be received.
@@ -52,7 +52,7 @@ public:
 
 	/**
 	 * @brief Launches a URL in the default web browser.
-	 * 
+	 *
 	 * @param inText Pointer to the URL string.
 	 * @param inTextSize Size of the URL string.
 	 */

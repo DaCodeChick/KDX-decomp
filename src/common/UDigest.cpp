@@ -22,28 +22,32 @@ static constexpr unsigned i(unsigned x, unsigned y, unsigned z)
 	return y ^ (x | ~z);
 }
 
-static constexpr void ff(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
+static constexpr void ff(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s,
+                         unsigned ac)
 {
 	a += f(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void gg(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
+static constexpr void gg(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s,
+                         unsigned ac)
 {
 	a += g(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void hh(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
+static constexpr void hh(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s,
+                         unsigned ac)
 {
 	a += h(b, c, d) + x + ac;
 	a = rotl(a, s);
 	a += b;
 }
 
-static constexpr void ii(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s, unsigned ac)
+static constexpr void ii(unsigned &a, unsigned b, unsigned c, unsigned d, unsigned x, unsigned s,
+                         unsigned ac)
 {
 	a += i(b, c, d) + x + ac;
 	a = rotl(a, s);
