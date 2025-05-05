@@ -154,7 +154,7 @@ void UCryptTransact::BlockCrypt1B20E200(void *ioData, bool isDecrypt)
 void UCryptTransact::DataCrypt(void *ioData, size_t inDataSize, unsigned inInit,
                                unsigned inMultiplier, unsigned inAddend)
 {
-	if (!ioData || inDataSize == 0 || inDataSize & 3)
+	if (!ioData || !inDataSize || inDataSize & 3)
 		return;
 
 	uint32_t *data = reinterpret_cast<uint32_t *>(ioData);
@@ -169,7 +169,7 @@ void UCryptTransact::DataCrypt(void *ioData, size_t inDataSize, unsigned inInit,
 
 void UCryptTransact::TCPPacketCrypt(unsigned inInit, void *ioData, size_t inDataSize)
 {
-	if (!ioData || inDataSize == 0 || inDataSize & 3)
+	if (!ioData || !inDataSize || inDataSize & 3)
 		return;
 
 	uint32_t *data = reinterpret_cast<uint32_t *>(ioData);
