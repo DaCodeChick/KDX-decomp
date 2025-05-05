@@ -45,10 +45,10 @@ void UCryptTransact::TwofishEncrypt(STwofish &ioCtx, const void *inData, void *o
 		a = rotl(a, 1) ^ (f4 + ioCtx.keys[4 + (1 << round) + 11]);
 	}
 
-	*reinterpret_cast<uint32_t *>(ciphertext) = c ^ ioCtx.keys[4];
-	*reinterpret_cast<uint32_t *>(ciphertext + 4) = d ^ ioCtx.keys[5];
-	*reinterpret_cast<uint32_t *>(ciphertext + 8) = a ^ ioCtx.keys[6];
-	*reinterpret_cast<uint32_t *>(ciphertext + 12) = b ^ ioCtx.keys[7];
+	*(uint32_t *)ciphertext = c ^ ioCtx.keys[4];
+	*(uint32_t *)(ciphertext + 4) = d ^ ioCtx.keys[5];
+	*(uint32_t *)(ciphertext + 8) = a ^ ioCtx.keys[6];
+	*(uint32_t *)(ciphertext + 12) = b ^ ioCtx.keys[7];
 }
 
 void UCryptTransact::TwofishEncryptSimple(STwofish &ioCtx, const void *inData, void *outData)
@@ -63,7 +63,6 @@ void UCryptTransact::TwofishEncryptSimple(STwofish &ioCtx, const void *inData, v
 
 	for (int round = 0; round < 16; ++round)
 	{
-		// Compute F function for b and a
 		uint32_t bMix = ioCtx.sbox[0][(b >> 24) & 0xFF] ^ ioCtx.sbox[1][(b >> 16) & 0xFF] ^
 		            ioCtx.sbox[2][(b >> 8) & 0xFF] ^ ioCtx.sbox[3][b & 0xFF];
 
@@ -82,8 +81,8 @@ void UCryptTransact::TwofishEncryptSimple(STwofish &ioCtx, const void *inData, v
 		a = rotl(newB, 1);
 	}
 
-	*reinterpret_cast<uint32_t *>(ciphertext) = c ^ ioCtx.keys[4];
-	*reinterpret_cast<uint32_t *>(ciphertext + 4) = d ^ ioCtx.keys[5];
-	*reinterpret_cast<uint32_t *>(ciphertext + 8) = a ^ ioCtx.keys[6];
-	*reinterpret_cast<uint32_t *>(ciphertext + 12) = b ^ ioCtx.keys[7];
+	*(uint32_t *)(ciphertext) = c ^ ioCtx.keys[4];
+	*(uint32_t *)(ciphertext + 4) = d ^ ioCtx.keys[5];
+	*(uint32_t *)(ciphertext + 8) = a ^ ioCtx.keys[6];
+	*(uint32_t *)(ciphertext + 12) = b ^ ioCtx.keys[7];
 }
