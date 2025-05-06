@@ -6,8 +6,6 @@
 #include <cstdlib>
 #endif // _WIN32
 
-static unsigned _gAllocationCount = 0;
-
 TPtr UMemory::New(size_t inSize)
 {
 	if (!inSize)
@@ -19,7 +17,7 @@ TPtr UMemory::New(size_t inSize)
 #endif // _WIN32
 	if (!p)
 		__Fail(memError_NotEnough);
-	_gAllocationCount++;
+	sAllocationCount++;
 	return p;
 }
 
@@ -35,7 +33,7 @@ TPtr UMemory::New(const void *inData, size_t inSize)
 	if (!p)
 		__Fail(memError_NotEnough);
 	Move(p, inData, inSize);
-	_gAllocationCount++;
+	sAllocationCount++;
 	return p;
 }
 
@@ -51,7 +49,7 @@ TPtr UMemory::NewClear(size_t inSize)
 	if (!p)
 		__Fail(memError_NotEnough);
 	Clear(p, inSize);
-	_gAllocationCount++;
+	sAllocationCount++;
 	return p;
 }
 
@@ -64,7 +62,7 @@ void UMemory::Dispose(TPtr inPtr)
 #else
 	std::free(inPtr);
 #endif // _WIN32
-	_gAllocationCount--;
+	sAllocationCount--;
 }
 
 TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
@@ -85,12 +83,6 @@ TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
 				__Fail(memError_NotEnough);
 		}
 	return inPtr;
-}
-
-uint64_t UMemory::GetAllocationCount(unsigned &outCount)
-{
-	outCount = _gAllocationCount;
-	return 0;
 }
 
 void UMemory::Fill(void *ioDest, size_t inSize, uint16_t inWord)

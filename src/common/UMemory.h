@@ -54,14 +54,6 @@ public:
 	static TPtr Reallocate(TPtr inPtr, size_t inSize);
 
 	/**
-	 * @brief Returns the number of allocations.
-	 *
-	 * @param outCount Reference to store the allocation count.
-	 * @return 0
-	 */
-	static uint64_t GetAllocationCount(unsigned &outCount);
-
-	/**
 	 * @brief Fill memory with a word value.
 	 *
 	 * @param ioDest Pointer to the memory to fill.
@@ -89,6 +81,18 @@ public:
 	{
 		if (ioDest && inSize)
 			std::memset(ioDest, 0, inSize);
+	}
+
+	/**
+	 * @brief Returns the number of allocations.
+	 *
+	 * @param outCount Reference to store the allocation count.
+	 * @return 0
+	 */
+	static uint64_t GetAllocationCount(unsigned &outCount)
+	{
+		outCount = sAllocationCount;
+		return 0;
 	}
 
 	/**
@@ -290,6 +294,8 @@ public:
 
 		return inInit;
 	}
+private:
+	static unsigned sAllocationCount;
 };
 
 enum

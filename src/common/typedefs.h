@@ -4,6 +4,7 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <winsock.h>
 #undef min
 #undef max
 #endif // _WIN32
@@ -53,6 +54,7 @@ constexpr uint64_t bswap64(uint64_t x) noexcept
 	       ((x & 0x000000000000FF00ULL) << 40) | ((x & 0x00000000000000FFULL) << 56);
 }
 
+#ifndef _WIN32
 /**
  * @brief Host to Network Short
  *
@@ -82,6 +84,7 @@ constexpr uint32_t htonl(uint32_t x) noexcept
 	return x;
 #endif // IS_LITTLE_ENDIAN
 }
+#endif // _WIN32
 
 /**
  * @brief Host to Network Long Long
@@ -98,6 +101,8 @@ constexpr uint64_t htonll(uint64_t x) noexcept
 #endif // IS_LITTLE_ENDIAN
 }
 
+
+#ifndef _WIN32
 /**
  * @brief Network to Host Short
  *
@@ -127,6 +132,7 @@ constexpr uint32_t ntohl(uint32_t x) noexcept
 	return x;
 #endif // IS_LITTLE_ENDIAN
 }
+#endif // _WIN32
 
 /**
  * @brief Network to Host Long Long
