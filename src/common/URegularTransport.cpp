@@ -49,11 +49,18 @@ struct SRegularTransport
 };
 
 #ifdef _WIN32
-LRESULT CALLBACK _TRSockProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK _TRSockProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	return DefWindowProcW(hwnd, msg, wParam, lParam);
 }
 #endif // _WIN32
+
+static void _Deinit()
+{
+#ifdef _WIN32
+	WSACleanup();
+#endif // _WIN32
+}
 
 void URegularTransport::Init()
 {

@@ -296,6 +296,38 @@ public:
 		return inInit;
 	}
 
+	/**
+	 * @brief Adler-32 checksum calculation
+	 *
+	 * @param inData Pointer to the data to calculate the checksum for.
+	 * @param inDataSize Size of the data.
+	 * @param inInit Initial value for the checksum calculation.
+	 * @return Adler-32 checksum
+	 */
+	[[nodiscard]] static constexpr uint32_t AdlerSum(const void *inData, size_t inDataSize,
+	                                                 uint32_t inInit)
+	{
+		uint32_t a = inInit & 0xFFFF;
+		uint32_t b = (inInit >> 16) & 0xFFFF;
+		const uint8_t *data = reinterpret_cast<const uint8_t *>(inData);
+
+		while (inDataSize > 0)
+		{
+			size_t chunkSize = (inDataSize > 5552) ? 5552 : inDataSize;
+			inDataSize -= chunkSize;
+
+			for (size_t i = 0; i < chunkSize; ++i)
+			{
+				a = (a + data[i]) % 65521;
+				b = (b + a) % 65521;
+			}
+
+			data += chunkSize;
+		}
+
+		return (b << 16) | a;
+	}
+
 private:
 	static unsigned sAllocationCount;
 };
