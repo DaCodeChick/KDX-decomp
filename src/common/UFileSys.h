@@ -55,7 +55,7 @@ public:
 	 * @param inOptions Options for getting the size.
 	 * @return Size of the file in bytes.
 	 */
-	static size_t GetFileSize(SFileSysRef *inRef, unsigned inOptions);
+	[[nodiscard]] static size_t GetFileSize(SFileSysRef *inRef, unsigned inOptions);
 
 	/**
 	 * @brief Validate the file path.
@@ -64,5 +64,5 @@ public:
 	 * @param inPathSize Size of the file path.
 	 * @return True if the file path is valid, false otherwise.
 	 */
-	static bool ValidateFilePath(const void *inPath, size_t inPathSize);
+	[[nodiscard]] static bool ValidateFilePath(const void *inPath, size_t inPathSize);
 };

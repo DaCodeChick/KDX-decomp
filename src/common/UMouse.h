@@ -11,14 +11,17 @@ public:
 	 *
 	 * @return The time interval in milliseconds.
 	 */
-	static unsigned GetDoubleClickTime();
+	[[nodiscard]] static unsigned GetDoubleClickTime();
 
 	/**
 	 * @brief Returns the current image ID.
 	 *
 	 * @return The current image ID.
 	 */
-	static constexpr unsigned GetImage();
+	[[nodiscard]] static constexpr unsigned GetImage()
+	{
+		return sCurCursorID;
+	}
 
 	/**
 	 * @brief Sets the mouse image to the specified ID.
@@ -33,4 +36,7 @@ public:
 	 * @param outLoc A reference to an SPoint structure to store the mouse location.
 	 */
 	static void GetLocation(SPoint &outLoc);
+
+private:
+	static unsigned sCurCursorID;
 };

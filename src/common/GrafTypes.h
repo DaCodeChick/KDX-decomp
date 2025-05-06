@@ -62,7 +62,7 @@ struct SRect
 	 * @param inRect The rectangle to check for intersection with.
 	 * @return True if the rectangles intersect, false otherwise.
 	 */
-	constexpr bool Intersects(const SRect &inRect) const
+	[[nodiscard]] constexpr bool Intersects(const SRect &inRect) const
 	{
 		return !(inRect.left >= right || inRect.right <= left || inRect.top >= bottom ||
 		         inRect.bottom <= top);

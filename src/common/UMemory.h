@@ -19,7 +19,7 @@ public:
 	 * @param inSize Size of memory to allocate.
 	 * @return Pointer to allocated memory.
 	 */
-	static TPtr New(size_t inSize);
+	[[nodiscard]] static TPtr New(size_t inSize);
 
 	/**
 	 * @brief Allocates memory of the specified size and initializes it with the given data.
@@ -27,7 +27,7 @@ public:
 	 * @param inSize Size of memory to allocate.
 	 * @return Pointer to allocated memory.
 	 */
-	static TPtr New(const void *inData, size_t inSize);
+	[[nodiscard]] static TPtr New(const void *inData, size_t inSize);
 
 	/**
 	 * @brief Allocates memory and clears it.
@@ -35,7 +35,7 @@ public:
 	 * @param inSize Size of memory to allocate.
 	 * @return Pointer to allocated memory.
 	 */
-	static TPtr NewClear(size_t inSize);
+	[[nodiscard]] static TPtr NewClear(size_t inSize);
 
 	/**
 	 * @brief Dispose of memory allocated with New.
@@ -51,7 +51,7 @@ public:
 	 * @param inSize New size of the memory.
 	 * @return Pointer to the reallocated memory.
 	 */
-	static TPtr Reallocate(TPtr inPtr, size_t inSize);
+	[[nodiscard]] static TPtr Reallocate(TPtr inPtr, size_t inSize);
 
 	/**
 	 * @brief Fill memory with a word value.
@@ -133,8 +133,8 @@ public:
 	 * @param inDataSize Size of the data to search in.
 	 * @return Pointer to the found data, or NULL if not found.
 	 */
-	static constexpr const void *Search(const void *inSearchData, size_t inSearchSize,
-	                                    const void *inData, size_t inDataSize)
+	[[nodiscard]] static constexpr const void *Search(const void *inSearchData, size_t inSearchSize,
+	                                                  const void *inData, size_t inDataSize)
 	{
 		if (!inSearchData || !inData || !inSearchSize || !inDataSize || inSearchSize > inDataSize)
 			return NULL;
@@ -181,7 +181,8 @@ public:
 	 * @param inSize Size of the data to search in.
 	 * @return Pointer to the found byte, or NULL if not found.
 	 */
-	static constexpr const uint8_t *SearchByte(uint8_t inByte, const void *inData, size_t inSize)
+	[[nodiscard]] static constexpr const uint8_t *SearchByte(uint8_t inByte, const void *inData,
+	                                                         size_t inSize)
 	{
 		if (!inData || !inSize)
 			return NULL;
@@ -203,8 +204,8 @@ public:
 	 * @param inDataSize Size of the data to search in.
 	 * @return Pointer to the found byte, or NULL if not found.
 	 */
-	static constexpr const uint8_t *SearchByteBackwards(byte inByte, const void *inData,
-	                                                    size_t inDataSize)
+	[[nodiscard]] static constexpr const uint8_t *
+	SearchByteBackwards(byte inByte, const void *inData, size_t inDataSize)
 	{
 		if (!inData || !inDataSize)
 			return NULL;
@@ -226,7 +227,8 @@ public:
 	 * @param inInit Initial value for the checksum calculation.
 	 * @return Checksum value
 	 */
-	static constexpr uint32_t Checksum(const void *inData, size_t inDataSize, uint32_t inInit)
+	[[nodiscard]] static constexpr uint32_t Checksum(const void *inData, size_t inDataSize,
+	                                                 uint32_t inInit)
 	{
 		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
 
@@ -244,7 +246,8 @@ public:
 	 * @param inInit Initial value for the checksum calculation.
 	 * @return CRC32 checksum
 	 */
-	static constexpr uint32_t CRC(const void *inData, size_t inDataSize, uint32_t inInit)
+	[[nodiscard]] static constexpr uint32_t CRC(const void *inData, size_t inDataSize,
+	                                            uint32_t inInit)
 	{
 		static constexpr uint32_t ccitt32_crctab[256] = {
 		    0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9, 0x130476DC, 0x17C56B6B, 0x1A864DB2,

@@ -22,7 +22,7 @@ public:
 	 * @param inContext
 	 * @return STimer*
 	 */
-	static STimer *New(TTimerProc inProc, void *inContext);
+	[[nodiscard]] static STimer *New(TTimerProc inProc, void *inContext);
 
 	/**
 	 * @brief Dispose of a timer object
@@ -49,8 +49,8 @@ public:
 	 * @param inIsRepeating
 	 * @return STimer*
 	 */
-	static STimer *StartNew(TTimerProc inProc, void *inContext, unsigned inMillisecs,
-	                        int inIsRepeating);
+	[[nodiscard]] static STimer *StartNew(TTimerProc inProc, void *inContext, unsigned inMillisecs,
+	                                      int inIsRepeating);
 	/**
 	 * @brief Stop a timer
 	 *

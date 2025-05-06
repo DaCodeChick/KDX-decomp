@@ -28,8 +28,8 @@ public:
 	 * @param inMode The mode of operation (e.g., server, client).
 	 * @return Pointer to the newly created transport layer instance.
 	 */
-	static SRegularTransport *New(TConnectionHandlerProc inProc, void *inContext, int inProtocol,
-	                              int inMode);
+	[[nodiscard]] static SRegularTransport *New(TConnectionHandlerProc inProc, void *inContext,
+	                                            int inProtocol, int inMode);
 
 	/**
 	 * @brief Send data through the transport layer.

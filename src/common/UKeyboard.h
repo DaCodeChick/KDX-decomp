@@ -12,5 +12,5 @@ public:
 	 * @param inMode The mode to use for conversion (e.g., uppercase, lowercase, etc.).
 	 * @return The character representation of the key code in the specified mode.
 	 */
-	static unsigned KeyToChar(unsigned inKeyCode, unsigned inMode);
+	[[nodiscard]] static unsigned KeyToChar(unsigned inKeyCode, unsigned inMode);
 };

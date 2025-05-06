@@ -35,7 +35,8 @@ public:
 	 * @param inOptions
 	 * @return uint
 	 */
-	static unsigned TextToInteger(const void *inText, size_t inTextSize, unsigned inOptions);
+	[[nodiscard]] static unsigned TextToInteger(const void *inText, size_t inTextSize,
+	                                            unsigned inOptions);
 
 	/**
 	 * @brief Converts a character to lowercase.
@@ -43,7 +44,7 @@ public:
 	 * @param inChar
 	 * @return constexpr uint
 	 */
-	static constexpr unsigned ToLower(unsigned inChar);
+	[[nodiscard]] static constexpr unsigned ToLower(unsigned inChar);
 
 	/**
 	 * @brief Converts a string to lowercase.
@@ -61,6 +62,7 @@ public:
 	 * @param inChar
 	 * @return constexpr uint
 	 */
-	static constexpr unsigned ToUpper(unsigned inChar);
-	static constexpr bool IsHex(unsigned inChar);
+	[[nodiscard]] static constexpr unsigned ToUpper(unsigned inChar);
+
+	[[nodiscard]] static constexpr bool IsHex(unsigned inChar);
 };

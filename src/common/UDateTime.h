@@ -25,28 +25,28 @@ public:
 	 *
 	 * @return Time zone offset in seconds
 	 */
-	static int GetTimeZoneOffset();
+	[[nodiscard]] static int GetTimeZoneOffset();
 
 	/**
 	 * @brief Get current time in microseconds since epoch
 	 *
 	 * @return Current time in microseconds since epoch
 	 */
-	static int64_t GetMicroseconds();
+	[[nodiscard]] static int64_t GetMicroseconds();
 
 	/**
 	 * @brief Get current time in milliseconds since epoch
 	 *
 	 * @return Current time in milliseconds since epoch
 	 */
-	static int64_t GetMilliseconds();
+	[[nodiscard]] static int64_t GetMilliseconds();
 
 	/**
 	 * @brief Get current time in seconds since epoch
 	 *
 	 * @return Current time in seconds since epoch
 	 */
-	static int64_t GetSeconds();
+	[[nodiscard]] static int64_t GetSeconds();
 
 	/**
 	 * @brief Get the current date and time in a human-readable format
@@ -66,7 +66,7 @@ public:
 	 * @param inEpoch Epoch time in microseconds
 	 * @return Elapsed time in microseconds since the given epoch
 	 */
-	static constexpr int64_t GetElapsedTime(int64_t inEpoch)
+	[[nodiscard]] static constexpr int64_t GetElapsedTime(int64_t inEpoch)
 	{
 #ifdef _WIN32
 		return (inEpoch / 10000) - 11644473600000LL;
