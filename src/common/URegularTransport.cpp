@@ -57,7 +57,8 @@ LRESULT CALLBACK _TRSockProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void URegularTransport::Init()
 {
-	if (_gIsInitialized) return;
+	if (_gIsInitialized)
+		return;
 
 	UMessageSys::Init();
 #ifdef _WIN32
@@ -79,9 +80,10 @@ void URegularTransport::Init()
 	_TRSockClassAtom = RegisterClassExA(&wc);
 	if (!_TRSockClassAtom)
 		;
-	
+
 	int err = WSAStartup(MAKEWORD(2, 2), NULL);
-	if (err) _FailWinError(err);
+	if (err)
+		_FailWinError(err);
 #endif // _WIN32
 	_gIsInitialized = true;
 }

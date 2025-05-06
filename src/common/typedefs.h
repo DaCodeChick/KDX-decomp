@@ -101,7 +101,6 @@ constexpr uint64_t htonll(uint64_t x) noexcept
 #endif // IS_LITTLE_ENDIAN
 }
 
-
 #ifndef _WIN32
 /**
  * @brief Network to Host Short

@@ -41,15 +41,17 @@ struct SPoint
 /// @brief A structure representing a rectangle in 2D space.
 struct SRect
 {
-	static constexpr unsigned kAlignLeft = 0x0001;   ///< Align to the left edge.
-	static constexpr unsigned kAlignTop = 0x0002;    ///< Align to the top edge.
-	static constexpr unsigned kAlignRight = 0x0004;  ///< Align to the right edge.
-	static constexpr unsigned kAlignBottom = 0x0008; ///< Align to the bottom edge.
-	static constexpr unsigned kAlignCenterHoriz = 0x0010;   ///< Align to the center horizontally.
-	static constexpr unsigned kAlignCenterVert = 0x0020;    ///< Align to the center vertically.
-	static constexpr unsigned kAlignClipHoriz = 0x0040;    ///< Align to the left edge and clip horizontally.
-	static constexpr unsigned kAlignClipVert = 0x0080;     ///< Align to the top edge and clip vertically.
-	
+	static constexpr unsigned kAlignLeft = 0x0001;        ///< Align to the left edge.
+	static constexpr unsigned kAlignTop = 0x0002;         ///< Align to the top edge.
+	static constexpr unsigned kAlignRight = 0x0004;       ///< Align to the right edge.
+	static constexpr unsigned kAlignBottom = 0x0008;      ///< Align to the bottom edge.
+	static constexpr unsigned kAlignCenterHoriz = 0x0010; ///< Align to the center horizontally.
+	static constexpr unsigned kAlignCenterVert = 0x0020;  ///< Align to the center vertically.
+	static constexpr unsigned kAlignClipHoriz =
+	    0x0040; ///< Align to the left edge and clip horizontally.
+	static constexpr unsigned kAlignClipVert =
+	    0x0080; ///< Align to the top edge and clip vertically.
+
 	int left;   ///< The left edge of the rectangle.
 	int top;    ///< The top edge of the rectangle.
 	int right;  ///< The right edge of the rectangle.
@@ -62,8 +64,8 @@ struct SRect
 	 */
 	constexpr bool Intersects(const SRect &inRect) const
 	{
-		return !(inRect.left >= right || inRect.right <= left || 
-		         inRect.top >= bottom || inRect.bottom <= top);
+		return !(inRect.left >= right || inRect.right <= left || inRect.top >= bottom ||
+		         inRect.bottom <= top);
 	}
 
 	/**

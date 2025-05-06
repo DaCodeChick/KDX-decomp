@@ -11,14 +11,14 @@ public:
 	 *
 	 * @return A random seed value.
 	 */
-	static unsigned CalcRandomSeed();
+	[[nodiscard]] static unsigned CalcRandomSeed();
 
 	/**
 	 * @brief Generates a random number between 0 and 0xFFFFFFFF.
 	 *
 	 * @return A random number between 0 and 0xFFFFFFFF.
 	 */
-	static unsigned GetRandom();
+	[[nodiscard]] static unsigned GetRandom();
 
 	/**
 	 * @brief Generates a random number between inMin and inMax.
@@ -28,7 +28,8 @@ public:
 	 * @param inMax The maximum value.
 	 * @return A random number between inMin and inMax.
 	 */
-	static constexpr unsigned GetRandom(unsigned &inInit, unsigned inMin, unsigned inMax);
+	[[nodiscard]] static constexpr unsigned GetRandom(unsigned &inInit, unsigned inMin,
+	                                                  unsigned inMax);
 
 	/**
 	 * @brief Generates random data of size inDataSize into ioData.
@@ -44,10 +45,10 @@ public:
 	 * @param x The angle in radians.
 	 * @return The normalized angle in radians.
 	 */
-	static constexpr double NormalizeAngle(double x);
+	[[nodiscard]] static constexpr double NormalizeAngle(double x);
 
-	static constexpr double Sine(double x);
-	static constexpr double Cosine(double x);
-	static constexpr double ArcTangent(double x);
-	static constexpr double SquareRoot(double x);
+	[[nodiscard]] static constexpr double Sine(double x);
+	[[nodiscard]] static constexpr double Cosine(double x);
+	[[nodiscard]] static constexpr double ArcTangent(double x);
+	[[nodiscard]] static constexpr double SquareRoot(double x);
 };
