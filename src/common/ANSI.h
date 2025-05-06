@@ -1,24 +1,16 @@
 #pragma once
 
-#include <stdbool.h>
+#include "typedefs.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
-
-	unsigned pstrcpy(unsigned char *dst, const unsigned char *src);
-	unsigned pstrncpy(unsigned char *dst, const unsigned char *src, unsigned len);
-	unsigned pstrcat(unsigned char *dst, const unsigned char *src);
-	unsigned pstrncat(unsigned char *dst, const unsigned char *src, unsigned len);
-	bool pstrcmp(const unsigned char *str1, const unsigned char *str2);
-	bool pstrncmp(const unsigned char *str1, const unsigned char *str2, unsigned len);
-	unsigned char *pstrchr(const unsigned char *str, unsigned char chr);
-	unsigned char *pstrrchr(const unsigned char *str, unsigned char chr);
-	void pstrrev(unsigned char *str);
-	unsigned char *pstrstr(const unsigned char *str1, unsigned len1, const unsigned char *str2,
-	                       unsigned len2);
-
-#ifdef __cplusplus
-}
-#endif // __cplusplus
+size_t pstrcpy(uint8_t *dst, const uint8_t *src);
+size_t pstrncpy(uint8_t *dst, const uint8_t *src, size_t len);
+size_t pstrcat(uint8_t *dst, const uint8_t *src);
+size_t pstrncat(uint8_t *dst, const uint8_t *src, size_t len);
+bool pstrcmp(const uint8_t *str1, const uint8_t *str2);
+bool pstrncmp(const uint8_t *str1, const uint8_t *str2, size_t len);
+uint8_t *pstrchr(const uint8_t *str, uint8_t chr);
+uint8_t *pstrrchr(const uint8_t *str, uint8_t chr);
+void pstrrev(uint8_t *str);
+uint8_t *pstrstr(const uint8_t *str, size_t str_len, const uint8_t *pat, size_t pat_len);
+uint8_t *pstrndup(const uint8_t *str, size_t len);
+uint8_t *pstrdup(const uint8_t *str);

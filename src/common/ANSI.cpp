@@ -1,0 +1,187 @@
+#include "ANSI.h"
+
+#include "UMemory.h"
+
+size_t pstrcpy(uint8_t *dst, const uint8_t *src)
+{
+	if (!dst || !src)
+		return 0;
+	dst[0] = src[0];
+	for (size_t i = 1; i <= dst[0]; i++)
+		dst[i] = src[i];
+	return dst[0];
+}
+
+size_t pstrncpy(uint8_t *dst, const uint8_t *src, size_t len)
+{
+	if (!dst || !src || !len)
+		return 0;
+	dst[0] = (src[0] < len) ? src[0] : len;
+	for (size_t i = 1; i <= dst[0]; i++)
+		dst[i] = src[i];
+	return dst[0];
+}
+
+size_t pstrcat(uint8_t *dst, const uint8_t *src)
+{
+	if (!dst || !src)
+		return 0;
+
+	size_t total_len = dst[0] + src[0];
+	size_t src_len = src[0];
+
+	if (total_len > 255)
+	{
+		total_len = 255;
+		src_len = 255 - dst[0];
+	}
+
+	dst[0] = (uint8_t)total_len;
+	for (size_t i = 1; i <= src_len; i++)
+		dst[dst[0] + i] = src[i];
+	return dst[0];
+}
+
+size_t pstrncat(uint8_t *dst, const uint8_t *src, size_t len)
+{
+	if (!dst || !src || !len)
+		return 0;
+
+	size_t copy_len = (src[0] < len) ? src[0] : len;
+	size_t total_len = dst[0] + copy_len;
+
+	if (total_len > 255)
+	{
+		total_len = 255;
+		copy_len = 255 - dst[0];
+	}
+
+	dst[0] = (uint8_t)total_len;
+	for (size_t i = 1; i <= copy_len; i++)
+		dst[dst[0] + i] = src[i];
+	return dst[0];
+}
+
+bool pstrcmp(const uint8_t *str1, const uint8_t *str2)
+{
+	if (!str1 || !str2)
+		return false;
+	if (str1[0] != str2[0])
+		return false;
+	for (size_t i = 1; i <= str1[0]; i++)
+		if (str1[i] != str2[i])
+			return false;
+	return true;
+}
+
+bool pstrncmp(const uint8_t *str1, const uint8_t *str2, size_t len)
+{
+	if (!str1 || !str2 || len == 0)
+		return false;
+
+	size_t min_len = (str1[0] < len) ? str1[0] : len;
+	min_len = (str2[0] < min_len) ? str2[0] : min_len;
+
+	for (size_t i = 1; i <= min_len; i++)
+		if (str1[i] != str2[i])
+			return false;
+	return true;
+}
+
+uint8_t *pstrchr(const uint8_t *str, uint8_t chr)
+{
+	if (!str)
+		return NULL;
+	for (size_t i = 1; i <= str[0]; i++)
+		if (str[i] == chr)
+			return (uint8_t *)&str[i];
+	return NULL;
+}
+
+uint8_t *pstrrchr(const uint8_t *str, uint8_t chr)
+{
+	if (!str)
+		return NULL;
+	for (size_t i = str[0]; i > 0; i--)
+		if (str[i] == chr)
+			return (uint8_t *)&str[i];
+	return NULL;
+}
+
+void pstrrev(uint8_t *str)
+{
+	if (!str || str[0] == 0)
+		return;
+
+	size_t len = str[0];
+	for (size_t i = 1, j = len; i < j; i++, j--)
+	{
+		uint8_t temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+	}
+}
+
+uint8_t *pstrstr(const uint8_t *str, size_t str_len, const uint8_t *pat, size_t pat_len)
+{
+	if (!str || !pat || !pat_len || str_len < pat_len)
+		return 0;
+	if (pat_len == 1)
+	{
+		for (size_t i = 0; i < str_len; i++)
+			if (str[i] == pat[0])
+				return &str[i];
+		return 0;
+	}
+
+	size_t skip_table[256];
+	for (size_t i = 0; i < 256; i++)
+		skip_table[i] = pat_len;
+	for (size_t i = 0; i < pat_len - 1; i++)
+		skip_table[pat[i]] = pat_len - 1 - i;
+
+	size_t i = 0;
+	while (i <= str_len - pat_len)
+	{
+		size_t j = pat_len - 1;
+		while (j < pat_len && str[i + j] == pat[j])
+			j--;
+		if (j == -1)
+			return (uint8_t *)&str[i];
+		i += skip_table[str[i + pat_len - 1]];
+	}
+
+	return 0;
+}
+
+uint8_t *pstrndup(const uint8_t *str, size_t len)
+{
+	if (!str || !len)
+		return NULL;
+	if (len > 255)
+		len = 255;
+
+	uint8_t *new_str = (uint8_t *)UMemory::New(len + 1);
+	if (!new_str)
+		return NULL;
+
+	new_str[0] = len;
+	for (size_t i = 1; i < (len + 1); i++)
+		new_str[i] = str[i];
+	return new_str;
+}
+
+uint8_t *pstrdup(const uint8_t *str)
+{
+	if (!str || str[0] == 0)
+		return NULL;
+	uint8_t *new_str = (uint8_t *)UMemory::New(str[0] + 1);
+	if (!new_str)
+		return NULL;
+
+	new_str[0] = str[0];
+	for (size_t i = 1; i <= (str[0] + 1); i++)
+		new_str[i] = str[i];
+
+	return new_str;
+}
