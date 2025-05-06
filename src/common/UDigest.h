@@ -14,7 +14,10 @@ class _MD5
 {
 public:
 	/// @brief Default constructor.
-	_MD5();
+	_MD5()
+	{
+		Init();
+	}
 
 	/**
 	 * @brief Update the MD5 hash with new data.

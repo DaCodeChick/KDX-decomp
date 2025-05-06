@@ -54,11 +54,6 @@ static constexpr void ii(unsigned &a, unsigned b, unsigned c, unsigned d, unsign
 	a += b;
 }
 
-_MD5::_MD5()
-{
-	Init();
-}
-
 void _MD5::Init()
 {
 	mState[0] = 0x67452301;
@@ -116,13 +111,13 @@ void _MD5::Update(const uint8_t *inData, size_t inDataSize)
 
 void _MD5::Transform(const uint8_t *inBlock)
 {
-	uint32_t a = mState[0];
-	uint32_t b = mState[1];
-	uint32_t c = mState[2];
-	uint32_t d = mState[3];
+	auto a = mState[0];
+	auto b = mState[1];
+	auto c = mState[2];
+	auto d = mState[3];
 	uint32_t x[16];
 
-	for (int i = 0; i < 16; i++)
+	for (auto i = 0; i < 16; i++)
 	{
 		x[i] = *reinterpret_cast<const uint32_t *>(inBlock + (i << 2));
 		x[i] = htonl(x[i]);
@@ -210,7 +205,8 @@ void _MD5::Report(void *outDigest)
 {
 	Update(NULL, 0);
 
-	size_t bitCount = ((size_t)mCount[1] << 29) + (mCount[0] << 3) + (mBufferLength << 3);
+	auto bitCount =
+	    (static_cast<size_t>(mCount[1]) << 29) + (mCount[0] << 3) + (mBufferLength << 3);
 
 	mBuffer[mBufferLength++] = 0x80;
 	if (mBufferLength > 56)
@@ -223,12 +219,12 @@ void _MD5::Report(void *outDigest)
 	while (mBufferLength < 56)
 		mBuffer[mBufferLength++] = 0;
 
-	for (int i = 0; i < 8; ++i)
-		mBuffer[56 + i] = (uint8_t)(bitCount >> (i << 3));
+	for (auto i = 0; i < 8; ++i)
+		mBuffer[56 + i] = static_cast<uint8_t>(bitCount >> (i << 3));
 
 	Transform(mBuffer);
 
-	for (int i = 0; i < 4; ++i)
+	for (auto i = 0; i < 4; ++i)
 		((uint32_t *)outDigest)[i] = htonl(mState[i]);
 
 	Clear(0x5c);
@@ -244,7 +240,7 @@ void UDigest::MD5_Encode(const void *inData, size_t inDataSize, void *outDigest)
 
 void UDigest::AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *outDigest)
 {
-	uint32_t *digest32 = reinterpret_cast<uint32_t *>(outDigest);
+	auto digest32 = reinterpret_cast<uint32_t *>(outDigest);
 	if (!inDataSize)
 	{
 		digest32[0] = 0xeea339da;

@@ -11,9 +11,9 @@ TPtr UMemory::New(size_t inSize)
 	if (!inSize)
 		__Fail(error_Param);
 #ifdef _WIN32
-	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
+	auto p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
-	TPtr p = std::malloc(inSize);
+	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
 		__Fail(memError_NotEnough);
@@ -26,9 +26,9 @@ TPtr UMemory::New(const void *inData, size_t inSize)
 	if (!inSize)
 		__Fail(error_Param);
 #ifdef _WIN32
-	TPtr p = GlobalAlloc(GMEM_FIXED, inSize);
+	auto p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
-	TPtr p = std::malloc(inSize);
+	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
 		__Fail(memError_NotEnough);
@@ -42,9 +42,9 @@ TPtr UMemory::NewClear(size_t inSize)
 	if (!inSize)
 		__Fail(error_Param);
 #ifdef _WIN32
-	TPtr p = GlobalAlloc(GMEM_ZEROINIT, inSize);
+	auto p = GlobalAlloc(GMEM_ZEROINIT, inSize);
 #else
-	TPtr p = std::malloc(inSize);
+	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
 		__Fail(memError_NotEnough);
@@ -89,7 +89,7 @@ void UMemory::Fill(void *ioDest, size_t inSize, uint16_t inWord)
 {
 	if (!ioDest || !inSize)
 		return;
-	for (size_t i = 0; i < inSize; i += sizeof(uint16_t))
+	for (auto i = 0; i < inSize; i += sizeof(uint16_t))
 		*(uint16_t *)((uint8_t *)ioDest + i) = inWord;
 }
 
@@ -97,6 +97,6 @@ void UMemory::Fill(void *ioDest, size_t inSize, uint32_t inLong)
 {
 	if (!ioDest || !inSize)
 		return;
-	for (size_t i = 0; i < inSize; i += sizeof(uint32_t))
+	for (auto i = 0; i < inSize; i += sizeof(uint32_t))
 		*(uint32_t *)((uint8_t *)ioDest + i) = inLong;
 }

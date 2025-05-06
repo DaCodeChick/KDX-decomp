@@ -88,7 +88,7 @@ void URegularTransport::Init()
 	if (!_TRSockClassAtom)
 		;
 
-	int err = WSAStartup(MAKEWORD(2, 2), NULL);
+	auto err = WSAStartup(MAKEWORD(2, 2), NULL);
 	if (err)
 		_FailWinError(err);
 #endif // _WIN32

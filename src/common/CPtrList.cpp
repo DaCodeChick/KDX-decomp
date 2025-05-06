@@ -5,7 +5,7 @@ void CVoidPtrList::AddFrontItem(void *inPtr)
 	if (!inPtr)
 		return;
 
-	void *prevHead = mHead;
+	auto prevHead = mHead;
 	*(void **)((size_t)inPtr + mOffset) = prevHead;
 	mHead = inPtr;
 

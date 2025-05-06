@@ -139,8 +139,8 @@ public:
 		if (!inSearchData || !inData || !inSearchSize || !inDataSize || inSearchSize > inDataSize)
 			return NULL;
 
-		const uint8_t *searchData = reinterpret_cast<const uint8_t *>(inSearchData);
-		const uint8_t *data = reinterpret_cast<const uint8_t *>(inData);
+		auto searchData = reinterpret_cast<const uint8_t *>(inSearchData);
+		auto data = reinterpret_cast<const uint8_t *>(inData);
 
 		// Special case for single-byte search
 		if (inSearchSize == 1)
@@ -148,16 +148,16 @@ public:
 
 		// Precompute the bad character shift table
 		int badCharShift[256];
-		for (int i = 0; i < 256; ++i)
+		for (auto i = 0; i < 256; ++i)
 			badCharShift[i] = inSearchSize;
 
-		for (size_t i = 0; i < inSearchSize - 1; ++i)
+		for (auto i = 0; i < inSearchSize - 1; ++i)
 			badCharShift[searchData[i]] = inSearchSize - 1 - i;
 
-		size_t offset = 0;
+		auto offset = 0;
 		while (offset <= inDataSize - inSearchSize)
 		{
-			int i = inSearchSize - 1;
+			auto i = inSearchSize - 1;
 
 			// Compare the pattern from the end
 			while (i >= 0 && searchData[i] == data[offset + i])
@@ -187,9 +187,9 @@ public:
 		if (!inData || !inSize)
 			return NULL;
 
-		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
+		auto dataPtr = reinterpret_cast<const uint8_t *>(inData);
 
-		for (size_t i = 0; i < inSize; ++i)
+		for (auto i = 0; i < inSize; ++i)
 			if (dataPtr[i] == inByte)
 				return &dataPtr[i];
 
@@ -210,9 +210,9 @@ public:
 		if (!inData || !inDataSize)
 			return NULL;
 
-		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
+		auto dataPtr = reinterpret_cast<const uint8_t *>(inData);
 
-		for (int i = inDataSize - 1; i >= 0; --i)
+		for (auto i = inDataSize - 1; i >= 0; --i)
 			if (dataPtr[i] == inByte)
 				return &dataPtr[i];
 
@@ -230,9 +230,9 @@ public:
 	[[nodiscard]] static constexpr uint32_t Checksum(const void *inData, size_t inDataSize,
 	                                                 uint32_t inInit)
 	{
-		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
+		auto dataPtr = reinterpret_cast<const uint8_t *>(inData);
 
-		for (size_t i = 0; i < inDataSize; i++)
+		for (auto i = 0; i < inDataSize; i++)
 			inInit = (inInit ^ dataPtr[i]) * 0x1000193;
 
 		return inInit;
@@ -288,9 +288,9 @@ public:
 		    0x9E7D9662, 0x933EB0BB, 0x97FFAD0C, 0xAFB010B1, 0xAB710D06, 0xA6322BDF, 0xA2F33668,
 		    0xBCB4666D, 0xB8757BDA, 0xB5365D03, 0xB1F740B4};
 
-		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
+		auto dataPtr = reinterpret_cast<const uint8_t *>(inData);
 
-		for (size_t i = 0; i < inDataSize; i++)
+		for (auto i = 0; i < inDataSize; i++)
 			inInit = (inInit << 8) ^ ccitt32_crctab[((inInit >> 24) ^ dataPtr[i]) & 0xFF];
 
 		return inInit;
@@ -307,16 +307,16 @@ public:
 	[[nodiscard]] static constexpr uint32_t AdlerSum(const void *inData, size_t inDataSize,
 	                                                 uint32_t inInit)
 	{
-		uint32_t a = inInit & 0xFFFF;
-		uint32_t b = (inInit >> 16) & 0xFFFF;
-		const uint8_t *data = reinterpret_cast<const uint8_t *>(inData);
+		auto a = inInit & 0xFFFF;
+		auto b = (inInit >> 16) & 0xFFFF;
+		auto data = reinterpret_cast<const uint8_t *>(inData);
 
 		while (inDataSize > 0)
 		{
-			size_t chunkSize = (inDataSize > 5552) ? 5552 : inDataSize;
+			auto chunkSize = (inDataSize > 5552) ? 5552 : inDataSize;
 			inDataSize -= chunkSize;
 
-			for (size_t i = 0; i < chunkSize; ++i)
+			for (auto i = 0; i < chunkSize; ++i)
 			{
 				a = (a + data[i]) % 65521;
 				b = (b + a) % 65521;

@@ -55,7 +55,7 @@ unsigned UKeyboard::KeyToChar(unsigned inKeyCode, unsigned inMods)
 		keyboardState[VK_NUMLOCK] = 0x80; // Num Lock
 
 	WCHAR unicodeChar[2] = {0};
-	int charCount = ToUnicode(virtualKey, 0, keyboardState, unicodeChar, 2, 0);
+	auto charCount = ToUnicode(virtualKey, 0, keyboardState, unicodeChar, 2, 0);
 
 	// Handle surrogate pairs for Unicode characters
 	if (charCount > 0)

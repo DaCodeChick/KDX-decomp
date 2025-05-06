@@ -2,15 +2,12 @@
 
 #include "UMath.h"
 
-#include "GrafTypes.h"
 #include "UDigest.h"
 #include "UMemory.h"
 
 #ifndef _WIN32
 #include <sys/time.h>
 #endif // _WIN32
-
-#include <cmath>
 
 static unsigned _gRandomSeed = 0;
 static unsigned _gState[64] = {0};
@@ -44,7 +41,7 @@ unsigned UMath::GetRandom()
 	return sum;
 }
 
-constexpr uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
+unsigned UMath::GetRandom(unsigned &inInit, unsigned inMin, unsigned inMax)
 {
 	if (inMax < inMin)
 		return 0;
@@ -53,28 +50,28 @@ constexpr uint UMath::GetRandom(uint &inInit, uint inMin, uint inMax)
 	return inMin + inInit % (inMax - inMin + 1);
 }
 
-void UMath::GetRandom(void *ioData, uint inDataSize)
+void UMath::GetRandom(void *ioData, size_t inDataSize)
 {
 	if (inDataSize == 0)
 		return;
 
-	uint localBuffer[4];
-	uint processedSize = 0;
+	unsigned localBuffer[4];
+	auto processedSize = 0;
 
 	while (inDataSize > 0)
 	{
 		UDigest::MD5_Encode((byte *)_gState, sizeof(_gState), localBuffer);
-		uint checksum = UMemory::Checksum(_gState, sizeof(_gState), ~_gState[1]);
-		uint xorValue = ~_gState[2];
+		auto checksum = UMemory::Checksum(_gState, sizeof(_gState), ~_gState[1]);
+		auto xorValue = ~_gState[2];
 
-		for (uint i = 0; i < 64; i += 8)
+		for (auto i = 0; i < 64; i += 8)
 			xorValue ^= _gState[i] ^ _gState[i + 1] ^ _gState[i + 2] ^ _gState[i + 3] ^
 			            _gState[i + 4] ^ _gState[i + 5] ^ _gState[i + 6] ^ _gState[i + 7];
 
-		uint chunkSize = (inDataSize < 32) ? inDataSize : 32;
+		auto chunkSize = (inDataSize < 32) ? inDataSize : 32;
 
 		UMemory::Move(ioData, localBuffer, chunkSize);
-		ioData = (void *)((byte *)ioData + chunkSize);
+		ioData = reinterpret_cast<void *>(reinterpret_cast<uint8_t *>(ioData) + chunkSize);
 		inDataSize -= chunkSize;
 
 		if (xorValue & 1)
@@ -82,7 +79,7 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
 		else
 			_gState[0] = (_gState[0] & 0xFFFF0000) | (_gState[63] & 0xFFFF);
 
-		uint randomSeed = CalcRandomSeed();
+		auto randomSeed = CalcRandomSeed();
 		switch (randomSeed & 3)
 		{
 			case 0:
@@ -100,35 +97,4 @@ void UMath::GetRandom(void *ioData, uint inDataSize)
 				break;
 		}
 	}
-}
-
-constexpr double UMath::NormalizeAngle(double x)
-{
-	x = fmod(x, gm_2Pi);
-	if (x < 0)
-		x += gm_2Pi;
-
-	return x;
-}
-
-constexpr double UMath::Sine(double x)
-{
-	x = NormalizeAngle(x);
-	return sin(x);
-}
-
-constexpr double UMath::Cosine(double x)
-{
-	x = NormalizeAngle(x);
-	return cos(x);
-}
-
-constexpr double UMath::ArcTangent(double x)
-{
-	return atan(x);
-}
-
-constexpr double UMath::SquareRoot(double x)
-{
-	return sqrt(x);
 }

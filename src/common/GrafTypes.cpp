@@ -64,8 +64,8 @@ void SRect::Constrain(const SRect &inMax)
 
 void SRect::Center(const SRect &inBase, const SRect &inContainer)
 {
-	int width = inBase.right - inBase.left;
-	int height = inBase.bottom - inBase.top;
+	auto width = inBase.right - inBase.left;
+	auto height = inBase.bottom - inBase.top;
 
 	left = ((inContainer.left + inContainer.right) - width) >> 1;
 	right = left + width;
@@ -76,8 +76,8 @@ void SRect::Center(const SRect &inBase, const SRect &inContainer)
 
 void SRect::CenterHoriz(const SRect &inBase)
 {
-	int width = right - left;
-	int center = (inBase.left + inBase.right) >> 1;
+	auto width = right - left;
+	auto center = (inBase.left + inBase.right) >> 1;
 
 	left = center - (width >> 1);
 	right = left + width;
@@ -85,8 +85,8 @@ void SRect::CenterHoriz(const SRect &inBase)
 
 void SRect::MoveTo(const SRect &inRect, int inLeft, int inTop)
 {
-	int width = inRect.right - inRect.left;
-	int height = inRect.bottom - inRect.top;
+	auto width = inRect.right - inRect.left;
+	auto height = inRect.bottom - inRect.top;
 
 	left = inLeft;
 	right = inLeft + width;
@@ -105,8 +105,8 @@ void SRect::Validate()
 
 void SRect::Align(const SRect &inSourceRect, unsigned inOptions, const SRect &inRefRect)
 {
-	int sourceWidth = inSourceRect.right - inSourceRect.left;
-	int sourceHeight = inSourceRect.bottom - inSourceRect.top;
+	auto sourceWidth = inSourceRect.right - inSourceRect.left;
+	auto sourceHeight = inSourceRect.bottom - inSourceRect.top;
 
 	if (inOptions & kAlignLeft)
 	{

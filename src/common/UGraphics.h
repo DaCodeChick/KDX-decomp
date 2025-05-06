@@ -14,7 +14,7 @@ public:
 	 */
 	[[nodiscard]] static constexpr uint8_t Adjust(uint8_t inChannel, uint8_t inFactor)
 	{
-		int adjusted = inChannel + inFactor;
+		auto adjusted = inChannel + inFactor;
 		if (adjusted > 255)
 			adjusted = 255 - ((adjusted - 255) >> 1);
 
@@ -30,9 +30,9 @@ public:
 	 */
 	[[nodiscard]] static constexpr uint32_t AdjustColorWithBleed(uint32_t inColor, uint8_t inBleed)
 	{
-		uint8_t red = (inColor >> 16) & 0xFF;
-		uint8_t green = (inColor >> 8) & 0xFF;
-		uint8_t blue = inColor & 0xFF;
+		auto red = (inColor >> 16) & 0xFF;
+		auto green = (inColor >> 8) & 0xFF;
+		auto blue = inColor & 0xFF;
 
 		red = Adjust(red, inBleed);
 		green = Adjust(green, inBleed);
@@ -62,10 +62,10 @@ public:
 	 */
 	[[nodiscard]] static constexpr uint32_t BlendColorChannels(uint32_t inColor, uint8_t inFactor)
 	{
-		uint8_t red = (inColor >> 16) & 0xFF;
-		uint8_t green = (inColor >> 8) & 0xFF;
-		uint8_t blue = inColor & 0xFF;
-		uint8_t alpha = (inColor >> 24) & 0xFF;
+		auto red = (inColor >> 16) & 0xFF;
+		auto green = (inColor >> 8) & 0xFF;
+		auto blue = inColor & 0xFF;
+		auto alpha = (inColor >> 24) & 0xFF;
 
 		red = Blend(red, inFactor);
 		green = Blend(green, inFactor);
@@ -84,9 +84,9 @@ public:
 	 */
 	[[nodiscard]] static constexpr uint32_t ReduceColorWithBleed(uint32_t inColor, uint8_t inBleed)
 	{
-		uint8_t red = inColor >> 16;
-		uint8_t green = inColor >> 8;
-		uint8_t blue = inColor;
+		auto red = inColor >> 16;
+		auto green = inColor >> 8;
+		auto blue = inColor;
 
 		red = red - inBleed;
 		green = green - inBleed;

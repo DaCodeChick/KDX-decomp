@@ -19,7 +19,7 @@ int UDateTime::GetTimeZoneOffset()
 	timeval tv;
 	timezone tz;
 
-	int t = gettimeofday(&tv, &tz);
+	auto t = gettimeofday(&tv, &tz);
 	return t ? 0 : tz.tz_minuteswest * -60;
 #endif // _WIN32
 }
@@ -28,7 +28,7 @@ int64_t UDateTime::GetMicroseconds()
 {
 #ifdef _WIN32
 	FILETIME ft;
-	int64_t currentTime = *reinterpret_cast<int64_t *>(&ft);
+	auto currentTime = *reinterpret_cast<int64_t *>(&ft);
 
 	GetSystemTimeAsFileTime(&ft);
 
@@ -49,7 +49,7 @@ int64_t UDateTime::GetMicroseconds()
 		tv.tv_usec = 0;
 	}
 
-	int64_t currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
+	auto currentTime = tv.tv_sec * 1000000 + tv.tv_usec;
 
 	if (currentTime <= _gLastRecorded)
 	{
