@@ -6,9 +6,9 @@ class CMyApplication
 {
 public:
 	CMyApplication();
-	bool CheckIfBanned(char *inAddr, int inAddrSize);
+	bool CheckIfBanned(const char *inAddr, size_t inAddrSize);
 
 private:
-	uint mSeeds[3];
-	uint mPort;
+	uint32_t mSeeds[3];
+	uint16_t mPort;
 };

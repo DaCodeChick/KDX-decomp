@@ -55,7 +55,7 @@ private:
 	size_t mBanCount;
 	BanRecord *mBans;
 	uint8_t mName[32];
-	uint32_t mClientPort, mAltPort, mAdminPort;
+	uint16_t mClientPort, mAltPort, mAdminPort;
 	uint32_t mSeeds[3];
 };
 
