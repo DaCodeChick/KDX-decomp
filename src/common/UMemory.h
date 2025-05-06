@@ -2,6 +2,8 @@
 
 #include "typedefs.h"
 
+#include <cstring>
+
 #ifdef _WIN32
 typedef HGLOBAL TPtr;
 #else
@@ -60,15 +62,6 @@ public:
 	static uint64_t GetAllocationCount(unsigned &outCount);
 
 	/**
-	 * @brief Fills memory with a byte value.
-	 *
-	 * @param ioDest Pointer to the memory to fill.
-	 * @param inSize Size of the memory to fill.
-	 * @param inByte Value to fill the memory with.
-	 */
-	static void Fill(void *ioDest, size_t inSize, uint8_t inByte);
-
-	/**
 	 * @brief Fill memory with a word value.
 	 *
 	 * @param ioDest Pointer to the memory to fill.
@@ -92,7 +85,11 @@ public:
 	 * @param ioDest Pointer to the memory to clear.
 	 * @param inSize Size of the memory to clear.
 	 */
-	static void Clear(void *ioDest, size_t inSize);
+	static void Clear(void *ioDest, size_t inSize)
+	{
+		if (ioDest && inSize)
+			std::memset(ioDest, 0, inSize);
+	}
 
 	/**
 	 * @brief Moves memory from one location to another.
@@ -102,7 +99,26 @@ public:
 	 * @param inSize Size of the memory to move.
 	 * @return Number of bytes moved.
 	 */
-	static size_t Move(void *ioDest, const void *inSrc, size_t inSize);
+	static size_t Move(void *ioDest, const void *inSrc, size_t inSize)
+	{
+		if (!ioDest || !inSrc || !inSize)
+			return;
+		std::memmove(ioDest, inSrc, inSize);
+		return inSize;
+	}
+
+	/**
+	 * @brief Fills memory with a byte value.
+	 *
+	 * @param ioDest Pointer to the memory to fill.
+	 * @param inSize Size of the memory to fill.
+	 * @param inByte Value to fill the memory with.
+	 */
+	static void Fill(void *ioDest, size_t inSize, uint8_t inByte)
+	{
+		if (ioDest && inSize)
+			std::memset(ioDest, inByte, inSize);
+	}
 
 	/**
 	 * @brief Search for a block of memory in another block of memory.
@@ -161,7 +177,7 @@ public:
 	 * @param inSize Size of the data to search in.
 	 * @return Pointer to the found byte, or NULL if not found.
 	 */
-	static constexpr const uint8_t *SearchByte(uint8_t inByte, const void *inData, size_t inSize);
+	static constexpr const uint8_t *SearchByte(uint8_t inByte, const void *inData, size_t inSize)
 	{
 		if (!inData || !inSize)
 			return NULL;
@@ -226,7 +242,8 @@ public:
 	 */
 	static constexpr uint32_t CRC(const void *inData, size_t inDataSize, uint32_t inInit)
 	{
-		static constexpr uint32_t ccitt32_crctab[256] = {
+		static constexpr uint32_t ccitt32_crctab[256] =
+		{
 		    0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9, 0x130476DC, 0x17C56B6B, 0x1A864DB2,
 		    0x1E475005, 0x2608EDB8, 0x22C9F00F, 0x2F8AD6D6, 0x2B4BCB61, 0x350C9B64, 0x31CD86D3,
 		    0x3C8EA00A, 0x384FBDBD, 0x4C11DB70, 0x48D0C6C7, 0x4593E01E, 0x4152FDA9, 0x5F15ADAC,
@@ -263,7 +280,8 @@ public:
 		    0xDBEE767C, 0xE3A1CBC1, 0xE760D676, 0xEA23F0AF, 0xEEE2ED18, 0xF0A5BD1D, 0xF464A0AA,
 		    0xF9278673, 0xFDE69BC4, 0x89B8FD09, 0x8D79E0BE, 0x803AC667, 0x84FBDBD0, 0x9ABC8BD5,
 		    0x9E7D9662, 0x933EB0BB, 0x97FFAD0C, 0xAFB010B1, 0xAB710D06, 0xA6322BDF, 0xA2F33668,
-		    0xBCB4666D, 0xB8757BDA, 0xB5365D03, 0xB1F740B4};
+		    0xBCB4666D, 0xB8757BDA, 0xB5365D03, 0xB1F740B4
+		};
 
 		const uint8_t *dataPtr = reinterpret_cast<const uint8_t *>(inData);
 

@@ -4,6 +4,8 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#undef min
+#undef max
 #endif // _WIN32
 
 #if defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__)
@@ -142,6 +144,30 @@ constexpr uint64_t ntohll(uint64_t x) noexcept
 }
 
 /**
+ * @brief Get the minimum of two values
+ *
+ * @param a first value
+ * @param b second value
+ * @return minimum value
+ */
+template <class T> constexpr T min(T a, T b) noexcept
+{
+	return (a < b) ? a : b;
+}
+
+/**
+ * @brief Get the maximum of two values
+ *
+ * @param a first value
+ * @param b second value
+ * @return maximum value
+ */
+template <class T> constexpr T max(T a, T b) noexcept
+{
+	return (a > b) ? a : b;
+}
+
+/**
  * @brief Rotate left
  *
  * @param x value to rotate
@@ -163,4 +189,17 @@ template <class T> constexpr T rotl(T x, unsigned n)
 template <class T> constexpr T rotr(T x, unsigned n)
 {
 	return (x >> n) | (x << ((sizeof(T) << 3) - n));
+}
+
+/**
+ * @brief Swap two values
+ *
+ * @param a first value
+ * @param b second value
+ */
+template <class T> void swap(T &a, T &b) noexcept
+{
+	T temp = a;
+	a = b;
+	b = temp;
 }

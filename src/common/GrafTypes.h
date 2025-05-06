@@ -41,6 +41,15 @@ struct SPoint
 /// @brief A structure representing a rectangle in 2D space.
 struct SRect
 {
+	static constexpr unsigned kAlignLeft = 0x0001;   ///< Align to the left edge.
+	static constexpr unsigned kAlignTop = 0x0002;    ///< Align to the top edge.
+	static constexpr unsigned kAlignRight = 0x0004;  ///< Align to the right edge.
+	static constexpr unsigned kAlignBottom = 0x0008; ///< Align to the bottom edge.
+	static constexpr unsigned kAlignCenterHoriz = 0x0010;   ///< Align to the center horizontally.
+	static constexpr unsigned kAlignCenterVert = 0x0020;    ///< Align to the center vertically.
+	static constexpr unsigned kAlignClipHoriz = 0x0040;    ///< Align to the left edge and clip horizontally.
+	static constexpr unsigned kAlignClipVert = 0x0080;     ///< Align to the top edge and clip vertically.
+	
 	int left;   ///< The left edge of the rectangle.
 	int top;    ///< The top edge of the rectangle.
 	int right;  ///< The right edge of the rectangle.
@@ -51,7 +60,11 @@ struct SRect
 	 * @param inRect The rectangle to check for intersection with.
 	 * @return True if the rectangles intersect, false otherwise.
 	 */
-	constexpr bool Intersects(SRect &inRect) const;
+	constexpr bool Intersects(const SRect &inRect) const
+	{
+		return !(inRect.left >= right || inRect.right <= left || 
+		         inRect.top >= bottom || inRect.bottom <= top);
+	}
 
 	/**
 	 * @brief Get the intersection of two rectangles
@@ -59,7 +72,7 @@ struct SRect
 	 * @param inRect
 	 * @param outSect
 	 */
-	bool GetIntersection(SRect &inRect, SRect &outSect) const;
+	bool GetIntersection(const SRect &inRect, SRect &outSect) const;
 
 	/**
 	 * @brief Get the union of two rectangles
@@ -67,21 +80,25 @@ struct SRect
 	 * @param inRect
 	 * @param outUnion
 	 */
-	bool GetUnion(SRect &inRect, SRect &outUnion) const;
+	bool GetUnion(const SRect &inRect, SRect &outUnion) const;
 
 	/**
 	 * @brief Constrains the rectangle to fit within the specified maximum rectangle.
 	 *
 	 * @param inMax The maximum rectangle to constrain to.
 	 */
-	void Constrain(SRect &inMax);
+	void Constrain(const SRect &inMax);
+
+	void Center(const SRect &inBase, const SRect &inContainer);
 
 	/**
 	 * @brief Center this rectangle horizontally within the specified base rectangle.
 	 *
 	 * @param inBase The base rectangle to center within.
 	 */
-	void CenterHoriz(SRect &inBase);
+	void CenterHoriz(const SRect &inBase);
+
+	void MoveTo(const SRect &inRect, int inLeft, int inTop);
 
 	/**
 	 * @brief This function checks if the rectangle is valid (i.e., if the left edge is less than
@@ -89,6 +106,8 @@ struct SRect
 	 * it corrects the dimensions.
 	 */
 	void Validate();
+
+	void Align(const SRect &inSourceRect, unsigned inOptions, const SRect &inRefRect);
 
 #ifdef _WIN32
 	/**
