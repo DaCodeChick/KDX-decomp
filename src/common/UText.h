@@ -2,6 +2,9 @@
 
 #include "typedefs.h"
 
+struct STokenizer;
+
+/// @brief A class for text manipulation and formatting.
 class UText
 {
 public:
@@ -65,4 +68,12 @@ public:
 	[[nodiscard]] static constexpr unsigned ToUpper(unsigned inChar);
 
 	[[nodiscard]] static constexpr bool IsHex(unsigned inChar);
+
+	static unsigned EncodeUTF8(unsigned inChar, void *outText, size_t inMaxSize);
+
+	static unsigned DecodeUTF8(const void *inText, size_t inTextSize, unsigned &outChar);
+
+	static unsigned FilterUTF8(const void *inFilter, const void *inText, size_t inTextSize, const void *outText, size_t inOutTextSize);
+
+	static size_t ValidateUTF8(const void *inText, size_t inTextSize);
 };
