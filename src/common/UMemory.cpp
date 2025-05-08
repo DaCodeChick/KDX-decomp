@@ -11,14 +11,14 @@ unsigned UMemory::sAllocationCount = 0;
 TPtr UMemory::New(size_t inSize)
 {
 	if (!inSize)
-		/*__Fail(error_Param)*/;
+		__Fail(error_Param);
 #ifdef _WIN32
 	auto p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
 	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
-		/*__Fail(memError_NotEnough)*/;
+		__Fail(memError_NotEnough);
 	sAllocationCount++;
 	return p;
 }
@@ -26,14 +26,14 @@ TPtr UMemory::New(size_t inSize)
 TPtr UMemory::New(const void *inData, size_t inSize)
 {
 	if (!inSize)
-		/*__Fail(error_Param)*/;
+		__Fail(error_Param);
 #ifdef _WIN32
 	auto p = GlobalAlloc(GMEM_FIXED, inSize);
 #else
 	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
-		/*__Fail(memError_NotEnough)*/;
+		__Fail(memError_NotEnough);
 	Move(p, inData, inSize);
 	sAllocationCount++;
 	return p;
@@ -42,14 +42,14 @@ TPtr UMemory::New(const void *inData, size_t inSize)
 TPtr UMemory::NewClear(size_t inSize)
 {
 	if (!inSize)
-		/*__Fail(error_Param)*/;
+		__Fail(error_Param);
 #ifdef _WIN32
 	auto p = GlobalAlloc(GMEM_ZEROINIT, inSize);
 #else
 	auto p = std::malloc(inSize);
 #endif // _WIN32
 	if (!p)
-		/*__Fail(memError_NotEnough)*/;
+		__Fail(memError_NotEnough);
 	Clear(p, inSize);
 	sAllocationCount++;
 	return p;
@@ -83,7 +83,7 @@ TPtr UMemory::Reallocate(TPtr inPtr, size_t inSize)
 			inPtr = std::realloc(inPtr, inSize);
 #endif // _WIN32
 			if (!inPtr)
-				/*__Fail(memError_NotEnough)*/;
+				__Fail(memError_NotEnough);
 		}
 	}
 	return inPtr;

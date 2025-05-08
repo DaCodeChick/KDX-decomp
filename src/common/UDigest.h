@@ -5,7 +5,22 @@
 class UDigest
 {
 public:
+	/**
+	 * @brief MD5 hash algorithm.
+	 *
+	 * @param inData Pointer to the data to hash.
+	 * @param inDataSize Size of the data in bytes.
+	 * @param outDigest Pointer to the buffer where the resulting hash will be stored.
+	 */
 	static void MD5_Encode(const void *inData, size_t inDataSize, void *outDigest);
+
+	/**
+	 * @brief MD5 hash algorithm with augmented data.
+	 *
+	 * @param inData Pointer to the data to hash.
+	 * @param inDataSize Size of the data in bytes.
+	 * @param outDigest Pointer to the buffer where the resulting hash will be stored.
+	 */
 	static void AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *outDigest);
 };
 
