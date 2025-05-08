@@ -35,9 +35,3 @@ TEST(Checksums, FNV1a)
 	EXPECT_EQ(checksum, expectedChecksum)
 	    << "Checksum mismatch! Expected: " << expectedChecksum << ", Got: " << checksum;
 }
-
-int main(int argc, char **argv)
-{
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
