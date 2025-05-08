@@ -4,19 +4,6 @@
 
 #include <cctype>
 
-typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize,
-                                         uint8_t *outDelimiters);
-
-struct STokenizer
-{
-	TNextTokenProc nextTokenProc;
-	const uint8_t *start;
-	const uint8_t *end;
-	unsigned flags;
-	size_t pos;
-	unsigned delimiterBits[7];
-};
-
 static const uint8_t *_GetNextToken(STokenizer &ioContext, size_t *outSize, uint8_t *outDelimiter)
 {
 	if (ioContext.start >= ioContext.end)
@@ -136,9 +123,9 @@ void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTe
 			ioContext.delimiterBits[delimiters[i]] |= (1 << (delimiters[i] & 7));
 	}
 
-	if (inOptions & kTokenizeWithDelimiters)
+	if (inOptions & STokenizer::kWithDelimiters)
 		ioContext.nextTokenProc = _GetNextToken;
-	else if (inOptions & kTokenizeTrimWhitespace)
+	else if (inOptions & STokenizer::kTrimWhitespace)
 		ioContext.nextTokenProc = _GetNextTokenTrimmingWhitespace;
 	else
 		ioContext.nextTokenProc = _GetNextTokenWithDelimiters;

@@ -2,18 +2,28 @@
 
 #include "typedefs.h"
 
-struct STokenizer;
+typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize,
+                                         uint8_t *outDelimiters);
+
+/// @brief A structure representing a tokenizer context.
+struct STokenizer
+{
+	static constexpr unsigned kDefaultOptions = 0;      ///< Default options for tokenization.
+	static constexpr unsigned kWithDelimiters = 1 << 0; ///< Option to include delimiters in tokens.
+	static constexpr unsigned kTrimWhitespace = 1 << 1; ///< Option to trim whitespace from tokens.
+
+	TNextTokenProc nextTokenProc; ///< Function pointer for getting the next token.
+	const uint8_t *start;         ///< Pointer to the start of the text.
+	const uint8_t *end;           ///< Pointer to the end of the text.
+	unsigned flags;               ///< Flags for tokenizer options.
+	size_t pos;                   ///< Current position in the text.
+	unsigned delimiterBits[7];    ///< Array of bits representing delimiters.
+};
 
 /// @brief A class for text manipulation and formatting.
 class UText
 {
 public:
-	static constexpr unsigned kTokenizeDefaultOptions = 0; ///< Default options for tokenization.
-	static constexpr unsigned kTokenizeWithDelimiters =
-	    1 << 0; ///< Option to include delimiters in tokens.
-	static constexpr unsigned kTokenizeTrimWhitespace =
-	    1 << 1; ///< Option to trim whitespace from tokens.
-
 	/**
 	 * @brief Tokenize a string into tokens based on delimiters.
 	 *
