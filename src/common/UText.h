@@ -22,6 +22,16 @@ public:
 	 * @param inOptions 
 	 */
 	static void InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize, const void *inDelimiters, unsigned inOptions);
+
+	/**
+	 * @brief Get the next token from the tokenizer context.
+	 * 
+	 * @param ioContext
+	 * @param outSize 
+	 * @param outDelimiters 
+	 * @return const void* 
+	 */
+	static const void *GetNextToken(STokenizer &ioContext, size_t *outSize, void *outDelimiters); 
 	
 	/**
 	 * @brief Format a string with a given format and arguments.

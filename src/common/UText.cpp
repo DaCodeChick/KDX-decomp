@@ -124,3 +124,8 @@ void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTe
 	else
 		ioContext.nextTokenProc = _GetNextTokenWithDelimiters;
 }
+
+const void *UText::GetNextToken(STokenizer &ioContext, size_t *outSize, void *outDelimiters)
+{
+	return static_cast<const void *>(ioContext.nextTokenProc(ioContext, outSize, reinterpret_cast<uint8_t *>(outDelimiters)));
+}
