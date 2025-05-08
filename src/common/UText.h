@@ -9,30 +9,33 @@ class UText
 {
 public:
 	static constexpr unsigned kTokenizeDefaultOptions = 0; ///< Default options for tokenization.
-	static constexpr unsigned kTokenizeWithDelimiters = 1 << 0; ///< Option to include delimiters in tokens.
-	static constexpr unsigned kTokenizeTrimWhitespace = 1 << 1; ///< Option to trim whitespace from tokens.
+	static constexpr unsigned kTokenizeWithDelimiters =
+	    1 << 0; ///< Option to include delimiters in tokens.
+	static constexpr unsigned kTokenizeTrimWhitespace =
+	    1 << 1; ///< Option to trim whitespace from tokens.
 
 	/**
 	 * @brief Tokenize a string into tokens based on delimiters.
-	 * 
+	 *
 	 * @param ioContext
 	 * @param inText
-	 * @param inTextSize 
-	 * @param inDelimiters 
-	 * @param inOptions 
+	 * @param inTextSize
+	 * @param inDelimiters
+	 * @param inOptions
 	 */
-	static void InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize, const void *inDelimiters, unsigned inOptions);
+	static void InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize,
+	                          const void *inDelimiters, unsigned inOptions);
 
 	/**
 	 * @brief Get the next token from the tokenizer context.
-	 * 
+	 *
 	 * @param ioContext
-	 * @param outSize 
-	 * @param outDelimiters 
-	 * @return const void* 
+	 * @param outSize
+	 * @param outDelimiters
+	 * @return const void*
 	 */
-	static const void *GetNextToken(STokenizer &ioContext, size_t *outSize, void *outDelimiters); 
-	
+	static const void *GetNextToken(STokenizer &ioContext, size_t *outSize, void *outDelimiters);
+
 	/**
 	 * @brief Format a string with a given format and arguments.
 	 *
@@ -98,7 +101,8 @@ public:
 
 	static unsigned DecodeUTF8(const void *inText, size_t inTextSize, unsigned &outChar);
 
-	static unsigned FilterUTF8(const void *inFilter, const void *inText, size_t inTextSize, const void *outText, size_t inOutTextSize);
+	static unsigned FilterUTF8(const void *inFilter, const void *inText, size_t inTextSize,
+	                           const void *outText, size_t inOutTextSize);
 
 	static size_t ValidateUTF8(const void *inText, size_t inTextSize);
 };

@@ -4,7 +4,8 @@
 
 #include <cctype>
 
-typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize, uint8_t *outDelimiters);
+typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize,
+                                         uint8_t *outDelimiters);
 
 struct STokenizer
 {
@@ -18,107 +19,125 @@ struct STokenizer
 
 static const uint8_t *_GetNextToken(STokenizer &ioContext, size_t *outSize, uint8_t *outDelimiter)
 {
-    if (ioContext.start >= ioContext.end)
+	if (ioContext.start >= ioContext.end)
 	{
-        if (outSize) *outSize = 0;
-        return NULL;
-    }
+		if (outSize)
+			*outSize = 0;
+		return NULL;
+	}
 
-    auto current = ioContext.start;
+	auto current = ioContext.start;
 
-    // Check if the first character is a delimiter
-    if ((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3])
+	// Check if the first character is a delimiter
+	if ((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3])
 	{
-        if (outDelimiter) *outDelimiter = *current;
-        if (outSize) *outSize = 1;
-        ioContext.start = current + 1;
-        return current;
-    }
+		if (outDelimiter)
+			*outDelimiter = *current;
+		if (outSize)
+			*outSize = 1;
+		ioContext.start = current + 1;
+		return current;
+	}
 
-    // Find the next delimiter
-    while (current < ioContext.end && !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
-        ++current;
+	// Find the next delimiter
+	while (current < ioContext.end &&
+	       !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
+		++current;
 
-    if (outSize) *outSize = current - ioContext.start;
-    if (outDelimiter) *outDelimiter = 0;
-    ioContext.start = current;
+	if (outSize)
+		*outSize = current - ioContext.start;
+	if (outDelimiter)
+		*outDelimiter = 0;
+	ioContext.start = current;
 
-    return ioContext.start;
+	return ioContext.start;
 }
 
-static const uint8_t *_GetNextTokenWithDelimiters(STokenizer &ioContext, size_t *outSize, uint8_t *outDelimiter)
+static const uint8_t *_GetNextTokenWithDelimiters(STokenizer &ioContext, size_t *outSize,
+                                                  uint8_t *outDelimiter)
 {
-    if (ioContext.start >= ioContext.end)
+	if (ioContext.start >= ioContext.end)
 	{
-        if (outSize) *outSize = 0;
-        return NULL;
-    }
+		if (outSize)
+			*outSize = 0;
+		return NULL;
+	}
 
-    auto current = ioContext.start;
+	auto current = ioContext.start;
 
-    // Skip leading delimiters
-    while (current < ioContext.end && ((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
-        ++current;
+	// Skip leading delimiters
+	while (current < ioContext.end &&
+	       ((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
+		++current;
 
-    auto tokenStart = current;
+	auto tokenStart = current;
 
-    // Find the next delimiter
-    while (current < ioContext.end && !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
-        ++current;
+	// Find the next delimiter
+	while (current < ioContext.end &&
+	       !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]))
+		++current;
 
-    if (outSize) *outSize = current - tokenStart;
-    if (outDelimiter) *outDelimiter = 0;
-    ioContext.start = current;
+	if (outSize)
+		*outSize = current - tokenStart;
+	if (outDelimiter)
+		*outDelimiter = 0;
+	ioContext.start = current;
 
-    return tokenStart;
+	return tokenStart;
 }
 
-static const uint8_t *_GetNextTokenTrimmingWhitespace(STokenizer &ioContext, size_t *outSize, uint8_t *outDelimiter)
+static const uint8_t *_GetNextTokenTrimmingWhitespace(STokenizer &ioContext, size_t *outSize,
+                                                      uint8_t *outDelimiter)
 {
-    if (ioContext.start >= ioContext.end)
+	if (ioContext.start >= ioContext.end)
 	{
-        if (outSize) *outSize = 0;
-        return NULL;
-    }
+		if (outSize)
+			*outSize = 0;
+		return NULL;
+	}
 
-    auto current = ioContext.start;
+	auto current = ioContext.start;
 
-    // Skip leading whitespace
-    while (current < ioContext.end && std::isspace(*current))
-        ++current;
+	// Skip leading whitespace
+	while (current < ioContext.end && std::isspace(*current))
+		++current;
 
-    auto tokenStart = current;
+	auto tokenStart = current;
 
-    // Find the next delimiter or end of token
-    while (current < ioContext.end && !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]) && !std::isspace(*current))
-        ++current;
+	// Find the next delimiter or end of token
+	while (current < ioContext.end &&
+	       !((1 << (*current & 7)) & ioContext.delimiterBits[*current >> 3]) &&
+	       !std::isspace(*current))
+		++current;
 
-    if (outSize) *outSize = current - tokenStart;
-    if (outDelimiter) *outDelimiter = 0;
-    ioContext.start = current;
+	if (outSize)
+		*outSize = current - tokenStart;
+	if (outDelimiter)
+		*outDelimiter = 0;
+	ioContext.start = current;
 
-    return tokenStart;
+	return tokenStart;
 }
 
-void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize, const void *inDelimiters, unsigned inOptions)
+void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize,
+                          const void *inDelimiters, unsigned inOptions)
 {
 	ioContext.start = reinterpret_cast<const uint8_t *>(inText);
-    ioContext.end = ioContext.start + inTextSize;
-    ioContext.flags = inOptions;
-    ioContext.pos = 0;
+	ioContext.end = ioContext.start + inTextSize;
+	ioContext.flags = inOptions;
+	ioContext.pos = 0;
 
-    UMemory::Clear(&ioContext.delimiterBits, sizeof(ioContext.delimiterBits));
+	UMemory::Clear(&ioContext.delimiterBits, sizeof(ioContext.delimiterBits));
 
-    if (inDelimiters)
+	if (inDelimiters)
 	{
-        auto delimiters = reinterpret_cast<const uint8_t *>(inDelimiters);
-        for (auto i = 0; delimiters[i]; ++i)
-            ioContext.delimiterBits[delimiters[i]] |= (1 << (delimiters[i] & 7));
+		auto delimiters = reinterpret_cast<const uint8_t *>(inDelimiters);
+		for (auto i = 0; delimiters[i]; ++i)
+			ioContext.delimiterBits[delimiters[i]] |= (1 << (delimiters[i] & 7));
+	}
 
-    }
-
-    if (inOptions & kTokenizeWithDelimiters)
-        ioContext.nextTokenProc = _GetNextToken;
+	if (inOptions & kTokenizeWithDelimiters)
+		ioContext.nextTokenProc = _GetNextToken;
 	else if (inOptions & kTokenizeTrimWhitespace)
 		ioContext.nextTokenProc = _GetNextTokenTrimmingWhitespace;
 	else
@@ -127,5 +146,6 @@ void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTe
 
 const void *UText::GetNextToken(STokenizer &ioContext, size_t *outSize, void *outDelimiters)
 {
-	return static_cast<const void *>(ioContext.nextTokenProc(ioContext, outSize, reinterpret_cast<uint8_t *>(outDelimiters)));
+	return static_cast<const void *>(
+	    ioContext.nextTokenProc(ioContext, outSize, reinterpret_cast<uint8_t *>(outDelimiters)));
 }
