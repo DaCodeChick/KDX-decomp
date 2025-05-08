@@ -8,6 +8,21 @@ struct STokenizer;
 class UText
 {
 public:
+	static constexpr unsigned kTokenizeDefaultOptions = 0; ///< Default options for tokenization.
+	static constexpr unsigned kTokenizeWithDelimiters = 1 << 0; ///< Option to include delimiters in tokens.
+	static constexpr unsigned kTokenizeTrimWhitespace = 1 << 1; ///< Option to trim whitespace from tokens.
+
+	/**
+	 * @brief Tokenize a string into tokens based on delimiters.
+	 * 
+	 * @param ioContext
+	 * @param inText
+	 * @param inTextSize 
+	 * @param inDelimiters 
+	 * @param inOptions 
+	 */
+	static void InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTextSize, const void *inDelimiters, unsigned inOptions);
+	
 	/**
 	 * @brief Format a string with a given format and arguments.
 	 *
