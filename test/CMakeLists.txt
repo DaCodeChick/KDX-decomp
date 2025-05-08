@@ -5,10 +5,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-set(SOURCES
-  crypto.cpp
-  checksums.cpp
-)
+set(SOURCES *.cpp)
 
 add_executable(tests ${SOURCES})
 target_link_libraries(tests PRIVATE gtest_main)
