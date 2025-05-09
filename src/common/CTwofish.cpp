@@ -1,6 +1,6 @@
 #include "CTwofish.h"
 
-void CTwofish::Encrypt(const void *inData, void *outData)
+void CTwofish::EncryptFull(const void *inData, void *outData)
 {
 	auto plaintext = reinterpret_cast<const uint8_t *>(inData);
 	auto ciphertext = reinterpret_cast<uint8_t *>(outData);
@@ -43,7 +43,7 @@ void CTwofish::Encrypt(const void *inData, void *outData)
 	*(uint32_t *)(ciphertext + 12) = b ^ mKey[7];
 }
 
-void CTwofish::Encrypt(const void *inData, void *outData)
+void CTwofish::EncryptFast(const void *inData, void *outData)
 {
 	auto plaintext = reinterpret_cast<const uint8_t *>(inData);
 	auto *ciphertext = reinterpret_cast<uint8_t *>(outData);

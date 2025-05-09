@@ -13,15 +13,15 @@ public:
 	 */
 	CTwofish(const void *key);
 
-	void Encrypt(const void *inData, void *outData);
+	void EncryptFull(const void *inData, void *outData);
 
 	/**
-	 * @brief Simple encryption function
+	 * @brief Encrypts a block of data using the Twofish algorithm.
 	 * 
-	 * @param inData Pointer to the input data. The size should be 16 bytes (128 bits).
-	 * @param outData Pointer to the output data. The size should be 16 bytes (128 bits).
+	 * @param inData Pointer to the input data (16 bytes).
+	 * @param outData Pointer to the output data (16 bytes).
 	 */
-	void EncryptSimple(const void *inData, void *outData);
+	void EncryptFast(const void *inData, void *outData);
 private:
 	uint32_t mSBox[4][256];
 	uint32_t mKey[40];
