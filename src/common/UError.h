@@ -25,7 +25,17 @@ public:
 
 enum
 {
-	error_Param = 0x10002 ///< Error type for parameter errors
+	error10001 = 0x10001,
+	error_Param, ///< Error type for parameter errors
+	error10003,
+	error_Unimplemented, ///< Error type for unimplemented features
+	error10008 = 0x10008,
+	error_Corrupt,    ///< Error type for corrupt data
+	error_OutOfRange, ///< Error type for out of range errors
+	error1000C = 0x1000C,
+	error1000D,
+	error_Invalid = 0x10019, ///< Error type for invalid data
+	error_Unknown = 0x1001B, ///< Error type for unknown errors
 };
 
 /**

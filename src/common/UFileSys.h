@@ -66,3 +66,12 @@ public:
 	 */
 	[[nodiscard]] static bool ValidateFilePath(const void *inPath, size_t inPathSize);
 };
+
+enum
+{
+	fsError_NotEnoughSpace = 0x30070,    ///< Not enough space on the device
+	fsError_ItemAlreadyExists = 0x30073, ///< File already exists
+	fsError_BadData = 0x30074,           ///< Invalid data
+	fsError_FileInUse,                   ///< File is in use
+	fsError_BadName,                     ///< Invalid file name
+};

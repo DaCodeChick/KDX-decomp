@@ -273,5 +273,6 @@ private:
 
 enum
 {
-	memError_NotEnough = 0x20065 ///< Not enough memory error code.
+	memError_NotEnough = 0x20065, ///< Not enough memory error code.
+	memError_BlockInvalid,        ///< Invalid memory block error code.
 };

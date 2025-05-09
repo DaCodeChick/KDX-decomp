@@ -58,3 +58,17 @@ public:
 	 */
 	static void LaunchURL(const void *inText, size_t inTextSize);
 };
+
+enum
+{
+	transError_Unknown = 0x40064,         ///< Unknown error
+	transError_NoData = 0x40067,          ///< No data available
+	transError_InvalidData,               ///< Invalid data
+	transError_AddressInUse,              ///< Address already in use
+	transError_ConnectionReset,           ///< Connection reset
+	transError_ConnectionRefused,         ///< Connection refused
+	transError_ConnectionTimedOut,        ///< Connection timed out
+	transError_HostUnreachable = 0x4006F, ///< Host unreachable
+	transError40070,
+	transError40074 = 0x40074,
+};
