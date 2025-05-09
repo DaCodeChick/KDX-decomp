@@ -94,7 +94,11 @@ public:
 	static void Clear(void *ioDest, size_t inSize)
 	{
 		if (ioDest && inSize)
+#ifdef _WIN32
+			SecureZeroMemory(ioDest, inSize);
+#else
 			std::memset(ioDest, 0, inSize);
+#endif
 	}
 
 	/**

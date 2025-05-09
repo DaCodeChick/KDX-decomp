@@ -93,16 +93,36 @@ void UMemory::Fill(void *ioDest, size_t inSize, uint16_t inWord)
 {
 	if (!ioDest || !inSize)
 		return;
-	for (auto i = 0; i < inSize; i += sizeof(uint16_t))
-		*(uint16_t *)((uint8_t *)ioDest + i) = inWord;
+
+	auto dest = reinterpret_cast<uint8_t *>(ioDest);
+
+	for (auto i = 0; i < inSize; ++i)
+		if (reinterpret_cast<uintptr_t>(dest + i) & (sizeof(uint16_t) - 1) == 0 &&
+		    i + sizeof(uint16_t) <= inSize)
+		{
+			*reinterpret_cast<uint16_t *>(dest + i) = inWord;
+			i += sizeof(uint16_t) - 1;
+		}
+		else
+			dest[i] = static_cast<uint8_t>(inWord & 0xFF);
 }
 
 void UMemory::Fill(void *ioDest, size_t inSize, uint32_t inLong)
 {
 	if (!ioDest || !inSize)
 		return;
-	for (auto i = 0; i < inSize; i += sizeof(uint32_t))
-		*(uint32_t *)((uint8_t *)ioDest + i) = inLong;
+
+	auto dest = reinterpret_cast<uint8_t *>(ioDest);
+
+	for (auto i = 0; i < inSize; ++i)
+		if (reinterpret_cast<uint32_t>(dest + i) & (sizeof(uint32_t) - 1) == 0 &&
+		    i + sizeof(uint32_t) <= inSize)
+		{
+			*reinterpret_cast<uint32_t *>(dest + i) = inLong;
+			i += sizeof(uint32_t) - 1;
+		}
+		else
+			dest[i] = static_cast<uint8_t>(inLong & 0xFF);
 }
 
 uint32_t UMemory::AdlerSum(const void *inData, size_t inDataSize, uint32_t inInit)
