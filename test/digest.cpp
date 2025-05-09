@@ -25,9 +25,3 @@ TEST(Digest, MD5)
 	          std::memcmp(digest,
 	                      "\x24\x80\xFC\x9F\x93\xC5\xA3\x83\xBE\x4A\xCD\x20\x77\xA2\x0D\x2A", 16));
 }
-
-int main(int argc, char **argv)
-{
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
