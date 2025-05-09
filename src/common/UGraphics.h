@@ -98,4 +98,14 @@ public:
 
 		return (red << 16) | (green << 8) | blue;
 	}
+
+	[[nodiscard]] static constexpr uint32_t ScaleColor(uint32_t inColor, uint8_t inFactor)
+	{
+		auto red = ((inColor >> 16) & 0xFF) * inFactor / 0xFF;
+		auto green = ((inColor >> 8) & 0xFF) * inFactor / 0xFF;
+		auto blue = (inColor & 0xFF) * inFactor / 0xFF;
+		auto alpha = ((inColor >> 24) & 0xFF) * inFactor / 0xFF;
+
+		return (alpha << 24) | (red << 16) | (green << 8) | blue;
+	}
 };
