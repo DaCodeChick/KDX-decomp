@@ -22,6 +22,8 @@ public:
 	 * @param outDigest Pointer to the buffer where the resulting hash will be stored.
 	 */
 	static void AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *outDigest);
+
+	static bool AugmentedMD5_IsDefault(const void *inDigest);
 };
 
 /// @brief MD5 hash algorithm implementation.

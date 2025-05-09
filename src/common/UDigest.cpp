@@ -262,3 +262,11 @@ void UDigest::AugmentedMD5_Encode(const void *inData, size_t inDataSize, void *o
 	digest32[6] = digest32[1];
 	digest32[7] = htonl(UMemory::Checksum(inData, inDataSize, 1));
 }
+
+bool UDigest::AugmentedMD5_IsDefault(const void *inDigest)
+{
+	uint8_t defaultDigest[32] = { 0 };
+
+	AugmentedMD5_Encode(NULL, 0, defaultDigest);
+	return UMemory::Compare(inDigest, defaultDigest, 32);
+}

@@ -72,6 +72,20 @@ public:
 	static void Fill(void *ioDest, size_t inSize, uint32_t inLong);
 
 	/**
+	 * @brief Compare two blocks of memory.
+	 *
+	 * @param inDataA Pointer to the first block of memory.
+	 * @param inDataB Pointer to the second block of memory.
+	 * @param inSize Size of the memory to compare.
+	 * @return True if the blocks are equal, false otherwise.
+	 */
+	[[nodiscard]]
+	static bool Compare(const void *inDataA, const void *inDataB, size_t inSize)
+	{
+		return !std::memcmp(inDataA, inDataB, inSize);
+	}
+
+	/**
 	 * @brief Clears memory with zeroes.
 	 *
 	 * @param ioDest Pointer to the memory to clear.
