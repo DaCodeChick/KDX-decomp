@@ -202,7 +202,7 @@ CTwofish::CTwofish(const void *key)
 		mKey[i] = MDS_GF[0][MDS_GF[1][input[i] ^ MDS_GF[1][input[i + 8] ^ 0x67]] ^ input[i + 16]];
 }
 
-void CTwofish::EncryptFull(const void *inData, void *outData)
+void CTwofish::EncryptCBCIteration(const void *inData, void *outData)
 {
 	auto input = reinterpret_cast<const uint32_t *>(inData);
 	auto output = reinterpret_cast<uint32_t *>(outData);
@@ -235,7 +235,7 @@ void CTwofish::EncryptFull(const void *inData, void *outData)
 	output[3] = uVar2 ^ mKey[7];
 }
 
-void CTwofish::EncryptFast(const void *inData, void *outData)
+void CTwofish::Encrypt(const void *inData, void *outData)
 {
 	auto input = reinterpret_cast<const uint32_t *>(inData);
 	auto output = reinterpret_cast<uint32_t *>(outData);
@@ -285,7 +285,7 @@ void CTwofish::EncryptCBC(void *outData, size_t &ioPartialBlockSize, const void 
 		}
 
 		UMemory::Move(outText + ioPartialBlockSize, input, remainingSpace);
-		EncryptFull(outText, outText);
+		EncryptCBCIteration(outText, outText);
 		input += remainingSpace;
 		inDataSize -= remainingSpace;
 		outText += 16;
@@ -294,7 +294,7 @@ void CTwofish::EncryptCBC(void *outData, size_t &ioPartialBlockSize, const void 
 
 	while (inDataSize >= 16)
 	{
-		EncryptFull(input, outText);
+		EncryptCBCIteration(input, outText);
 		input += 16;
 		outText += 16;
 		inDataSize -= 16;
