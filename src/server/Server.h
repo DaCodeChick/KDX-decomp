@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../common/CPtrList.h"
+#include "../common/CTwofish.h"
 #include "../common/UCryptTransact.h"
 #include "../common/UFileSys.h"
 #include "../common/URegularTransport.h"
@@ -20,14 +21,25 @@ struct SMyClient
 {
 	unsigned tag;
 	uint32_t magic;
+	TCryptProc cryptProc;
 	SRegularTransport *tpt;
+	uint32_t offs1C; // random seed?
 	uint8_t logon[32];
 	uint8_t password[32];
-	uint32_t key;
+	uint32_t userID;
+	uint64_t offs74; // login timestamp? used for XORing
+	uint32_t offs7C; // random seed?
 	uint8_t state;
 	uint16_t drmOffset;
 	uint16_t drmSize;
-	uint8_t *drm;
+	const uint8_t *drm;
+	uint32_t offsA8; // buffer count?
+	void *offsAC;    // buffer end?
+	uint32_t offsB0; // total buffer size?
+	void *offsB4;    // buffer array?
+	void *offsB8;    // buffer array end?
+	uint8_t iv[32];  // input vector for Twofish
+	CTwofish twofishContext;
 };
 
 struct SMyChat

@@ -5,13 +5,16 @@
 typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize,
                                          uint8_t *outDelimiters);
 
+enum
+{
+	tokenOption_Default = 0,                ///< Default tokenization option.
+	tokenOption_IncludeDelimiters = 1 << 0, ///< Include delimiters in tokens.
+	tokenOption_TrimWhitespace = 1 << 1,    ///< Trim whitespace from tokens.
+};
+
 /// @brief A structure representing a tokenizer context.
 struct STokenizer
 {
-	static constexpr unsigned kDefaultOptions = 0;      ///< Default options for tokenization.
-	static constexpr unsigned kWithDelimiters = 1 << 0; ///< Option to include delimiters in tokens.
-	static constexpr unsigned kTrimWhitespace = 1 << 1; ///< Option to trim whitespace from tokens.
-
 	TNextTokenProc nextTokenProc; ///< Function pointer for getting the next token.
 	const uint8_t *start;         ///< Pointer to the start of the text.
 	const uint8_t *end;           ///< Pointer to the end of the text.

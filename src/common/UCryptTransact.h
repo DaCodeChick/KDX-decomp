@@ -2,6 +2,13 @@
 
 #include "typedefs.h"
 
+/**
+ * @brief Typedef for a function pointer that represents a cryptographic procedure.
+ * @param ioData Pointer to the data to be processed.
+ * @param isDecrypt Flag indicating whether to decrypt (true) or encrypt (false).
+ */
+typedef void (*TCryptProc)(void *ioData, bool isDecrypt);
+
 class UCryptTransact
 {
 public:

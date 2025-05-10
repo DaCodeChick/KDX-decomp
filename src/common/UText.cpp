@@ -123,9 +123,9 @@ void UText::InitTokenizer(STokenizer &ioContext, const void *inText, size_t inTe
 			ioContext.delimiterBits[delimiters[i]] |= (1 << (delimiters[i] & 7));
 	}
 
-	if (inOptions & STokenizer::kWithDelimiters)
+	if (inOptions & tokenOption_IncludeDelimiters)
 		ioContext.nextTokenProc = _GetNextToken;
-	else if (inOptions & STokenizer::kTrimWhitespace)
+	else if (inOptions & tokenOption_TrimWhitespace)
 		ioContext.nextTokenProc = _GetNextTokenTrimmingWhitespace;
 	else
 		ioContext.nextTokenProc = _GetNextTokenWithDelimiters;

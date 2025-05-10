@@ -38,20 +38,21 @@ struct SPoint
 #endif // _WIN32
 };
 
+enum
+{
+	alignOption_Left = 0x0001,        ///< Align to the left edge.
+	alignOption_Top = 0x0002,         ///< Align to the top edge.
+	alignOption_Right = 0x0004,       ///< Align to the right edge.
+	alignOption_Bottom = 0x0008,      ///< Align to the bottom edge.
+	alignOption_CenterHoriz = 0x0010, ///< Align to the center horizontally.
+	alignOption_CenterVert = 0x0020,  ///< Align to the center vertically.
+	alignOption_ClipHoriz = 0x0040,   ///< Align to the left edge and clip horizontally.
+	alignOption_ClipVert = 0x0080,    ///< Align to the top edge and clip vertically.
+};
+
 /// @brief A structure representing a rectangle in 2D space.
 struct SRect
 {
-	static constexpr unsigned kAlignLeft = 0x0001;        ///< Align to the left edge.
-	static constexpr unsigned kAlignTop = 0x0002;         ///< Align to the top edge.
-	static constexpr unsigned kAlignRight = 0x0004;       ///< Align to the right edge.
-	static constexpr unsigned kAlignBottom = 0x0008;      ///< Align to the bottom edge.
-	static constexpr unsigned kAlignCenterHoriz = 0x0010; ///< Align to the center horizontally.
-	static constexpr unsigned kAlignCenterVert = 0x0020;  ///< Align to the center vertically.
-	static constexpr unsigned kAlignClipHoriz =
-	    0x0040; ///< Align to the left edge and clip horizontally.
-	static constexpr unsigned kAlignClipVert =
-	    0x0080; ///< Align to the top edge and clip vertically.
-
 	int left;   ///< The left edge of the rectangle.
 	int top;    ///< The top edge of the rectangle.
 	int right;  ///< The right edge of the rectangle.

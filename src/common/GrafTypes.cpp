@@ -108,22 +108,22 @@ void SRect::Align(const SRect &inSourceRect, unsigned inOptions, const SRect &in
 	auto sourceWidth = inSourceRect.right - inSourceRect.left;
 	auto sourceHeight = inSourceRect.bottom - inSourceRect.top;
 
-	if (inOptions & kAlignLeft)
+	if (inOptions & alignOption_Left)
 	{
 		left = inRefRect.left;
 		right = left + sourceWidth;
 	}
-	else if (inOptions & kAlignRight)
+	else if (inOptions & alignOption_Right)
 	{
 		right = inRefRect.right;
 		left = right - sourceWidth;
 	}
-	else if (inOptions & kAlignCenterHoriz)
+	else if (inOptions & alignOption_CenterHoriz)
 	{
 		left = (inRefRect.left + inRefRect.right - sourceWidth) >> 1;
 		right = left + sourceWidth;
 	}
-	else if (inOptions & kAlignClipHoriz)
+	else if (inOptions & alignOption_ClipHoriz)
 	{
 		left = max(inRefRect.left, inSourceRect.left);
 		right = min(inRefRect.right, left + sourceWidth);
@@ -134,22 +134,22 @@ void SRect::Align(const SRect &inSourceRect, unsigned inOptions, const SRect &in
 		right = inSourceRect.right;
 	}
 
-	if (inOptions & kAlignTop)
+	if (inOptions & alignOption_Top)
 	{
 		top = inRefRect.top;
 		bottom = top + sourceHeight;
 	}
-	else if (inOptions & kAlignBottom)
+	else if (inOptions & alignOption_Bottom)
 	{
 		bottom = inRefRect.bottom;
 		top = bottom - sourceHeight;
 	}
-	else if (inOptions & kAlignCenterVert)
+	else if (inOptions & alignOption_CenterVert)
 	{
 		top = (inRefRect.top + inRefRect.bottom - sourceHeight) >> 1;
 		bottom = top + sourceHeight;
 	}
-	else if (inOptions & kAlignClipVert)
+	else if (inOptions & alignOption_ClipVert)
 	{
 		top = max(inRefRect.top, inSourceRect.top);
 		bottom = min(inRefRect.bottom, top + sourceHeight);
