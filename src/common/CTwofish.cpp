@@ -1,5 +1,7 @@
 #include "CTwofish.h"
 
+#include "UMemory.h"
+
 static constexpr uint8_t Q[2][256] = {
     {0xd8, 0x00, 0x01, 0x17, 0x02, 0x2e, 0x18, 0x53, 0x03, 0x6a, 0x2f, 0x93, 0x19, 0x34, 0x54,
      0x45, 0x04, 0x5c, 0x6b, 0xb6, 0x30, 0xa6, 0x94, 0x4b, 0x1a, 0x8c, 0x35, 0x81, 0x55, 0xaa,
@@ -264,4 +266,43 @@ void CTwofish::EncryptFast(const void *inData, void *outData)
 	output[1] = uVar2 ^ mKey[5];
 	output[2] = uVar1 ^ mKey[6];
 	output[3] = uVar7 ^ mKey[7];
+}
+
+void CTwofish::EncryptCBC(void *outData, size_t &ioPartialBlockSize, const void *inData,
+                          size_t inDataSize, const void *inKey)
+{
+	auto outText = reinterpret_cast<uint8_t *>(outData);
+	auto input = reinterpret_cast<const uint8_t *>(inData);
+
+	if (ioPartialBlockSize)
+	{
+		auto remainingSpace = 16 - ioPartialBlockSize;
+		if (inDataSize < remainingSpace)
+		{
+			UMemory::Move(outText + ioPartialBlockSize, input, inDataSize);
+			ioPartialBlockSize += inDataSize;
+			return;
+		}
+
+		UMemory::Move(outText + ioPartialBlockSize, input, remainingSpace);
+		EncryptFull(outText, outText);
+		input += remainingSpace;
+		inDataSize -= remainingSpace;
+		outText += 16;
+		ioPartialBlockSize = 0;
+	}
+
+	while (inDataSize >= 16)
+	{
+		EncryptFull(input, outText);
+		input += 16;
+		outText += 16;
+		inDataSize -= 16;
+	}
+
+	if (inDataSize > 0)
+	{
+		UMemory::Move(outText, input, inDataSize);
+		ioPartialBlockSize = inDataSize;
+	}
 }

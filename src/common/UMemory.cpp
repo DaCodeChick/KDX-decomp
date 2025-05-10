@@ -97,7 +97,7 @@ void UMemory::Fill(void *ioDest, size_t inSize, uint16_t inWord)
 	auto dest = reinterpret_cast<uint8_t *>(ioDest);
 
 	for (auto i = 0; i < inSize; ++i)
-		if (reinterpret_cast<uintptr_t>(dest + i) & (sizeof(uint16_t) - 1) == 0 &&
+		if ((reinterpret_cast<uintptr_t>(dest + i) & (sizeof(uint16_t) - 1)) == 0 &&
 		    i + sizeof(uint16_t) <= inSize)
 		{
 			*reinterpret_cast<uint16_t *>(dest + i) = inWord;
@@ -115,7 +115,7 @@ void UMemory::Fill(void *ioDest, size_t inSize, uint32_t inLong)
 	auto dest = reinterpret_cast<uint8_t *>(ioDest);
 
 	for (auto i = 0; i < inSize; ++i)
-		if (reinterpret_cast<uint32_t>(dest + i) & (sizeof(uint32_t) - 1) == 0 &&
+		if ((reinterpret_cast<uintptr_t>(dest + i) & (sizeof(uint32_t) - 1)) == 0 &&
 		    i + sizeof(uint32_t) <= inSize)
 		{
 			*reinterpret_cast<uint32_t *>(dest + i) = inLong;

@@ -9,6 +9,8 @@ static constexpr unsigned _OSToGenError(int inType)
 #ifdef _WIN32
 #else
 #endif // _WIN32
+		default:
+			return 0;
 	}
 }
 
