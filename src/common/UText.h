@@ -2,6 +2,8 @@
 
 #include "typedefs.h"
 
+struct STokenizer;
+
 typedef const uint8_t *(*TNextTokenProc)(STokenizer &ioContext, size_t *outSize,
                                          uint8_t *outDelimiters);
 
@@ -57,7 +59,7 @@ public:
 	 * @param inFormat
 	 * @param ...
 	 */
-	static void Format(void *outText, size_t inMaxSize, const char *inFormat, ...);
+	// static void Format(void *outText, size_t inMaxSize, const char *inFormat, ...);
 
 	/**
 	 * @brief Format an integer to a string.
@@ -68,8 +70,8 @@ public:
 	 * @param inOptions
 	 * @return uint
 	 */
-	static size_t IntegerToText(unsigned inInteger, void *outText, size_t inMaxSize,
-	                            unsigned inOptions);
+	/*static size_t IntegerToText(unsigned inInteger, void *outText, size_t inMaxSize,
+	                            unsigned inOptions);*/
 
 	/**
 	 * @brief Convert a string to an integer.
@@ -79,8 +81,8 @@ public:
 	 * @param inOptions
 	 * @return uint
 	 */
-	[[nodiscard]] static unsigned TextToInteger(const void *inText, size_t inTextSize,
-	                                            unsigned inOptions);
+	/*[[nodiscard]] static unsigned TextToInteger(const void *inText, size_t inTextSize,
+	                                            unsigned inOptions);*/
 
 	/**
 	 * @brief Converts a string to lowercase.
@@ -90,16 +92,16 @@ public:
 	 * @param outText
 	 * @param inMaxSize
 	 */
-	static void ToLower(const void *inText, size_t inTextSize, void *outText, size_t inMaxSize);
+	// static void ToLower(const void *inText, size_t inTextSize, void *outText, size_t inMaxSize);
 
-	static unsigned EncodeUTF8(unsigned inChar, void *outText, size_t inMaxSize);
+	// static unsigned EncodeUTF8(unsigned inChar, void *outText, size_t inMaxSize);
 
-	static unsigned DecodeUTF8(const void *inText, size_t inTextSize, unsigned &outChar);
+	// static unsigned DecodeUTF8(const void *inText, size_t inTextSize, unsigned &outChar);
 
-	static unsigned FilterUTF8(const void *inFilter, const void *inText, size_t inTextSize,
-	                           const void *outText, size_t inOutTextSize);
+	/*static unsigned FilterUTF8(const void *inFilter, const void *inText, size_t inTextSize,
+	                           const void *outText, size_t inOutTextSize);*/
 
-	static size_t ValidateUTF8(const void *inText, size_t inTextSize);
+	// static size_t ValidateUTF8(const void *inText, size_t inTextSize);
 
 	/**
 	 * @brief Converts a character to lowercase.
