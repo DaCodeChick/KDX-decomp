@@ -294,6 +294,22 @@ public:
 			inSize = (inSize + 0xFFF) & ~0xFFF; // Align to 4KB pages
 	}
 
+	static void Lock(TPtr inPtr)
+	{
+#ifdef _WIN32
+		GlobalLock(inPtr);
+#else
+#endif
+	}
+
+	static void Unlock(TPtr inPtr)
+	{
+#ifdef _WIN32
+		GlobalUnlock(inPtr);
+#else
+#endif
+	}
+
 private:
 	static unsigned sAllocationCount;
 };
