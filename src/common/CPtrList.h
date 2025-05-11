@@ -71,6 +71,9 @@ public:
 	void *Insert(void *inPtr, size_t inIndex, size_t inSize, uint8_t inFillValue);
 
 protected:
+	void *mHead, *mTail;
+	size_t mOffset, mCount;
+
 	/**
 	 * @brief Preallocate memory for the list.
 	 *
@@ -88,10 +91,6 @@ protected:
 	{
 		Preallocate(reinterpret_cast<uintptr_t>(mTail) + inSize, 1);
 	}
-
-private:
-	void *mHead, *mTail;
-	size_t mOffset, mCount;
 };
 
 /**
@@ -200,5 +199,13 @@ public:
 		mTail = reinterpret_cast<T *>(tail + 1);
 
 		return newItem;
+	}
+
+protected:
+	void Preallocate(size_t inSize)
+	{
+		auto size = reinterpret_cast<uintptr_t>(mTail) + inSize;
+		if (mOffset < size)
+			Preallocate(size, sizeof(T));
 	}
 };
