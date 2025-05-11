@@ -50,7 +50,7 @@ public:
 	 */
 	[[nodiscard]] static constexpr uint8_t Blend(uint8_t inChannel, uint8_t inFactor)
 	{
-		return inChannel == 0 ? 0 : 0xFF - ((0xFF - inChannel) * inFactor) / 0xFF;
+		return inChannel ? 0xFF - ((0xFF - inChannel) * inFactor) / 0xFF : 0;
 	}
 
 	/**
