@@ -1,5 +1,7 @@
 #include "UCryptTransact.h"
 
+#include "UDigest.h"
+
 void UCryptTransact::BlockCrypt6E7DFD34(void *ioData, bool isDecrypt)
 {
 	if (!ioData)
@@ -95,4 +97,22 @@ void UCryptTransact::TCPPacketCrypt(unsigned inInit, void *ioData, size_t inData
 		inInit = (inInit << 1) + 0x4878;
 		data[i] ^= htonl(inInit);
 	}
+}
+
+void UCryptTransact::GenerateKey(const void *inData, size_t inDataSize, void *outKey)
+{
+	if (!inDataSize)
+	{
+		UMemory::Move(outKey, sDefaultKey, 32);
+		return;
+	}
+
+	auto key = reinterpret_cast<uint32_t *>(outKey);
+	_MD5 md5;
+
+	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
+	md5.Report(outKey);
+	key[5] = key[0];
+	key[6] = key[1];
+	key[7] = htonl(UMemory::Checksum(inData, inDataSize, 1));
 }
