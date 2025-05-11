@@ -1,5 +1,7 @@
 #include "CPtrList.h"
 
+#include "UMemory.h"
+
 void CVoidPtrList::AddFrontItem(void *inPtr)
 {
 	if (!inPtr)
@@ -29,4 +31,169 @@ void CVoidPtrList::AddBackItem(void *inPtr)
 
 	mTail = inPtr;
 	mCount++;
+}
+
+bool CVoidPtrList::RemoveItem(void *inPtr)
+{
+	if (!inPtr)
+		return false;
+
+	auto current = mHead;
+	void *previous = NULL;
+
+	while (current)
+	{
+		if (current == inPtr)
+		{
+			auto next = *reinterpret_cast<void **>(reinterpret_cast<uintptr_t>(current) + mOffset);
+			if (!previous)
+				mHead = next;
+			else
+				*(void **)((size_t)previous + mOffset) = next;
+
+			if (!next)
+				mTail = previous;
+
+			mCount--;
+			return true;
+		}
+
+		previous = current;
+		current = *reinterpret_cast<void **>(reinterpret_cast<uintptr_t>(current) + mOffset);
+	}
+
+	return false;
+}
+
+void *CVoidPtrList::PopFront()
+{
+	if (!mHead)
+		return NULL;
+
+	auto front = mHead;
+	mHead = *reinterpret_cast<void **>(reinterpret_cast<uintptr_t>(mHead) + mOffset);
+
+	if (!mHead)
+		mTail = NULL;
+
+	mCount--;
+	return front;
+}
+
+bool CVoidPtrList::IsInList(const void *inPtr) const
+{
+	if (!inPtr)
+		return false;
+
+	auto current = mHead;
+	while (current)
+	{
+		if (current == inPtr)
+			return true;
+
+		current = *reinterpret_cast<void **>(reinterpret_cast<uintptr_t>(current) + mOffset);
+	}
+
+	return false;
+}
+
+void CVoidPtrList::Preallocate(size_t inSize, size_t inCount)
+{
+	auto requiredSize = inCount * inSize;
+
+	if (requiredSize < 0x10)
+		requiredSize = 0x10;
+	else if (requiredSize < 0x20)
+		requiredSize = 0x20;
+	else if (requiredSize < 0x40)
+		requiredSize = 0x40;
+	else if (requiredSize < 0x80)
+		requiredSize = 0x80;
+	else if (requiredSize < 0x100)
+		requiredSize = 0x100;
+	else if (requiredSize < 0x200)
+		requiredSize = 0x200;
+	else if (requiredSize < 0x400)
+		requiredSize = 0x400;
+	else if (requiredSize < 0x800)
+		requiredSize = 0x800;
+	else
+		requiredSize = (requiredSize + 0xFFF) & ~0xFFF; // Align to 4KB pages
+
+	if (requiredSize / inSize != mOffset)
+	{
+		void *newMemory = UMemory::Reallocate(mHead, requiredSize);
+		if (newMemory)
+		{
+			mHead = newMemory;
+			mOffset = requiredSize / inSize;
+		}
+	}
+}
+
+void *CVoidPtrList::Add(void *inPtr, size_t inSize)
+{
+	auto head = reinterpret_cast<uintptr_t>(mHead);
+	auto tail = reinterpret_cast<uintptr_t>(mTail);
+	auto newTail = reinterpret_cast<void *>(tail + inSize);
+
+	if (reinterpret_cast<uintptr_t>(newTail) > (head + mOffset))
+		Preallocate(inSize, mCount + 1);
+
+	if (inPtr)
+		UMemory::Move(reinterpret_cast<void *>(head + tail), inPtr, inSize);
+
+	auto oldTail = mTail;
+	mTail = newTail;
+	mCount++;
+
+	return oldTail;
+}
+
+void *CVoidPtrList::Remove(void *inPtr, size_t inSize)
+{
+	auto tail = reinterpret_cast<uintptr_t>(mTail);
+	auto head = reinterpret_cast<uintptr_t>(mHead);
+	auto target = reinterpret_cast<uintptr_t>(inPtr);
+
+	if (target >= tail)
+		return mTail;
+
+	auto remainingSize = tail - target;
+	if (remainingSize < inSize)
+		inSize = remainingSize;
+
+	if (inSize)
+	{
+		auto dest = reinterpret_cast<void *>(head + (target - head));
+		UMemory::Move(dest, reinterpret_cast<void *>(target + inSize), remainingSize - inSize);
+		mTail = reinterpret_cast<void *>(tail - inSize);
+		Preallocate(tail - head - inSize, 1);
+	}
+
+	return inPtr;
+}
+
+void *CVoidPtrList::Insert(void *inPtr, size_t inIndex, size_t inSize, uint8_t inFillValue)
+{
+	auto tail = reinterpret_cast<uintptr_t>(mTail);
+	auto head = reinterpret_cast<uintptr_t>(mHead);
+	auto insertPos = head + (inIndex * inSize);
+
+	auto newTail = reinterpret_cast<void *>(tail + inSize);
+	if (newTail > reinterpret_cast<void *>(head + mOffset))
+	{
+		Preallocate(inSize, mCount + 1);
+		head = reinterpret_cast<uintptr_t>(mHead);
+		insertPos = head + (inIndex * inSize);
+	}
+
+	UMemory::Move(reinterpret_cast<void *>(insertPos + inSize), reinterpret_cast<void *>(insertPos),
+	              tail - insertPos);
+	UMemory::Fill(reinterpret_cast<void *>(insertPos), inSize, inFillValue);
+
+	mTail = newTail;
+	mCount++;
+
+	return reinterpret_cast<void *>(insertPos);
 }
