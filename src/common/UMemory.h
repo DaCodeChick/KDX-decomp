@@ -294,6 +294,11 @@ public:
 			inSize = (inSize + 0xFFF) & ~0xFFF; // Align to 4KB pages
 	}
 
+	/**
+	 * @brief Locks a memory block.
+	 *
+	 * @param inPtr Pointer to the memory block to lock.
+	 */
 	static void Lock(TPtr inPtr)
 	{
 #ifdef _WIN32
@@ -302,11 +307,31 @@ public:
 #endif
 	}
 
+	/**
+	 * @brief Unlocks a memory block.
+	 *
+	 * @param inPtr Pointer to the memory block to unlock.
+	 */
 	static void Unlock(TPtr inPtr)
 	{
 #ifdef _WIN32
 		GlobalUnlock(inPtr);
 #else
+#endif
+	}
+
+	/**
+	 * @brief Returns the size of a memory block.
+	 *
+	 * @param inPtr Pointer to the memory block.
+	 * @return Size of the memory block.
+	 */
+	static size_t GetSize(TPtr inPtr)
+	{
+#ifdef _WIN32
+		return GlobalSize(inPtr);
+#else
+		return 0;
 #endif
 	}
 
