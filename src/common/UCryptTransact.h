@@ -62,8 +62,7 @@ public:
 	 * @brief Checks if the given key is a default key.
 	 *
 	 * @param inKey Pointer to the key to be checked.
-	 * @return true
-	 * @return false
+	 * @return True if the key is a default key, false otherwise.
 	 */
 	static bool IsDefaultKey(const void *inKey)
 	{

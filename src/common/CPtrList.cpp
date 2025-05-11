@@ -100,25 +100,7 @@ bool CVoidPtrList::IsInList(const void *inPtr) const
 void CVoidPtrList::Preallocate(size_t inSize, size_t inCount)
 {
 	auto requiredSize = inCount * inSize;
-
-	if (requiredSize < 0x10)
-		requiredSize = 0x10;
-	else if (requiredSize < 0x20)
-		requiredSize = 0x20;
-	else if (requiredSize < 0x40)
-		requiredSize = 0x40;
-	else if (requiredSize < 0x80)
-		requiredSize = 0x80;
-	else if (requiredSize < 0x100)
-		requiredSize = 0x100;
-	else if (requiredSize < 0x200)
-		requiredSize = 0x200;
-	else if (requiredSize < 0x400)
-		requiredSize = 0x400;
-	else if (requiredSize < 0x800)
-		requiredSize = 0x800;
-	else
-		requiredSize = (requiredSize + 0xFFF) & ~0xFFF; // Align to 4KB pages
+	UMemory::EnsureValid(requiredSize);
 
 	if (requiredSize / inSize != mOffset)
 	{

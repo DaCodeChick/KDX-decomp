@@ -267,6 +267,33 @@ public:
 	 */
 	[[nodiscard]] static uint32_t AdlerSum(const void *inData, size_t inDataSize, uint32_t inInit);
 
+	/**
+	 * @brief Ensures that the size is valid for memory allocation.
+	 *
+	 * @param inSize Reference to the size to check.
+	 */
+	static constexpr void EnsureValid(size_t &inSize)
+	{
+		if (inSize < 0x10)
+			inSize = 0x10;
+		else if (inSize < 0x20)
+			inSize = 0x20;
+		else if (inSize < 0x40)
+			inSize = 0x40;
+		else if (inSize < 0x80)
+			inSize = 0x80;
+		else if (inSize < 0x100)
+			inSize = 0x100;
+		else if (inSize < 0x200)
+			inSize = 0x200;
+		else if (inSize < 0x400)
+			inSize = 0x400;
+		else if (inSize < 0x800)
+			inSize = 0x800;
+		else
+			inSize = (inSize + 0xFFF) & ~0xFFF; // Align to 4KB pages
+	}
+
 private:
 	static unsigned sAllocationCount;
 };

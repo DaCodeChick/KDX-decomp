@@ -32,7 +32,7 @@ struct SMyClient
 	uint8_t state;
 	uint16_t drmOffset;
 	uint16_t drmSize;
-	const uint8_t *drm;
+	const char *drm;
 	uint32_t offsA8; // buffer count?
 	void *offsAC;    // buffer end?
 	uint32_t offsB0; // total buffer size?
