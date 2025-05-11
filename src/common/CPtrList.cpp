@@ -197,3 +197,36 @@ void *CVoidPtrList::Insert(void *inPtr, size_t inIndex, size_t inSize, uint8_t i
 
 	return reinterpret_cast<void *>(insertPos);
 }
+
+void *CVoidPtrList::Insert(void *inOffset, void *inData, size_t inDataSize)
+{
+	auto oldTail = mTail;
+	auto insertPos = reinterpret_cast<uintptr_t>(inOffset);
+	auto head = reinterpret_cast<uintptr_t>(mHead);
+	auto tail = reinterpret_cast<uintptr_t>(mTail);
+
+	if (insertPos > tail)
+		insertPos = tail;
+
+	if (inDataSize)
+	{
+		auto newTail = reinterpret_cast<void *>(tail + inDataSize);
+
+		if (reinterpret_cast<uintptr_t>(newTail) > head + mOffset)
+		{
+			Preallocate(inDataSize, mCount + 1);
+			oldTail = mTail;
+			insertPos = head + (insertPos - head);
+		}
+
+		UMemory::Move(reinterpret_cast<void *>(insertPos + inDataSize), inOffset, tail - insertPos);
+
+		if (inData)
+			UMemory::Move(inOffset, inData, inDataSize);
+
+		mTail = newTail;
+		mCount++;
+	}
+
+	return inOffset;
+}

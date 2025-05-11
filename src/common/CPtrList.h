@@ -70,6 +70,8 @@ public:
 	 */
 	void *Insert(void *inPtr, size_t inIndex, size_t inSize, uint8_t inFillValue);
 
+	void *Insert(void *inOffset, void *inData, size_t inDataSize);
+
 protected:
 	void *mHead, *mTail;
 	size_t mOffset, mCount;
@@ -199,6 +201,11 @@ public:
 		mTail = reinterpret_cast<T *>(tail + 1);
 
 		return newItem;
+	}
+
+	T *Insert(T *inOffset, T *inData, size_t inDataSize)
+	{
+		return static_cast<T *>(CVoidPtrList::Insert(inOffset, inData, inDataSize));
 	}
 
 protected:
