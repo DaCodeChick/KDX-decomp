@@ -2,10 +2,19 @@
 
 #include "typedefs.h"
 
+enum
+{
+	kYear_Days = 365,     ///< Number of days in a common year
+	kLeapYear_Days = 366, ///< Number of days in a leap year
+	kDay_Seconds = 86400, ///< Number of seconds in a day
+	kHour_Seconds = 3600, ///< Number of seconds in an hour
+	kMinute_Seconds = 60, ///< Number of seconds in a minute
+};
+
 /// @brief Structure to hold calendar date information.
 struct SCalendarDate
 {
-	short field0_0x0;
+	short offs00;
 	short utcOffset; ///< UTC offset in seconds
 	short year;      ///< Year (e.g., 2023)
 	short month;     ///< Month (1-12)
@@ -59,6 +68,14 @@ public:
 	 */
 	static int DateToText(SCalendarDate &inInfo, void *outText, size_t inMaxSize,
 	                      unsigned inOptions);
+
+	/**
+	 * @brief
+	 *
+	 * @param inTimestamp Timestamp in microseconds since epoch
+	 * @param outInfo Reference to SCalendarDate structure to fill with date and time information
+	 */
+	static void TimestampToDate(uint64_t inTimestamp, SCalendarDate &outInfo);
 
 	/**
 	 * @brief Get elapsed time since a given epoch in microseconds

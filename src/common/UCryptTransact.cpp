@@ -110,7 +110,7 @@ void UCryptTransact::GenerateKey(const void *inData, size_t inDataSize, void *ou
 	auto key = reinterpret_cast<uint32_t *>(outKey);
 	_MD5 md5;
 
-	md5.Update(reinterpret_cast<const byte *>(inData), inDataSize);
+	md5.Update(reinterpret_cast<const uint8_t *>(inData), inDataSize);
 	md5.Report(outKey);
 	key[5] = key[0];
 	key[6] = key[1];

@@ -6,9 +6,9 @@
 #include <CoreGraphics/CoreGraphics.h>
 #endif // __APPLE__
 
-constexpr unsigned kPaneTag = 0xf0168873;
+constexpr unsigned kWindowTag = 0xf0168873;
 
-struct SView
+struct SWindow
 {
 	unsigned tag;
 #ifdef _WIN32
@@ -18,3 +18,12 @@ struct SView
 #else
 #endif // _WIN32
 };
+
+bool UWindow::IsVisible(SWindow *inRef)
+{
+#ifdef _WIN32
+	return IsWindowVisible(inRef->hwnd);
+#else
+	return false;
+#endif // _WIN32
+}
