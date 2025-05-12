@@ -64,11 +64,6 @@ void _MD5::Init()
 	mCount[1] = mBufferLength = 0;
 }
 
-void _MD5::Clear(size_t inSize)
-{
-	UMemory::Clear(this, inSize);
-}
-
 void _MD5::Update(const uint8_t *inData, size_t inDataSize)
 {
 	if (mBufferLength == 64)

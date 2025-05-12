@@ -1,6 +1,6 @@
 #pragma once
 
-#include "typedefs.h"
+#include "UMemory.h"
 
 class UDigest
 {
@@ -48,7 +48,10 @@ public:
 	 *
 	 * @param inSize Size of the buffer to clear.
 	 */
-	void Clear(size_t inSize);
+	void Clear(size_t inSize)
+	{
+		UMemory::Clear(this, inSize);
+	}
 
 private:
 	uint32_t mState[4];
