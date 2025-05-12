@@ -100,7 +100,7 @@ bool CVoidPtrList::IsInList(const void *inPtr) const
 void CVoidPtrList::Preallocate(size_t inSize, size_t inCount)
 {
 	auto requiredSize = inCount * inSize;
-	UMemory::EnsureValid(requiredSize);
+	UMemory::Align(requiredSize);
 
 	if (requiredSize / inSize != mOffset)
 	{

@@ -268,11 +268,11 @@ public:
 	[[nodiscard]] static uint32_t AdlerSum(const void *inData, size_t inDataSize, uint32_t inInit);
 
 	/**
-	 * @brief Ensures that the size is valid for memory allocation.
+	 * @brief Aligns the given size to the nearest power of two.
 	 *
-	 * @param inSize Reference to the size to check.
+	 * @param inSize Size to align.
 	 */
-	static constexpr void EnsureValid(size_t &inSize)
+	static constexpr void Align(size_t &inSize)
 	{
 		if (inSize < 0x10)
 			inSize = 0x10;
