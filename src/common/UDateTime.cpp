@@ -14,13 +14,13 @@ int UDateTime::GetTimeZoneOffset()
 
 	if (GetTimeZoneInformation(&tzi) == TIME_ZONE_ID_DAYLIGHT)
 		tzi.Bias += tzi.DaylightBias;
-	return tzi.Bias * -60;
+	return tzi.Bias * -kHour_Minutes;
 #else
 	timeval tv;
 	timezone tz;
 
 	auto t = gettimeofday(&tv, &tz);
-	return t ? 0 : tz.tz_minuteswest * -60;
+	return t ? 0 : tz.tz_minuteswest * -kHour_Minutes;
 #endif // _WIN32
 }
 
@@ -43,7 +43,7 @@ int64_t UDateTime::GetMicroseconds()
 	timeval tv;
 	timezone tz;
 
-	if (gettimeofday(&tv, &tz) != 0)
+	if (gettimeofday(&tv, &tz))
 	{
 		tv.tv_sec = time(NULL);
 		tv.tv_usec = 0;
@@ -124,5 +124,5 @@ void UDateTime::TimestampToDate(uint64_t inTimestamp, SCalendarDate &outInfo)
 	outInfo.second = static_cast<short>(remainingSeconds % kMinute_Seconds);
 
 	auto totalDays = dayOffset + (timestampSeconds / kDay_Seconds);
-	outInfo.weekDay = static_cast<short>((totalDays & 7) + 1); // Assuming 1 = Monday, 7 = Sunday
+	outInfo.weekDay = static_cast<short>((totalDays & kWeek_Days) + 1);
 }

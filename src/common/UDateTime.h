@@ -4,10 +4,17 @@
 
 enum
 {
-	kYear_Days = 365,     ///< Number of days in a common year
+	kYear_Days = 365, ///< Number of days in a common year
+
 	kLeapYear_Days = 366, ///< Number of days in a leap year
+
+	kWeek_Days = 7, ///< Number of days in a week
+
 	kDay_Seconds = 86400, ///< Number of seconds in a day
+
+	kHour_Minutes = 60,   ///< Number of minutes in an hour
 	kHour_Seconds = 3600, ///< Number of seconds in an hour
+
 	kMinute_Seconds = 60, ///< Number of seconds in a minute
 };
 
