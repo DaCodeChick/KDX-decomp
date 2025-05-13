@@ -6,7 +6,7 @@
 #include <cstdlib>
 #endif // _WIN32
 
-unsigned UMemory::sAllocationCount = 0;
+size_t UMemory::sAllocationCount = 0;
 
 TPtr UMemory::New(size_t inSize)
 {

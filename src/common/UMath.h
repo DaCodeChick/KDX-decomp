@@ -55,18 +55,36 @@ public:
 		return x;
 	}
 
+	/**
+	 * @brief Computes the sine of an angle in radians.
+	 *
+	 * @param x The angle in radians.
+	 * @return The sine of the angle.
+	 */
 	[[nodiscard]] static constexpr double Sine(double x)
 	{
 		x = NormalizeAngle(x);
 		return std::sin(x);
 	}
 
+	/**
+	 * @brief Computes the cosine of an angle in radians.
+	 *
+	 * @param x The angle in radians.
+	 * @return The cosine of the angle.
+	 */
 	[[nodiscard]] static constexpr double Cosine(double x)
 	{
 		x = NormalizeAngle(x);
 		return std::cos(x);
 	}
 
+	/**
+	 * @brief Computes the arc tangent of y/x in radians.
+	 *
+	 * @param x The x-coordinate.
+	 * @return The arc tangent of y/x in radians.
+	 */
 	[[nodiscard]] static constexpr double ArcTangent(double x)
 	{
 		return std::atan(x);
@@ -74,6 +92,17 @@ public:
 
 	[[nodiscard]] static constexpr double SquareRoot(double x)
 	{
-		return sqrt(x);
+		return std::sqrt(x);
+	}
+
+	/**
+	 * @brief Computes the tangent of an angle in radians.
+	 *
+	 * @param x The angle in radians.
+	 * @return The tangent of the angle.
+	 */
+	[[nodiscard]] static constexpr double Tangent(double x)
+	{
+		return std::tan(x);
 	}
 };

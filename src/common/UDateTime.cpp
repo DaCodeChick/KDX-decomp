@@ -65,7 +65,7 @@ int64_t UDateTime::GetMicroseconds()
 
 void UDateTime::TimestampToDate(uint64_t inTimestamp, SCalendarDate &outInfo)
 {
-	static constexpr uint64_t timestamp_array[8] = {
+	static constexpr uint64_t timestampBase[8] = {
 	    0x000005BD7EC1FC00, 0x0000000000050834, 0x000002DEBCCDD000, 0x00000000000607D0,
 	    0x0000029545956000, 0x00000000000107C6, 0x0000000000000000, 0x000000000001076C,
 	};
@@ -80,7 +80,7 @@ void UDateTime::TimestampToDate(uint64_t inTimestamp, SCalendarDate &outInfo)
 	    0x0118CF80, 0x0141AE00, 0x01693B00, 0x01921980, 0x01B9A680, 0x01E28500,
 	};
 
-	const auto *yearData = timestamp_array;
+	const auto *yearData = timestampBase;
 	while (inTimestamp < *yearData)
 		yearData -= 2;
 

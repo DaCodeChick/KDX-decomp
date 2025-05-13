@@ -8,7 +8,7 @@
 #ifndef _WIN32
 #endif // _WIN32
 
-static bool _gIsInitialized = false;
+static bool _gTRInitialized = false;
 
 #ifdef _WIN32
 static ATOM _TRSockClassAtom = 0;
@@ -64,7 +64,7 @@ static void _Deinit()
 
 void URegularTransport::Init()
 {
-	if (_gIsInitialized)
+	if (_gTRInitialized)
 		return;
 
 	UMessageSys::Init();
@@ -92,5 +92,5 @@ void URegularTransport::Init()
 	if (err)
 		_FailWinError(err);
 #endif // _WIN32
-	_gIsInitialized = true;
+	_gTRInitialized = true;
 }

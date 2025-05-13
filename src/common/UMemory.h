@@ -336,7 +336,7 @@ public:
 	}
 
 private:
-	static unsigned sAllocationCount;
+	static size_t sAllocationCount;
 };
 
 enum
