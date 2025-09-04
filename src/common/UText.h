@@ -26,7 +26,7 @@ struct STokenizer
 };
 
 /// @brief A class for text manipulation and formatting.
-class UText
+class HXAPI UText
 {
 public:
 	/**

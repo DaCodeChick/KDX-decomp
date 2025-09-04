@@ -3,7 +3,7 @@
 #include "typedefs.h"
 
 /// @brief A structure representing a point in 2D space.
-struct SPoint
+struct HXAPI SPoint
 {
 	int x; ///< The x-coordinate of the point.
 	int y; ///< The y-coordinate of the point.
@@ -51,7 +51,7 @@ enum
 };
 
 /// @brief A structure representing a rectangle in 2D space.
-struct SRect
+struct HXAPI SRect
 {
 	int left;   ///< The left edge of the rectangle.
 	int top;    ///< The top edge of the rectangle.

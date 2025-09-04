@@ -2,6 +2,13 @@
 
 #include "typedefs.h"
 
+/**
+ * @brief This macro is used to handle errors with a type
+ * @param type The type of error
+ * @param param2 The second parameter for the error
+ */
+#define Fail(type, param2) __Fail(type, param2, __LINE__)
+
 /// This structure is used to represent an error
 struct SError
 {
@@ -10,7 +17,7 @@ struct SError
 	unsigned line; ///< Line number where the error occurred
 };
 
-class UError
+class HXAPI UError
 {
 public:
 	/**
@@ -43,6 +50,6 @@ enum
  *
  * @param inType The type of error
  */
-void __Fail(unsigned inType);
+HXAPI void __Fail(unsigned inType);
 
-void __Fail(unsigned inType, const void *inParam2, unsigned inLine);
+HXAPI void __Fail(unsigned inType, const void *inParam2, unsigned inLine);

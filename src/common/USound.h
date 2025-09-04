@@ -1,6 +1,8 @@
 #pragma once
 
-class USound
+#include "typedefs.h"
+
+class HXAPI USound
 {
 public:
 	static void Beep();

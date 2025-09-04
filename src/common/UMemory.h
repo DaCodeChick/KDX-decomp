@@ -11,7 +11,7 @@ typedef void *TPtr;
 #endif // _WIN32
 
 /// @brief Memory management class.
-class UMemory
+class HXAPI UMemory
 {
 public:
 	/**
@@ -51,7 +51,7 @@ public:
 	 * @param inSize New size of the memory.
 	 * @return Pointer to the reallocated memory.
 	 */
-	[[nodiscard]] static TPtr Reallocate(TPtr inPtr, size_t inSize);
+	[[nodiscard]] static TPtr Reallocate(void *inPtr, size_t inSize);
 
 	/**
 	 * @brief Fill memory with a word value.
@@ -71,6 +71,29 @@ public:
 	 */
 	static void Fill(void *ioDest, size_t inSize, uint32_t inLong);
 
+	/**
+	 * @brief Dumps memory in a hex format.
+	 * 
+	 * @param inOffset Offset for the hex dump.
+	 * @param inLineBytes Number of bytes per line.
+	 * @param inData Pointer to the data to dump.
+	 * @param inDataSize Size of the data to dump.
+	 * @param outData Pointer to the output buffer.
+	 * @param inMaxSize Maximum size of the output buffer.
+	 * @return Number of bytes written to the output buffer.
+	 */
+	static size_t HexDumpLine(size_t inOffset, size_t inLineBytes, const void *inData, size_t inDataSize, void *outData, size_t inMaxSize);
+
+	/**
+	 * @brief Dumps memory in a hex format.
+	 * 
+	 * @param inData Pointer to the data to dump.
+	 * @param inDataSize Size of the data to dump.
+	 * @param inLineBytes Number of bytes per line.
+	 * @param outSize Size of the output buffer.
+	 * @return Pointer to the hex dump string.
+	 */
+	static void *HexDump(const void *inData, size_t inDataSize, size_t inLineBytes, size_t &outSize);
 	/**
 	 * @brief Compare two blocks of memory.
 	 *

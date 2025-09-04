@@ -2,7 +2,9 @@
 
 #include "UMemory.h"
 
-class UDigest
+constexpr size_t _MD5_DIGEST_LENGTH = 20; ///< Length of the MD5 digest in bytes.
+
+class HXAPI UDigest
 {
 public:
 	/**
@@ -16,7 +18,7 @@ public:
 };
 
 /// @brief MD5 hash algorithm implementation.
-class _MD5
+class HXAPI _MD5
 {
 public:
 	/// @brief Default constructor.
@@ -54,8 +56,8 @@ public:
 	}
 
 private:
-	uint32_t mState[4];
-	uint32_t mCount[2];
+	uint32_t mState[5];
+	uint32_t mCount;
 	uint8_t mBuffer[64];
 	uint32_t mBufferLength;
 

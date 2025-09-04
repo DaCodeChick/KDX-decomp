@@ -79,8 +79,8 @@ void UCryptTransact::DataCrypt(void *ioData, size_t inDataSize, unsigned inInit,
 
 	for (auto i = 0; i < numBlocks; i++)
 	{
-		data[i] = htonl(data[i] ^ inInit);
-		inInit = (inInit * inMultiplier + inAddend);
+		data[i] ^= htonl(inInit);
+		inInit = inInit * inMultiplier + inAddend;
 	}
 }
 

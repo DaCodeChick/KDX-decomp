@@ -2,7 +2,7 @@
 
 #include "typedefs.h"
 
-class UGraphics
+class HXAPI UGraphics
 {
 public:
 	/**

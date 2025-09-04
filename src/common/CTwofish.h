@@ -3,7 +3,7 @@
 #include "typedefs.h"
 
 /// @brief Twofish cipher class
-class CTwofish
+class HXAPI CTwofish
 {
 public:
 	/**
@@ -29,10 +29,8 @@ public:
 	 * actual size of the encrypted data.
 	 * @param inData Pointer to the input data (16 bytes).
 	 * @param inSize Size of the input data.
-	 * @param inKey Pointer to the key data.
 	 */
-	void EncryptCBC(void *outData, size_t &ioPartialOutSize, const void *inData, size_t inSize,
-	                const void *inKey);
+	void EncryptCBC(void *outData, size_t &ioPartialOutSize, const void *inData, size_t inSize);
 
 private:
 	uint32_t mSBox[4][256];

@@ -206,3 +206,7 @@ uint32_t UMemory::Checksum(const void *inData, size_t inDataSize, uint32_t inIni
 
 	return inInit;
 }
+
+size_t UMemory::HexDumpLine(size_t inOffset, size_t inLineBytes, const void *inData, size_t inDataSize, void *outData, size_t inMaxSize)
+{
+}

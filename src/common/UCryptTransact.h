@@ -9,7 +9,7 @@
  */
 typedef void (*TCryptProc)(void *ioData, bool isDecrypt);
 
-class UCryptTransact
+class HXAPI UCryptTransact
 {
 public:
 	/**

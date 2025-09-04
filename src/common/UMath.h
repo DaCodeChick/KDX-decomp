@@ -5,7 +5,7 @@
 #include "GrafTypes.h"
 
 /// @brief A collection of math functions.
-class UMath
+class HXAPI UMath
 {
 public:
 	/**
@@ -63,8 +63,7 @@ public:
 	 */
 	[[nodiscard]] static constexpr double Sine(double x)
 	{
-		x = NormalizeAngle(x);
-		return std::sin(x);
+		return std::sin(NormalizeAngle(x));
 	}
 
 	/**
@@ -75,8 +74,7 @@ public:
 	 */
 	[[nodiscard]] static constexpr double Cosine(double x)
 	{
-		x = NormalizeAngle(x);
-		return std::cos(x);
+		return std::cos(NormalizeAngle(x));
 	}
 
 	/**

@@ -7,6 +7,9 @@
 #include <winsock.h>
 #undef min
 #undef max
+#define HXAPI __declspec(dllexport)
+#else
+#define HXAPI
 #endif // _WIN32
 
 #if defined(__BYTE_ORDER__) && defined(__ORDER_LITTLE_ENDIAN__)

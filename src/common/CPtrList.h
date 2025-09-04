@@ -3,7 +3,7 @@
 #include "typedefs.h"
 
 /// @brief A class that implements a list of pointers.
-class CVoidPtrList
+class HXAPI CVoidPtrList
 {
 public:
 	/**
@@ -100,7 +100,7 @@ protected:
  *
  * @tparam T The type of the objects in the list.
  */
-template <class T> class CPtrList : public CVoidPtrList
+template <class T> class HXAPI CPtrList : public CVoidPtrList
 {
 public:
 	/**

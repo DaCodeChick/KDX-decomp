@@ -33,7 +33,7 @@ struct SCalendarDate
 };
 
 /// @brief Class to handle date and time operations.
-class UDateTime
+class HXAPI UDateTime
 {
 public:
 	/**

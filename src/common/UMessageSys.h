@@ -3,7 +3,7 @@
 #include "MoreTypes.h"
 #include "typedefs.h"
 
-class UMessageSys
+class HXAPI UMessageSys
 {
 public:
 	/// @brief Initializes the message system.

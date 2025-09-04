@@ -52,7 +52,7 @@ unsigned UMath::GetRandom(unsigned &inInit, unsigned inMin, unsigned inMax)
 
 void UMath::GetRandom(void *ioData, size_t inDataSize)
 {
-	if (inDataSize == 0)
+	if (!inDataSize)
 		return;
 
 	unsigned localBuffer[4];

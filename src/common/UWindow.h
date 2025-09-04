@@ -1,12 +1,18 @@
 #pragma once
 
+#include "typedefs.h"
+
 struct SWindow;
 
-class UWindow
+class HXAPI UWindow
 {
 public:
-	/// @brief Initializes the window system.
-	static void Init();
-
+	/**
+	 * @brief
+	 * 
+	 * @param inRef 
+	 * @return true 
+	 * @return false 
+	 */
 	static bool IsVisible(SWindow *inRef);
 };

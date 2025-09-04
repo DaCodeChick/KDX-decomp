@@ -2,7 +2,7 @@
 
 #include "typedefs.h"
 
-class UKeyboard
+class HXAPI UKeyboard
 {
 public:
 	/**

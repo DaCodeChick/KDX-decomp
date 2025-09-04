@@ -1,35 +1,55 @@
 #include <cstring>
+#include <cstdio>
 #include <gtest/gtest.h>
 
 #include "../src/common/CTwofish.h"
+#include "../src/common/UCryptTransact.h"
 
 TEST(Twofish, Encrypt)
 {
-	CTwofish twofish("0123456789abcdef0123456789abcdefghijklmnop");
-	uint8_t inData[16] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-	                      0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10};
+	uint8_t key[32] = {0};
+	uint8_t data[16] = {0};
+	UCryptTransact::GenerateKey("May your progress bars smile at you.", 37, key);
+	UCryptTransact::GenerateKey("To download, or not to download, that is the question.", 55, data);
+	CTwofish twofish(key);
 	uint8_t outData[16] = {0x00};
-	twofish.Encrypt(inData, outData);
+	twofish.Encrypt(data, outData);
+
+	for (int i = 0; i < 16; ++i)
+	{
+		printf("\\x%02X", outData[i]);
+	}
+
 	EXPECT_EQ(std::memcmp(outData,
-	                      "\x6f\x09\x0b\x0c\xb8\x0f\x0f\x10\x57\x02\x03\x04\xea\x06\x07\x08", 16),
+	                      "\x3F\x49\xCD\x20\xF0\xA2\x0D\x2A\x92\x81\xFC\x9F\x0F\xC5\xA3\x83", 16),
 	          0);
 }
 
 TEST(Twofish, EncryptCBC)
 {
-	CTwofish twofish("0123456789abcdef0123456789abcdefghijklmnop");
-	uint8_t inData[40] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a,
-	                      0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14,
-	                      0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e,
-	                      0x1f, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
-	uint8_t outData[40] = {0x00};
+	uint8_t key[32] = { 0};
+	UCryptTransact::GenerateKey("I am Gopher Boy, pondering reality", 35, key);
+	
+	for (int i = 0; i < 32; ++i)
+	{
+		printf("%02X", key[i]);
+	}
+	
+	CTwofish twofish(key);
+	uint8_t inData[] = "Look, no bigger than a chestnut, but he eats as if his siesta depended on it!";
+	uint8_t outData[78] = {0x00};
 	size_t outSize = 0;
-	twofish.EncryptCBC(outData, outSize, inData, 40, "0123456789abcdef0123456789abcdefghijklmnop");
+	twofish.EncryptCBC(outData, outSize, inData, 78);
+	
+	for (int i = 0; i < 78; ++i)
+	{
+		printf("\\x%02X", outData[i]);
+	}
+	
 	EXPECT_EQ(
 	    std::memcmp(
 	        outData,
-	        "\xad\x0b\x0b\x0c\xde\x0f\x0f\x10\x71\x00\x03\x04\xe8\x06\x07\x08\x27\x19\x1b\x1c\x55"
-	        "\x1e\x1f\x20\x58\x10\x13\x14\x7a\x14\x17\x18\x21\x22\x23\x24\x25\x26\x27\x28",
-	        40),
+	        "\x8A\x62\x69\x67\x24\x64\x72\x20\x9C\x6C\x6F\x6B\xBE\x20\x6E\x6F\xCF\x66\x73\x74\x18\x76\x74\x2C\xFB\x68\x61\x6E\x9A\x62\x20\x63\xF9\x61\x74\x73\x97\x61\x73\x20\xA0\x61\x75\x74\xAF\x6A\x65\x20\x4F\x65\x73\x74\x57\x23\x64\x65\x7C\x64\x20\x68\x38\x71\x20\x73\x70\x65\x6E\x64\x65\x64\x20\x6F\x6E\x20\x69\x74\x21\x00",
+	        78),
 	    0);
 }

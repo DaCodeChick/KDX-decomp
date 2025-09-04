@@ -269,7 +269,7 @@ void CTwofish::Encrypt(const void *inData, void *outData)
 }
 
 void CTwofish::EncryptCBC(void *outData, size_t &ioPartialBlockSize, const void *inData,
-                          size_t inDataSize, const void *inKey)
+                          size_t inDataSize)
 {
 	auto outText = reinterpret_cast<uint8_t *>(outData);
 	auto input = reinterpret_cast<const uint8_t *>(inData);

@@ -3,7 +3,7 @@
 #include "GrafTypes.h"
 
 /// @brief The UMouse class provides methods to interact with the mouse.
-class UMouse
+class HXAPI UMouse
 {
 public:
 	/**

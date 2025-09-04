@@ -12,7 +12,7 @@ struct SFileSysRef;
  * reading data, writing data, and getting file size. It also includes a method for
  * validating file paths.
  */
-class UFileSys
+class HXAPI UFileSys
 {
 public:
 	/**

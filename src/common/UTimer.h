@@ -12,7 +12,7 @@ typedef TMessageProc TTimerProc;
 typedef void (*TTimerProc)(sigval inContext);
 #endif // defined(__APPLE__) || defined(_WIN32)
 
-class UTimer
+class HXAPI UTimer
 {
 public:
 	/**

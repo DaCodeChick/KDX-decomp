@@ -13,7 +13,7 @@ struct SRegularTransport;
 typedef void (*TConnectionHandlerProc)(uint16_t inListenPort, SRegularTransport *inTpt, int inType);
 
 /// @brief This structure is used to manage the transport layer of a network connection.
-class URegularTransport
+class HXAPI URegularTransport
 {
 public:
 	/// @brief Initializes the transport layer.

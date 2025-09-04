@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cstdio>
 
 #include "../src/common/UCryptTransact.h"
 
@@ -51,12 +52,12 @@ TEST(Crypto, TCPPacketCrypt)
 TEST(Crypto, KeyGeneration)
 {
 	const char testData[] = "Hello, World!";
-	const size_t testDataSize = strlen(testData);
+	const size_t testDataSize = std::strlen(testData);
 	uint8_t key[32] = {0};
 	UCryptTransact::GenerateKey(testData, testDataSize, key);
+
 	EXPECT_EQ(true, UMemory::Compare(
 	                    key,
-	                    "\x24\x80\xFC\x9F\x93\xC5\xA3\x83\xBE\x4A\xCD\x20\x77\xA2\x0D\x2A\x00"
-	                    "\x00\x00\x00\x24\x80\xFC\x9F\x93\xC5\xA3\x83\xE0\x7F\x2E\x50",
+	                    "\x24\x80\xFC\x9F\x93\xC5\xA3\x83\xBE\x4A\xCD\x20\x77\xA2\x0D\x2A\xC3\xD2\xE2\x30\x24\x80\xFC\x9F\x93\xC5\xA3\x83\xE0\x7F\x2E\x50",
 	                    32));
 }
